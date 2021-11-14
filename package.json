@@ -2,24 +2,28 @@
   "name": "nodejs",
   "version": "1.0.0",
   "description": "learning node.js",
-  "main": "src/index.js",
-  "directories": {
-    "doc": "docs"
-  },
+  "main": "serverApp.js",
   "scripts": {
-    "start": "node src/server.js",
+    "start": "node serverApp.js",
+    "server": "nodemon serverApp.js",
     "dev": "nodemon src/express.js"
   },
   "keywords": [
-    "node.js"
+    "node.js",
+    "mern",
+    "react",
+    "redux"
   ],
-  "author": "KirillArt",
+  "author": "KirillArt <>curillaenator@gmail.com",
   "license": "ISC",
   "dependencies": {
+    "config": "^3.3.6",
     "ejs": "^3.1.6",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "mongoose": "^6.0.12"
   },
   "devDependencies": {
+    "concurrently": "^6.4.0",
     "nodemon": "^2.0.15"
   }
 }

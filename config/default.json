@@ -1,0 +1,4 @@
+{
+  "port": 3000,
+  "mongoURI": "mongodb+srv://curillaenator:Dictator111@clusterart.12r6y.mongodb.net/taskManager?retryWrites=true&w=majority"
+}

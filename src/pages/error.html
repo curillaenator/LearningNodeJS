@@ -3,8 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <title>Node.js Course</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link
-      href="https://fonts.googleapis.com/css?family=Roboto&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap"
       rel="stylesheet"
     />
     <style>
@@ -14,17 +15,21 @@
         align-items: center;
         justify-content: center;
         flex-direction: column;
-        font-family: "Roboto", sans-serif;
+        font-family: "Montserrat", sans-serif;
         font-size: 20px;
         background: linear-gradient(to bottom, #00d2ff, #928dab);
         color: #fff;
       }
-      h1 {
+
+      .error-code {
         text-transform: uppercase;
+        font-size: 160px;
+        margin-bottom: 20px;
       }
     </style>
   </head>
   <body>
-    <h1>Something going wrong...</h1>
+    <h1 class="error-code">404</h1>
+    <p>Something going wrong...</p>
   </body>
 </html>
