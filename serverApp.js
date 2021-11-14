@@ -1,11 +1,12 @@
 const express = require("express");
 const config = require("config");
 const mongoose = require("mongoose");
-const { add } = require("lodash");
+
+const authRoute = require("./routes/auth.routes");
 
 const app = express();
 
-add.use("/api/auth");
+app.use("/api/auth", authRoute);
 
 const PORT = config.get("port") || 3000;
 const MONGO_URI = config.get("mongoURI");

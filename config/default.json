@@ -1,4 +1,5 @@
 {
   "port": 3000,
+  "jwtKey": "secret key you're not gonna guess ever",
   "mongoURI": "mongodb+srv://curillaenator:Dictator111@clusterart.12r6y.mongodb.net/taskManager?retryWrites=true&w=majority"
 }
