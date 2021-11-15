@@ -1,0 +1,49 @@
+{
+  "name": "task-manager",
+  "version": "1.0.0",
+  "private": true,
+  "description": "task manager",
+  "main": "index.tsx",
+  "keywords": [
+    "redux",
+    "react",
+    "webpack"
+  ],
+  "scripts": {
+    "start": "webpack serve --open",
+    "build": "webpack --mode production",
+    "devbuild": "webpack"
+  },
+  "author": "KirilArt",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/curillaenator/webpack-edu"
+  },
+  "dependencies": {
+    "@reduxjs/toolkit": "1.6.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-redux": "7.2.4",
+    "reactjs-popup": "2.0.5",
+    "styled-components": "5.3.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.14.8",
+    "@babel/polyfill": "^7.12.1",
+    "@babel/preset-env": "^7.14.8",
+    "@babel/preset-react": "^7.14.5",
+    "@babel/preset-typescript": "^7.14.5",
+    "@types/react-dom": "^17.0.9",
+    "@types/styled-components": "5.1.11",
+    "babel-loader": "^8.2.2",
+    "clean-webpack-plugin": "^4.0.0-alpha.0",
+    "copy-webpack-plugin": "^9.0.1",
+    "css-loader": "^6.2.0",
+    "html-webpack-plugin": "^5.3.2",
+    "style-loader": "^3.2.1",
+    "webpack": "^5.46.0",
+    "webpack-cli": "^4.7.2",
+    "webpack-dev-server": "^4.3.1"
+  }
+}
