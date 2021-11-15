@@ -1,7 +1,7 @@
 const path = require("path");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const HTMLWebpackPlugin = require("html-webpack-plugin");
-const CopyWebpackPlugin = require("copy-webpack-plugin");
+// const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 module.exports = {
   mode: "development",
@@ -19,20 +19,20 @@ module.exports = {
   plugins: [
     new HTMLWebpackPlugin({
       template: "./src/index.html",
-      title: "Happy Repo",
+      title: "Task Manager",
     }),
     new CleanWebpackPlugin(),
-    new CopyWebpackPlugin({
-      patterns: [
-        {
-          from: path.resolve(__dirname, "./src/public"),
-          to: "",
-          globOptions: {
-            ignore: ["*.DS_Store"],
-          },
-        },
-      ],
-    }),
+    // new CopyWebpackPlugin({
+    //   patterns: [
+    //     {
+    //       from: path.resolve(__dirname, "./src/public"),
+    //       to: "",
+    //       globOptions: {
+    //         ignore: ["*.DS_Store"],
+    //       },
+    //     },
+    //   ],
+    // }),
   ],
   resolve: {
     extensions: [".js", ".ts", ".jsx", ".tsx"],

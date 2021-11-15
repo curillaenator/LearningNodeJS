@@ -8,7 +8,7 @@ const app = express();
 
 app.use("/api/auth", authRoute);
 
-const PORT = config.get("port") || 3000;
+const PORT = config.get("port") || 3300;
 const MONGO_URI = config.get("mongoURI");
 
 const start = async () => {
