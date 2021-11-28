@@ -7,6 +7,8 @@ import { ButtonProps, ButtonParams } from "./interfaces";
 
 interface IButtonStyled {
   params: ButtonParams;
+  isGhost: boolean;
+  isIcon: boolean;
 }
 
 const ButtonStyled = styled.button<IButtonStyled>`
@@ -15,20 +17,14 @@ const ButtonStyled = styled.button<IButtonStyled>`
   justify-content: center;
   gap: ${({ params }) => params.gap};
   height: ${({ params }) => params.h};
-  padding: ${({ params }) => params.padding};
-  background-color: ${({ theme }) => theme.bg.primary};
+  padding: ${({ params, isIcon }) =>
+    isIcon ? params.iconPadding : params.padding};
+  background-color: ${({ theme, isGhost }) =>
+    isGhost ? "transparent" : theme.bg.primary};
   border-radius: ${({ params }) => params.radius};
-  box-shadow: ${({ theme }) => theme.shadows.buttons};
+  box-shadow: ${({ theme, isGhost }) =>
+    isGhost ? "none" : theme.shadows.buttons};
   transition: 0.08s linear;
-
-  &:hover {
-    background-color: ${({ theme }) => theme.bg.primaryHover};
-  }
-
-  &:active {
-    background-color: ${({ theme }) => theme.bg.primaryActive};
-    box-shadow: none;
-  }
 
   .button-icon {
     width: ${({ params }) => params.iconsize};
@@ -45,14 +41,49 @@ const ButtonStyled = styled.button<IButtonStyled>`
 
   .button-title {
     font-size: ${({ params }) => params.fontsize};
+    color: ${({ theme, isGhost }) =>
+      isGhost ? theme.text.placeholder : theme.text.dark};
+  }
+
+  &:hover {
+    background-color: ${({ theme, isGhost }) =>
+      isGhost ? "transparent" : theme.bg.primaryHover};
+
+    .button-title {
+      color: ${({ theme }) => theme.text.dark};
+    }
+  }
+
+  &:active {
+    background-color: ${({ theme, isGhost }) =>
+      isGhost ? "transparent" : theme.bg.primaryActive};
+    box-shadow: ${({ theme, isGhost }) =>
+      isGhost ? "none" : theme.shadows.buttontsActive};
+
+    .button-title {
+      color: ${({ theme }) => theme.primary[700]};
+    }
   }
 `;
 
 export const Button: FC<ButtonProps> = (props) => {
-  const { title, icon, size = "l", type = "button", onClick } = props;
+  const {
+    title,
+    icon,
+    size = "l",
+    isGhost = false,
+    type = "button",
+    onClick,
+  } = props;
 
   return (
-    <ButtonStyled type={type} params={PARAMS[size]} onClick={onClick}>
+    <ButtonStyled
+      type={type}
+      params={PARAMS[size]}
+      isIcon={!!icon}
+      isGhost={isGhost}
+      onClick={onClick}
+    >
       {icon && icons[icon]}
 
       <span className="button-title">{title}</span>

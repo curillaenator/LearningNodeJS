@@ -16,6 +16,7 @@ const HeaderStyled = styled.header`
   background-color: ${({ theme }) => theme.bg.dark};
 
   .app-title {
+    font-family: "Roboto Condensed", sans-serif;
     color: ${({ theme }) => theme.text.primary};
   }
 
@@ -46,7 +47,7 @@ export const Header: FC<HeaderProps> = (props) => {
 
   return (
     <HeaderStyled>
-      <h1 className="app-title">T-Man</h1>
+      <h1 className="app-title">TaskMan</h1>
 
       {userID && (
         <div className="app-user">
@@ -61,7 +62,7 @@ export const Header: FC<HeaderProps> = (props) => {
       )}
 
       {!userID && (
-        <Button title="Login" icon="login" size="m" onClick={openLogin} />
+        <Button title="Sign in" icon="login" size="m" onClick={openLogin} />
       )}
     </HeaderStyled>
   );

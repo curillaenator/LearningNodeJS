@@ -1,8 +1,10 @@
-import React, { FC, useState, FormEvent } from "react";
+import React, { FC } from "react";
 import styled from "styled-components";
 
+import { useForm } from "./hooks/useForm";
+
 import { Button } from "../../components/buttons";
-import { TextInput } from "../../components/inputs";
+import { TextInput, Switch } from "../../components/inputs";
 
 import { LoginProps } from "./interfaces";
 
@@ -15,6 +17,13 @@ const FormStyled = styled.form`
   background-color: ${({ theme }) => theme.bg.light};
   box-shadow: ${({ theme }) => theme.shadows.base};
 
+  .form-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 32px;
+  }
+
   .form-inputs {
     display: flex;
     flex-direction: column;
@@ -22,71 +31,86 @@ const FormStyled = styled.form`
     margin-bottom: 32px;
   }
 
-  .form-buttons {
+  .form-footer {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
-    gap: 16px;
+    justify-content: space-between;
+
+    &-buttons {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 16px;
+    }
   }
 `;
 
-export const Login: FC<LoginProps> = ({ close, submit }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState<{ email?: string; password?: string }>(
-    {}
-  );
-
-  const onSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    setErrors({});
-
-    if (!email.trim()) {
-      setErrors((prev) => ({ ...prev, email: "Required field" }));
-    }
-
-    if (!password.trim()) {
-      setErrors((prev) => ({ ...prev, password: "Required field" }));
-    }
-
-    if (!email.trim() || !password.trim()) return;
-
-    const creds = {
-      email: email.trim(),
-      password: password.trim(),
-    };
-
-    submit(creds);
-    close();
-  };
+export const Login: FC<LoginProps> = ({ signIn, signUp, close }) => {
+  const [
+    isRegister,
+    setIsRedister,
+    email,
+    setEmail,
+    password,
+    setPassword,
+    errors,
+    onSubmit,
+    getDescription,
+  ] = useForm(signIn, signUp, close);
 
   return (
     <FormStyled onSubmit={onSubmit}>
+      <div className="form-header">
+        <h1 className="form-header-title">
+          {isRegister ? "Sign Up" : "Sign In"}
+        </h1>
+
+        {!isRegister && <Button isGhost title="Remind password" size="s" />}
+      </div>
+
       <div className="form-inputs">
         <TextInput
           state={errors.email ? "error" : "normal"}
-          description={errors.email}
+          description={getDescription("email")}
           name="email"
           iconName="email"
           placeholder="Email"
+          type="email"
           value={email}
-          onChange={(value) => setEmail(value)}
+          limitSymbols={isRegister ? 48 : undefined}
+          onChange={setEmail}
         />
 
         <TextInput
           state={errors.password ? "error" : "normal"}
-          description={errors.password}
+          description={getDescription("password")}
           name="password"
           iconName="password"
           placeholder="Password"
+          type="password"
           value={password}
-          onChange={(value) => setPassword(value)}
+          limitSymbols={isRegister ? 24 : undefined}
+          onChange={setPassword}
         />
       </div>
 
-      <div className="form-buttons">
-        <Button title="Close" type="button" onClick={close} />
-        <Button title="Login" icon="login" type="submit" />
+      <div className="form-footer">
+        <div className="form-footer-switch">
+          <Switch
+            value={isRegister}
+            title="I'm a new user"
+            onChange={setIsRedister}
+          />
+        </div>
+
+        <div className="form-footer-buttons">
+          <Button title="Close" type="button" onClick={close} isGhost />
+          <Button
+            title={isRegister ? "Sign up" : "Sign in"}
+            icon={isRegister ? "pencil" : "login"}
+            type="submit"
+          />
+        </div>
       </div>
     </FormStyled>
   );

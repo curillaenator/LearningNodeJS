@@ -5,6 +5,7 @@ export interface ButtonProps {
   icon?: IconType;
   type?: "submit" | "button";
   size?: "s" | "m" | "l" | "xl";
+  isGhost?: boolean;
   onClick?: () => void;
 }
 
@@ -15,4 +16,5 @@ export interface ButtonParams {
   radius: string;
   gap: string;
   iconsize: string;
+  iconPadding: string;
 }

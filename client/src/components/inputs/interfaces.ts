@@ -1,5 +1,7 @@
 import { InputIconsType } from "./assets/icons";
 
+// TEXT INPUT
+
 type IInputState = "normal" | "success" | "error";
 
 export interface IInputStyled {
@@ -19,8 +21,14 @@ export interface TextInputProps {
   placeholder?: string;
   value: string;
   limitSymbols?: number;
-  // buttonTitle?: string;
-  // withButton?: boolean;
   onChange: (valueString: string) => void;
   onFocusOut?: () => void;
+}
+
+// SWITCH
+
+export interface SwitchProps {
+  title?: string;
+  value: boolean;
+  onChange: (value: boolean) => void;
 }
