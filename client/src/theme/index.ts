@@ -3,6 +3,7 @@ import { colors } from "./colors";
 export const theme = {
   white: "#ffffff",
   black: "#000000",
+  primary: colors.yellamerica,
 
   bg: {
     primary: colors.yellamerica[400],
@@ -10,8 +11,8 @@ export const theme = {
     primaryActive: colors.yellamerica[500],
 
     dark: "#222831",
-    gray: "#393E46",
-    light: "#EEEEEE",
+    gray: colors.liver[600],
+    light: colors.liver[100],
   },
 
   text: {
@@ -19,6 +20,24 @@ export const theme = {
     dark: colors.liver[900],
     gray: colors.liver[600],
     light: colors.liver[100],
+    danger: colors.danger[500],
+    placeholder: colors.liver[300],
+  },
+
+  icons: {
+    light: colors.liver[200],
+    dark: colors.liver[600],
+  },
+
+  modal: {
+    matte: `${colors.liver[900]}80`,
+  },
+
+  lines: colors.liver[300],
+
+  shadows: {
+    base: `0px 19px 38px ${colors.liver[900]}0D, 0px 13px 12px ${colors.liver[900]}1A, 0px 6px 8px ${colors.liver[900]}16`,
+    buttons: `0px 12px 32px ${colors.liver[900]}0D, 0px 8px 12px ${colors.liver[900]}1A, 0px 2px 6px ${colors.liver[900]}16`,
   },
 };
 

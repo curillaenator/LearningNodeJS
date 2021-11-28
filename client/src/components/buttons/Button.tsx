@@ -18,6 +18,7 @@ const ButtonStyled = styled.button<IButtonStyled>`
   padding: ${({ params }) => params.padding};
   background-color: ${({ theme }) => theme.bg.primary};
   border-radius: ${({ params }) => params.radius};
+  box-shadow: ${({ theme }) => theme.shadows.buttons};
   transition: 0.08s linear;
 
   &:hover {
@@ -26,6 +27,7 @@ const ButtonStyled = styled.button<IButtonStyled>`
 
   &:active {
     background-color: ${({ theme }) => theme.bg.primaryActive};
+    box-shadow: none;
   }
 
   .button-icon {

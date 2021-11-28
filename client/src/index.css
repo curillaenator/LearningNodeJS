@@ -7,8 +7,17 @@
   font-family: "Roboto", sans-serif;
 }
 
+html {
+  background-color: #e4e3e4;
+}
+
 button {
   outline: none;
   cursor: pointer;
+  border: none;
+}
+
+input {
+  outline: none;
   border: none;
 }
