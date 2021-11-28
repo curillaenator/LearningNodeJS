@@ -1,15 +1,21 @@
 import React, { StrictMode } from "react";
 import { render } from "react-dom";
 import { Provider } from "react-redux";
+import { ThemeProvider } from "styled-components";
 
-import { store } from "./redux/store";
+import { store } from "./redux";
+import { theme } from "./theme";
 
-import { Main } from "./pages/Main";
+import { MainPage } from "./pages/MainPage";
+
+import "./index.css";
 
 render(
   <StrictMode>
     <Provider store={store}>
-      <Main />
+      <ThemeProvider theme={theme}>
+        <MainPage />
+      </ThemeProvider>
     </Provider>
   </StrictMode>,
   document.getElementById("root")

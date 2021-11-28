@@ -1,7 +1,9 @@
+import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
+import { auth } from "./auth";
 
 export const store = configureStore({
-  reducer: {},
+  reducer: { auth },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
@@ -15,7 +17,10 @@ export const store = configureStore({
     }),
 });
 
-export type TState = ReturnType<typeof store.getState>;
-export type TDispatch = typeof store.dispatch;
+type AppStateType = ReturnType<typeof store.getState>;
+type AppDispatchType = typeof store.dispatch;
+
+export const useAppDispatch = () => useDispatch<AppDispatchType>();
+export const useAppSelector: TypedUseSelectorHook<AppStateType> = useSelector;
 
 (window as any).store = store;

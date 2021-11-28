@@ -4,15 +4,15 @@ import styled from "styled-components";
 import { Header } from "../components/header";
 
 const MainStyled = styled.div`
-  font-family: "Roboto", sans-serif;
+  color: ${({ theme }) => theme.text.dark};
 `;
 
-export const Main: FC = () => {
+export const MainPage: FC = () => {
   return (
     <MainStyled>
       <Header />
 
-      <h1>Hellow</h1>
+      <p>Some text here</p>
     </MainStyled>
   );
 };
