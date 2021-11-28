@@ -33,12 +33,30 @@ const FormStyled = styled.form`
 export const Login: FC<LoginProps> = ({ close, submit }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState<{ email?: string; password?: string }>(
+    {}
+  );
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
-    console.log("submit");
+    setErrors({});
 
-    submit();
+    if (!email.trim()) {
+      setErrors((prev) => ({ ...prev, email: "Required field" }));
+    }
+
+    if (!password.trim()) {
+      setErrors((prev) => ({ ...prev, password: "Required field" }));
+    }
+
+    if (!email.trim() || !password.trim()) return;
+
+    const creds = {
+      email: email.trim(),
+      password: password.trim(),
+    };
+
+    submit(creds);
     close();
   };
 
@@ -46,6 +64,8 @@ export const Login: FC<LoginProps> = ({ close, submit }) => {
     <FormStyled onSubmit={onSubmit}>
       <div className="form-inputs">
         <TextInput
+          state={errors.email ? "error" : "normal"}
+          description={errors.email}
           name="email"
           iconName="email"
           placeholder="Email"
@@ -54,6 +74,8 @@ export const Login: FC<LoginProps> = ({ close, submit }) => {
         />
 
         <TextInput
+          state={errors.password ? "error" : "normal"}
+          description={errors.password}
           name="password"
           iconName="password"
           placeholder="Password"

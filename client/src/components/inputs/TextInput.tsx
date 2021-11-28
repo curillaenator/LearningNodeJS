@@ -86,6 +86,7 @@ const InputStyled = styled.div<IInputStyled>`
     align-items: center;
     min-height: 1rem;
     padding-left: ${({ isIcon }) => (isIcon ? "40px" : "none")};
+    font-size: 11px;
 
     &-text {
       color: ${({ theme, state }) => {
@@ -93,7 +94,7 @@ const InputStyled = styled.div<IInputStyled>`
           case state === "error":
             return theme.text.danger;
           default:
-            return theme.text.gray;
+            return theme.text.placeholder;
         }
       }};
       padding: 0 4px;
