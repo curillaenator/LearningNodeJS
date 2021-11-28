@@ -23,7 +23,7 @@ const ButtonStyled = styled.button<IButtonStyled>`
     isGhost ? "transparent" : theme.bg.primary};
   border-radius: ${({ params }) => params.radius};
   box-shadow: ${({ theme, isGhost }) =>
-    isGhost ? "none" : theme.shadows.buttons};
+    isGhost ? "none" : theme.shadows.buttonsColored};
   transition: 0.08s linear;
 
   .button-icon {
@@ -58,7 +58,7 @@ const ButtonStyled = styled.button<IButtonStyled>`
     background-color: ${({ theme, isGhost }) =>
       isGhost ? "transparent" : theme.bg.primaryActive};
     box-shadow: ${({ theme, isGhost }) =>
-      isGhost ? "none" : theme.shadows.buttontsActive};
+      isGhost ? "none" : theme.shadows.buttonsColoredActive};
 
     .button-title {
       color: ${({ theme }) => theme.primary[700]};

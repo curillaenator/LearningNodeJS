@@ -40,7 +40,8 @@ export const theme = {
     base: `0px 19px 38px ${colors.liver[900]}0D, 0px 13px 12px ${colors.liver[900]}1A, 0px 6px 8px ${colors.liver[900]}16`,
     buttons: `0px 12px 32px ${colors.liver[900]}0D, 0px 8px 12px ${colors.liver[900]}1A, 0px 2px 6px ${colors.liver[900]}16`,
     buttontsActive: `0px 6px 8px ${colors.liver[900]}0D, 0px 2px 4px ${colors.liver[900]}1A`,
-    buttonsColored: `0px 12px 32px ${colors.yellamerica[500]}0D, 0px 8px 12px ${colors.yellamerica[500]}1A, 0px 2px 6px ${colors.yellamerica[500]}16`,
+    buttonsColored: `0px 12px 32px ${colors.yellamerica[500]}1A, 0px 8px 12px ${colors.yellamerica[500]}26, 0px 2px 6px ${colors.yellamerica[600]}33`,
+    buttonsColoredActive: `0px 6px 8px ${colors.yellamerica[500]}1A, 0px 2px 4px ${colors.yellamerica[600]}33`,
   },
 };
 

@@ -95,16 +95,15 @@ export const Login: FC<LoginProps> = ({ signIn, signUp, close }) => {
       </div>
 
       <div className="form-footer">
-        <div className="form-footer-switch">
-          <Switch
-            value={isRegister}
-            title="I'm a new user"
-            onChange={setIsRedister}
-          />
-        </div>
+        <Switch
+          value={isRegister}
+          title="I'm a new user"
+          onChange={setIsRedister}
+        />
 
         <div className="form-footer-buttons">
           <Button title="Close" type="button" onClick={close} isGhost />
+
           <Button
             title={isRegister ? "Sign up" : "Sign in"}
             icon={isRegister ? "pencil" : "login"}
