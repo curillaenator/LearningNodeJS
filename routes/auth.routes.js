@@ -27,10 +27,14 @@ router.post(
     check("password", "Минимум 8 символов").isLength({ min: 8 }),
   ],
   async (req, res) => {
+    console.log("BODY", req.body);
+
     try {
       const errors = validationResult(req);
 
       if (!errors.isEmpty()) {
+        console.log("has errors", errors);
+
         res
           .status(400)
           .json({ errors: errors.array(), message: errMsgs.invalidRegCreds });
@@ -40,12 +44,19 @@ router.post(
 
       const isUserExists = await User.findOne({ email });
 
-      if (isUserExists)
+      if (isUserExists) {
         return res.status(400).json({ message: errMsgs.userAlreadyExists });
+      }
+
+      console.log("user NOT exists");
 
       const hashedPassword = await bcrypt.hash(password, 12);
 
+      console.log("password", hashedPassword);
+
       const user = new User({ email, password: hashedPassword });
+
+      console.log("user", user);
 
       await user.save();
 

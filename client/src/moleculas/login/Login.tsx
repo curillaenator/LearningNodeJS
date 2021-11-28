@@ -45,7 +45,7 @@ const FormStyled = styled.form`
   }
 `;
 
-export const Login: FC<LoginProps> = ({ signIn, signUp, close }) => {
+export const Login: FC<LoginProps> = ({ close }) => {
   const [
     isRegister,
     setIsRedister,
@@ -56,7 +56,7 @@ export const Login: FC<LoginProps> = ({ signIn, signUp, close }) => {
     errors,
     onSubmit,
     getDescription,
-  ] = useForm(signIn, signUp, close);
+  ] = useForm(close);
 
   return (
     <FormStyled onSubmit={onSubmit}>

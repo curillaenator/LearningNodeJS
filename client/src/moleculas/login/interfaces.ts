@@ -1,13 +1,6 @@
 import { FormEvent } from "react";
 
-interface Credentials {
-  email: string;
-  password: string;
-}
-
 export interface LoginProps {
-  signIn: (credentials: Credentials) => void;
-  signUp: (credentials: Credentials) => void;
   close: () => void;
 }
 
@@ -17,8 +10,6 @@ export interface FormErrors {
 }
 
 export type UseFormHook = (
-  signIn: LoginProps["signIn"],
-  signUp: LoginProps["signUp"],
   close: LoginProps["close"]
 ) => [
   boolean,

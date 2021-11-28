@@ -26,11 +26,7 @@ export const MainPage: FC = () => {
       {routes}
 
       <Modal open={loginOpen} onClose={() => setLoginOpen(false)}>
-        <Login
-          close={() => setLoginOpen(false)}
-          signIn={() => {}}
-          signUp={() => {}}
-        />
+        <Login close={() => setLoginOpen(false)} />
       </Modal>
     </MainStyled>
   );

@@ -1,7 +1,13 @@
 import { useState, FormEvent } from "react";
 import { FormErrors, UseFormHook } from "../interfaces";
 
-export const useForm: UseFormHook = (signIn, signUp, close) => {
+import { useHttpRequest } from "../../../hooks/useHttpRequest";
+
+export const useForm: UseFormHook = (close) => {
+  const [request, loading, error, clearErrors] = useHttpRequest();
+
+  console.log(loading, error);
+
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [errors, setErrors] = useState<FormErrors>({});
@@ -12,7 +18,7 @@ export const useForm: UseFormHook = (signIn, signUp, close) => {
     setIsReg(reg);
   };
 
-  const onSubmit = (e: FormEvent) => {
+  const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setErrors({});
 
@@ -26,13 +32,19 @@ export const useForm: UseFormHook = (signIn, signUp, close) => {
 
     if (!email.trim() || !password.trim()) return;
 
-    const creds = {
-      email: email.trim(),
-      password: password.trim(),
-    };
+    if (isReg) {
+      const data = await request(
+        "http://localhost:3300/api/auth/register",
+        "POST",
+        { email: email.trim(), password: password.trim() }
+      );
+      console.log(data);
+    }
 
-    if (isReg) signUp(creds);
-    if (!isReg) signIn(creds);
+    if (!isReg) {
+      const data = await request("http://localhost:3300/api/auth/login");
+      console.log(data);
+    }
 
     close();
   };
