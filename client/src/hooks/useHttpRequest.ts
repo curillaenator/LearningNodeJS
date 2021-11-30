@@ -1,4 +1,16 @@
 import { useState, useCallback } from "react";
+import axios from "axios";
+
+const base = axios.create({
+  baseURL: "http://localhost:3300/api/",
+  // headers: { "Content-Type": "application/json" },
+  // withCredentials: true,
+});
+
+const REQUEST = {
+  GET: base.get,
+  POST: base.post,
+};
 
 import { RequestType, UseHttpRequestHook } from "./interfaces";
 
@@ -6,45 +18,27 @@ export const useHttpRequest: UseHttpRequestHook = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<any>(null);
 
-  const HEADERS = {
-    "Content-Type": "application/json",
-  };
-
   const request: RequestType = useCallback(
-    async (url, method = "GET", body = null, headers = HEADERS) => {
+    async (url, method = "GET", body = null, headers) => {
       setLoading(true);
+      setError(null);
 
-      if (body) {
-        body = JSON.stringify(body);
-      }
+      const response = await REQUEST[method](url, body)
+        .then((res) => {
+          console.log(res);
 
-      console.log(url, method, body, headers);
+          setLoading(false);
+          return res.data;
+        })
+        .catch((err) => {
+          console.log(err);
 
-      try {
-        const response = await fetch(url, {
-          method,
-          body,
-          headers,
-          mode: "no-cors",
+          setError("Something went wrong");
+          setLoading(false);
+          throw new Error("Something went wrong");
         });
 
-        console.log(response);
-
-        const data = await response.json();
-
-        if (!response.ok) {
-          throw new Error(data.message || "Something went wrong");
-        }
-
-        setLoading(false);
-
-        return data;
-      } catch (e) {
-        setLoading(false);
-        //@ts-ignore
-        setError(e.message);
-        throw e;
-      }
+      return response;
     },
     []
   );

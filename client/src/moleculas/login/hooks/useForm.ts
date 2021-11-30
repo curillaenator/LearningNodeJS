@@ -11,11 +11,11 @@ export const useForm: UseFormHook = (close) => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [errors, setErrors] = useState<FormErrors>({});
-  const [isReg, setIsReg] = useState(false);
+  const [isRegister, setIsRegister] = useState(false);
 
   const handleRegister = (reg: boolean) => {
     setErrors({});
-    setIsReg(reg);
+    setIsRegister(reg);
   };
 
   const onSubmit = async (e: FormEvent) => {
@@ -32,19 +32,19 @@ export const useForm: UseFormHook = (close) => {
 
     if (!email.trim() || !password.trim()) return;
 
-    if (isReg) {
-      const data = await request(
-        "http://localhost:3300/api/auth/register",
-        "POST",
-        { email: email.trim(), password: password.trim() }
-      );
+    if (isRegister) {
+      const data = await request("auth/register", "POST", {
+        email: email.trim(),
+        password: password.trim(),
+      });
+
       console.log(data);
     }
 
-    if (!isReg) {
-      const data = await request("http://localhost:3300/api/auth/login");
-      console.log(data);
-    }
+    // if (!isRegister) {
+    //   const data = await request("http://localhost:3300/api/auth/login");
+    //   console.log(data);
+    // }
 
     close();
   };
@@ -52,19 +52,19 @@ export const useForm: UseFormHook = (close) => {
   const getDescription = (field: "email" | "password") => {
     if (field === "email") {
       if (errors.email) return errors.email;
-      if (isReg) return "Enter your valid email";
+      if (isRegister) return "Enter your valid email";
     }
 
     if (field === "password") {
       if (errors.password) return errors.password;
-      if (isReg) return "Min 8 symbols";
+      if (isRegister) return "Min 8 symbols";
     }
 
     return "";
   };
 
   return [
-    isReg,
+    isRegister,
     handleRegister,
     email,
     (emailValue: string) => setEmail(emailValue),
