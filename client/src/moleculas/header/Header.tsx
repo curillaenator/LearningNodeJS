@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import styled from "styled-components";
 
-import { useAppSelector } from "../../redux";
+import { useAppSelector, useAppDispatch, userSignOut } from "../../redux";
 
 import { Button } from "../../components/buttons";
 import { HeaderProps } from "./interfaces";
@@ -23,7 +23,7 @@ const HeaderStyled = styled.header`
   .app-user {
     display: flex;
     align-items: center;
-    gap: 32px;
+    gap: 16px;
 
     &-name {
       font-size: 18px;
@@ -40,22 +40,23 @@ const HeaderStyled = styled.header`
   }
 `;
 
-export const Header: FC<HeaderProps> = (props) => {
-  const { openLogin } = props;
+export const Header: FC<HeaderProps> = ({ openLogin }) => {
+  const dispatch = useAppDispatch();
+  const { userID, name, avatarURL } = useAppSelector((state) => state.auth);
 
-  const { userID } = useAppSelector((state) => state.auth);
+  const handleSignOut = () => dispatch(userSignOut());
 
   return (
     <HeaderStyled>
       <h1 className="app-title">TaskMan</h1>
 
       {userID && (
-        <div className="app-user">
-          <span className="app-user-name">Артуров Кирилл</span>
+        <div className="app-user" onClick={handleSignOut}>
+          <span className="app-user-name">{name || "N/A"}</span>
 
           <img
             className="app-user-avatar"
-            src="https://my-engine.ru/modules/users/avatar.png"
+            src={avatarURL || "https://my-engine.ru/modules/users/avatar.png"}
             alt="Аватар"
           />
         </div>

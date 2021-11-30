@@ -7,6 +7,7 @@ export interface LoginProps {
 export interface FormErrors {
   email?: string;
   password?: string;
+  server?: string;
 }
 
 export type UseFormHook = (

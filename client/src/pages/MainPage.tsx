@@ -1,7 +1,7 @@
-import React, { FC, useState } from "react";
+import React, { FC, useState, useEffect } from "react";
 import styled from "styled-components";
 
-import { useAppSelector } from "../redux";
+import { useAppDispatch, useAppSelector, initialize } from "../redux";
 import { useRoutes } from "./hooks/useRoutes";
 
 import { Header } from "../moleculas/header";
@@ -14,10 +14,15 @@ const MainStyled = styled.div`
 `;
 
 export const MainPage: FC = () => {
+  const dispatch = useAppDispatch();
   const { userID } = useAppSelector((state) => state.auth);
   const routes = useRoutes(!!userID);
 
   const [loginOpen, setLoginOpen] = useState(false);
+
+  useEffect(() => {
+    dispatch(initialize());
+  }, []);
 
   return (
     <MainStyled>

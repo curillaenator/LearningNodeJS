@@ -1,24 +1,33 @@
-import { useState, FormEvent } from "react";
+import { useState, useEffect, FormEvent } from "react";
 import { FormErrors, UseFormHook } from "../interfaces";
 
-import { useHttpRequest } from "../../../hooks/useHttpRequest";
+import { useAppDispatch, useAppSelector } from "../../../redux";
+
+import { userSignIn, userSignUp } from "../../../redux";
+
+// import { useHttpRequest } from "../../../hooks/useHttpRequest";
 
 export const useForm: UseFormHook = (close) => {
-  const [request, loading, error, clearErrors] = useHttpRequest();
+  const dispatch = useAppDispatch();
+  const { error } = useAppSelector((state) => state.auth);
 
-  console.log(loading, error);
+  // const [request, loading, error, clearErrors] = useHttpRequest();
 
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [errors, setErrors] = useState<FormErrors>({});
   const [isRegister, setIsRegister] = useState(false);
 
+  useEffect(() => {
+    if (error) setErrors({ server: error });
+  }, [error]);
+
   const handleRegister = (reg: boolean) => {
     setErrors({});
     setIsRegister(reg);
   };
 
-  const onSubmit = async (e: FormEvent) => {
+  const onSubmit = (e: FormEvent) => {
     e.preventDefault();
     setErrors({});
 
@@ -33,21 +42,25 @@ export const useForm: UseFormHook = (close) => {
     if (!email.trim() || !password.trim()) return;
 
     if (isRegister) {
-      const data = await request("auth/register", "POST", {
+      const creds = {
         email: email.trim(),
         password: password.trim(),
-      });
+      };
 
-      console.log(data);
+      // const data = await request("auth/register", "POST", creds);
+
+      dispatch(userSignUp(creds));
     }
 
     if (!isRegister) {
-      const data = await request("auth/login", "POST", { email, password });
+      // const data = await request("auth/login", "POST", { email, password });
 
-      console.log(data);
+      dispatch(userSignIn({ email, password }));
     }
 
-    close();
+    // console.log(errors);
+
+    // close();
   };
 
   const getDescription = (field: "email" | "password") => {

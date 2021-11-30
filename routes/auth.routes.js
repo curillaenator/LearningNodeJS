@@ -50,6 +50,8 @@ router.post(
 
       const user = new User({ email, password: hashedPassword });
 
+      console.log(user);
+
       await user.save();
 
       res.status(201).json({ message: errMsgs.userCreated });

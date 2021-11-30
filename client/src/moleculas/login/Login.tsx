@@ -29,6 +29,12 @@ const FormStyled = styled.form`
     flex-direction: column;
     gap: 16px;
     margin-bottom: 32px;
+
+    &-server {
+      font-size: 11px;
+      text-align: center;
+      color: ${({ theme }) => theme.text.danger};
+    }
   }
 
   .form-footer {
@@ -92,6 +98,10 @@ export const Login: FC<LoginProps> = ({ close }) => {
           limitSymbols={isRegister ? 24 : undefined}
           onChange={setPassword}
         />
+
+        {errors.server && (
+          <div className="form-inputs-server">{errors.server}</div>
+        )}
       </div>
 
       <div className="form-footer">
