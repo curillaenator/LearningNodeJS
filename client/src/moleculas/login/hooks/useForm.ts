@@ -41,10 +41,11 @@ export const useForm: UseFormHook = (close) => {
       console.log(data);
     }
 
-    // if (!isRegister) {
-    //   const data = await request("http://localhost:3300/api/auth/login");
-    //   console.log(data);
-    // }
+    if (!isRegister) {
+      const data = await request("auth/login", "POST", { email, password });
+
+      console.log(data);
+    }
 
     close();
   };
