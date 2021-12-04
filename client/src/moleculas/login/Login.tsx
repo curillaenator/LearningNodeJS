@@ -2,9 +2,11 @@ import React, { FC } from "react";
 import styled from "styled-components";
 
 import { useForm } from "./hooks/useForm";
+import { useAppSelector } from "../../redux";
 
 import { Button } from "../../components/buttons";
 import { TextInput, Switch } from "../../components/inputs";
+import { Loader } from "../../components/loader";
 
 import { LoginProps } from "./interfaces";
 
@@ -62,7 +64,9 @@ export const Login: FC<LoginProps> = ({ close }) => {
     errors,
     onSubmit,
     getDescription,
-  ] = useForm(close);
+  ] = useForm();
+
+  const { loading } = useAppSelector((state) => state.auth);
 
   return (
     <FormStyled onSubmit={onSubmit}>
@@ -71,7 +75,11 @@ export const Login: FC<LoginProps> = ({ close }) => {
           {isRegister ? "Sign Up" : "Sign In"}
         </h1>
 
-        {!isRegister && <Button isGhost title="Remind password" size="s" />}
+        {!loading && !isRegister && (
+          <Button isGhost title="Remind password" size="s" />
+        )}
+
+        {loading && <Loader size="s" />}
       </div>
 
       <div className="form-inputs">

@@ -10,9 +10,7 @@ export interface FormErrors {
   server?: string;
 }
 
-export type UseFormHook = (
-  close: LoginProps["close"]
-) => [
+export type UseFormHook = () => [
   boolean,
   (reg: boolean) => void,
   string,

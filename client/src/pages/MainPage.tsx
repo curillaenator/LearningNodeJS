@@ -1,8 +1,13 @@
-import React, { FC, useState, useEffect } from "react";
+import React, { FC, useEffect } from "react";
 import styled from "styled-components";
 
-import { useAppDispatch, useAppSelector, initialize } from "../redux";
 import { useRoutes } from "./hooks/useRoutes";
+import {
+  useAppDispatch,
+  useAppSelector,
+  initialize,
+  setIsModalOpen,
+} from "../redux";
 
 import { Header } from "../moleculas/header";
 import { Login } from "../moleculas/login";
@@ -15,10 +20,8 @@ const MainStyled = styled.div`
 
 export const MainPage: FC = () => {
   const dispatch = useAppDispatch();
-  const { userID } = useAppSelector((state) => state.auth);
+  const { userID, isModalOpen } = useAppSelector((state) => state.auth);
   const routes = useRoutes(!!userID);
-
-  const [loginOpen, setLoginOpen] = useState(false);
 
   useEffect(() => {
     dispatch(initialize());
@@ -26,12 +29,12 @@ export const MainPage: FC = () => {
 
   return (
     <MainStyled>
-      <Header openLogin={() => setLoginOpen(true)} />
+      <Header openLogin={() => dispatch(setIsModalOpen(true))} />
 
       {routes}
 
-      <Modal open={loginOpen} onClose={() => setLoginOpen(false)}>
-        <Login close={() => setLoginOpen(false)} />
+      <Modal open={isModalOpen} onClose={() => dispatch(setIsModalOpen(false))}>
+        <Login close={() => dispatch(setIsModalOpen(false))} />
       </Modal>
     </MainStyled>
   );

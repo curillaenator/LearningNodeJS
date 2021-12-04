@@ -7,6 +7,8 @@ import { Thunk, User, UserCreds, NullUser } from "../common";
 const USER_DATA = "userData";
 
 interface AuthState {
+  isModalOpen: boolean;
+  isRegister: boolean;
   loading: boolean;
   error: string;
   userID: string;
@@ -16,6 +18,8 @@ interface AuthState {
 }
 
 const initialState: AuthState = {
+  isModalOpen: false,
+  isRegister: false,
   loading: false,
   error: "",
   userID: "",
@@ -28,6 +32,14 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
+    setIsModalOpen: (state, action: PayloadAction<boolean>) => {
+      state.isModalOpen = action.payload;
+    },
+
+    setIsRegister: (state, action: PayloadAction<boolean>) => {
+      state.isRegister = action.payload;
+    },
+
     setLoading: (state, action: PayloadAction<boolean>) => {
       state.loading = action.payload;
     },
@@ -46,12 +58,13 @@ const authSlice = createSlice({
 });
 export const auth = authSlice.reducer;
 
-const { setLoading, setError, setUser } = authSlice.actions;
+export const { setIsModalOpen, setIsRegister, setLoading, setError, setUser } =
+  authSlice.actions;
 
 // THUNKS
 
 export const initialize = (): Thunk => {
-  return (dispatch) => {
+  return async (dispatch) => {
     const user = localStorage.getItem(USER_DATA);
     if (user) dispatch(setUser(JSON.parse(user)));
   };
@@ -68,6 +81,15 @@ export const userSignUp = (creds: UserCreds): Thunk => {
     if (typeof response === "string") {
       return batch(() => {
         dispatch(setError(response));
+        dispatch(setLoading(false));
+      });
+    }
+
+    if (response.status === 201) {
+      alert(response.message);
+
+      batch(() => {
+        dispatch(setIsRegister(false));
         dispatch(setLoading(false));
       });
     }
@@ -94,6 +116,7 @@ export const userSignIn = (creds: UserCreds): Thunk => {
     batch(() => {
       dispatch(setUser(response));
       dispatch(setLoading(false));
+      dispatch(setIsModalOpen(false));
     });
   };
 };

@@ -1,23 +1,25 @@
+const axios = require("axios");
 const { check, validationResult } = require("express-validator");
 const { Router } = require("express");
 const config = require("config");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-const User = require("../models/User");
-
 const router = Router();
 
-const errMsgs = {
-  common: "Что-то пошло не так, попробуйте снова",
+const base = axios.create({
+  baseURL: config.get("mongoApiURL"),
+  headers: {
+    "Content-Type": "application/json",
+    "Access-Control-Request-Headers": "*",
+    "api-key": config.get("mongoApiKey"),
+  },
+});
 
-  userAlreadyExists: "Пользователь с таким email уже существует",
-  userCreated: "Пользователь создан",
-  invalidRegCreds: "Некорректные данные для регистрации",
-
-  userNotExists: "Попробуйте еще раз",
-  invalidLoginCreds: "Некорректные данные при входе в систему",
-  invalidPassword: "Неверные данные для входа",
+const data = {
+  dataSource: "ClusterArt",
+  database: "taskManager",
+  collection: "users",
 };
 
 router.post(
@@ -27,37 +29,48 @@ router.post(
     check("password", "Минимум 8 символов").isLength({ min: 8 }),
   ],
   async (req, res) => {
-    console.log("BODY", req.body);
+    // console.log("Body: ", req.body);
 
-    try {
-      const errors = validationResult(req);
+    const errors = validationResult(req);
 
-      if (!errors.isEmpty()) {
-        res
-          .status(400)
-          .json({ errors: errors.array(), message: errMsgs.invalidRegCreds });
-      }
-
-      const { email, password } = req.body;
-
-      const isUserExists = await User.findOne({ email });
-
-      if (isUserExists) {
-        return res.status(400).json({ message: errMsgs.userAlreadyExists });
-      }
-
-      const hashedPassword = await bcrypt.hash(password, 12);
-
-      const user = new User({ email, password: hashedPassword });
-
-      console.log(user);
-
-      await user.save();
-
-      res.status(201).json({ message: errMsgs.userCreated });
-    } catch (e) {
-      res.status(500).json({ message: errMsgs.common });
+    if (!errors.isEmpty()) {
+      res.status(400).json({
+        errors: errors.array(),
+        message: "Invalid registration data",
+      });
     }
+
+    const { email, password } = req.body;
+
+    const isUser = await base
+      .post("/action/findOne", { ...data, filter: { email } })
+      .then((r) => r.data.document);
+
+    console.log("is user: ", isUser);
+
+    if (isUser) {
+      return res.status(400).json({ message: "Email is already used" });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 12);
+
+    const document = {
+      ...data,
+      document: { email, password: hashedPassword },
+    };
+
+    base
+      .post("/action/insertOne", document)
+      .then((r) => {
+        res
+          .status(201)
+          .json({ status: r.status, message: "User created, please sign in!" });
+        console.log(r.data);
+      })
+      .catch(() => {
+        res.status(500).json({ message: "Something went wrong, try again" });
+        console.log("post error");
+      });
   }
 );
 
@@ -68,7 +81,7 @@ router.post(
     check("password", "Введите пароль").exists(),
   ],
   async (req, res) => {
-    console.log("BODY", req.body);
+    // console.log("BODY", req.body);
 
     try {
       const errors = validationResult(req);
@@ -76,21 +89,25 @@ router.post(
       if (!errors.isEmpty()) {
         res
           .status(400)
-          .json({ errors: errors.array(), message: errMsgs.invalidLoginCreds });
+          .json({ errors: errors.array(), message: "Invalid login data" });
       }
 
       const { email, password } = req.body;
 
-      const user = await User.findOne({ email });
+      // const user = await User.findOne({ email });
+
+      const user = await base
+        .post("/action/findOne", { ...data, filter: { email } })
+        .then((r) => r.data.document);
 
       if (!user) {
-        return res.status(400).json({ message: errMsgs.userNotExists });
+        return res.status(400).json({ message: "Try again" });
       }
 
       const isPasswordMatch = await bcrypt.compare(password, user.password);
 
       if (!isPasswordMatch) {
-        return res.status(400).json({ message: errMsgs.invalidPassword });
+        return res.status(400).json({ message: "Invalid login data" });
       }
 
       const token = jwt.sign(
@@ -99,10 +116,10 @@ router.post(
         { expiresIn: "1h" }
       );
 
-      res.json({ token, userID: user.id });
+      res.json({ token, userID: user._id });
       //
     } catch (e) {
-      res.status(500).json({ message: errMsgs.common });
+      res.status(500).json({ message: "Something went wrong, try again" });
     }
   }
 );

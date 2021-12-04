@@ -3,20 +3,15 @@ import { FormErrors, UseFormHook } from "../interfaces";
 
 import { useAppDispatch, useAppSelector } from "../../../redux";
 
-import { userSignIn, userSignUp } from "../../../redux";
+import { userSignIn, userSignUp, setIsRegister } from "../../../redux";
 
-// import { useHttpRequest } from "../../../hooks/useHttpRequest";
-
-export const useForm: UseFormHook = (close) => {
+export const useForm: UseFormHook = () => {
   const dispatch = useAppDispatch();
-  const { error } = useAppSelector((state) => state.auth);
-
-  // const [request, loading, error, clearErrors] = useHttpRequest();
+  const { error, isRegister } = useAppSelector((state) => state.auth);
 
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [errors, setErrors] = useState<FormErrors>({});
-  const [isRegister, setIsRegister] = useState(false);
 
   useEffect(() => {
     if (error) setErrors({ server: error });
@@ -24,7 +19,7 @@ export const useForm: UseFormHook = (close) => {
 
   const handleRegister = (reg: boolean) => {
     setErrors({});
-    setIsRegister(reg);
+    dispatch(setIsRegister(reg));
   };
 
   const onSubmit = (e: FormEvent) => {
@@ -47,20 +42,14 @@ export const useForm: UseFormHook = (close) => {
         password: password.trim(),
       };
 
-      // const data = await request("auth/register", "POST", creds);
-
       dispatch(userSignUp(creds));
     }
 
     if (!isRegister) {
-      // const data = await request("auth/login", "POST", { email, password });
-
       dispatch(userSignIn({ email, password }));
     }
 
     // console.log(errors);
-
-    // close();
   };
 
   const getDescription = (field: "email" | "password") => {
