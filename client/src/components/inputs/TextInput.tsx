@@ -30,7 +30,7 @@ const InputStyled = styled.div<IInputStyled>`
       &-dark {
         transition: 0.08s linear;
         fill: ${({ theme, isFocused }) =>
-          isFocused ? theme.primary[500] : theme.icons.dark};
+          isFocused ? theme.primary[500] : theme.icons.gray};
       }
     }
 
@@ -111,8 +111,6 @@ export const TextInput: FC<TextInputProps> = ({
   placeholder = "",
   value,
   limitSymbols,
-  // buttonTitle,
-  // withButton = false,
   onChange,
   onFocusOut,
 }) => {
@@ -171,17 +169,6 @@ export const TextInput: FC<TextInputProps> = ({
           value={value}
           onChange={handleChange}
         />
-
-        {/* {withButton && (
-          <div className="input-button">
-            <BtnGhost
-              ref={inputButtonRef}
-              title={buttonTitle || ""}
-              colorPreset="secondary-colors"
-              handler={() => {}}
-            />
-          </div>
-        )} */}
       </div>
 
       <div className="subinput">

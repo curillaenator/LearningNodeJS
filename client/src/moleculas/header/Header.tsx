@@ -1,9 +1,12 @@
 import React, { FC } from "react";
 import styled from "styled-components";
 
-import { useAppSelector, useAppDispatch, userSignOut } from "../../redux";
+import { useAppSelector } from "../../redux";
 
+import { User, UserMenu } from "./components";
 import { Button } from "../../components/buttons";
+import { Dropdown } from "../../components/dropdown";
+
 import { HeaderProps } from "./interfaces";
 
 const HeaderStyled = styled.header`
@@ -19,47 +22,26 @@ const HeaderStyled = styled.header`
     font-family: "Roboto Condensed", sans-serif;
     color: ${({ theme }) => theme.text.primary};
   }
-
-  .app-user {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-
-    &-name {
-      font-size: 18px;
-      font-weight: 500;
-      color: ${({ theme }) => theme.text.light};
-    }
-
-    &-avatar {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      object-fit: cover;
-    }
-  }
 `;
 
 export const Header: FC<HeaderProps> = ({ openLogin }) => {
-  const dispatch = useAppDispatch();
   const { userID, name, avatarURL } = useAppSelector((state) => state.auth);
-
-  const handleSignOut = () => dispatch(userSignOut());
 
   return (
     <HeaderStyled>
       <h1 className="app-title">TaskMan</h1>
 
       {userID && (
-        <div className="app-user" onClick={handleSignOut}>
-          <span className="app-user-name">{name || "N/A"}</span>
-
-          <img
-            className="app-user-avatar"
-            src={avatarURL || "https://my-engine.ru/modules/users/avatar.png"}
-            alt="Аватар"
-          />
-        </div>
+        <Dropdown
+          offsetY={12}
+          trigger={(open) => (
+            <div>
+              <User open={open} name={name} avatarURL={avatarURL} />
+            </div>
+          )}
+        >
+          {(close: () => void) => <UserMenu close={close} />}
+        </Dropdown>
       )}
 
       {!userID && (

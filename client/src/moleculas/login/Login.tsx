@@ -76,7 +76,7 @@ export const Login: FC<LoginProps> = ({ close }) => {
         </h1>
 
         {!loading && !isRegister && (
-          <Button isGhost title="Remind password" size="s" />
+          <Button variant="ghost" title="Remind password" size="s" />
         )}
 
         {loading && <Loader size="s" />}
@@ -116,16 +116,24 @@ export const Login: FC<LoginProps> = ({ close }) => {
         <Switch
           value={isRegister}
           title="I'm a new user"
+          disabled={loading}
           onChange={setIsRedister}
         />
 
         <div className="form-footer-buttons">
-          <Button title="Close" type="button" onClick={close} isGhost />
+          <Button
+            title="Close"
+            type="button"
+            onClick={close}
+            variant="ghost"
+            disabled={loading}
+          />
 
           <Button
             title={isRegister ? "Sign up" : "Sign in"}
             icon={isRegister ? "pencil" : "login"}
             type="submit"
+            disabled={loading}
           />
         </div>
       </div>

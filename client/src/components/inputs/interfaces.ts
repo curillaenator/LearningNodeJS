@@ -30,5 +30,6 @@ export interface TextInputProps {
 export interface SwitchProps {
   title?: string;
   value: boolean;
+  disabled?: boolean;
   onChange: (value: boolean) => void;
 }

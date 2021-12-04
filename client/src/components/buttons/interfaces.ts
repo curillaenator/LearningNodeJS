@@ -5,7 +5,8 @@ export interface ButtonProps {
   icon?: IconType;
   type?: "submit" | "button";
   size?: "s" | "m" | "l" | "xl";
-  isGhost?: boolean;
+  variant?: "primary" | "ghost";
+  disabled?: boolean;
   onClick?: () => void;
 }
 

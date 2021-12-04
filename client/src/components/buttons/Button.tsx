@@ -4,10 +4,12 @@ import styled from "styled-components";
 import { PARAMS } from "./constants";
 import { icons } from "./assets/icons";
 import { ButtonProps, ButtonParams } from "./interfaces";
+import { styles } from "./styles";
 
 interface IButtonStyled {
   params: ButtonParams;
-  isGhost: boolean;
+  disabled: boolean;
+  variant: Extract<ButtonProps["variant"], "primary" | "ghost">;
   isIcon: boolean;
 }
 
@@ -19,49 +21,48 @@ const ButtonStyled = styled.button<IButtonStyled>`
   height: ${({ params }) => params.h};
   padding: ${({ params, isIcon }) =>
     isIcon ? params.iconPadding : params.padding};
-  background-color: ${({ theme, isGhost }) =>
-    isGhost ? "transparent" : theme.bg.primary};
   border-radius: ${({ params }) => params.radius};
-  box-shadow: ${({ theme, isGhost }) =>
-    isGhost ? "none" : theme.shadows.buttonsColored};
+  cursor: ${({ disabled }) => (disabled ? "default" : "pointer")};
   transition: 0.08s linear;
+
+  ${({ variant }) => styles.body[variant]};
 
   .button-icon {
     width: ${({ params }) => params.iconsize};
     height: ${({ params }) => params.iconsize};
 
-    &-light {
-      fill: ${({ theme }) => theme.text.light};
-    }
-
-    &-dark {
-      fill: ${({ theme }) => theme.text.dark};
-    }
+    ${({ variant }) => styles.icon[variant]};
   }
 
   .button-title {
     font-size: ${({ params }) => params.fontsize};
-    color: ${({ theme, isGhost }) =>
-      isGhost ? theme.text.placeholder : theme.text.dark};
+
+    ${({ variant }) => styles.title[variant]};
   }
 
   &:hover {
-    background-color: ${({ theme, isGhost }) =>
-      isGhost ? "transparent" : theme.bg.primaryHover};
+    ${({ variant }) => styles.bodyHover[variant]};
 
     .button-title {
-      color: ${({ theme }) => theme.text.dark};
+      color: ${({ theme, disabled }) =>
+        disabled ? theme.text.gray : theme.text.dark};
+    }
+
+    .button-icon {
+      ${({ variant }) => styles.iconHover[variant]};
     }
   }
 
   &:active {
-    background-color: ${({ theme, isGhost }) =>
-      isGhost ? "transparent" : theme.bg.primaryActive};
-    box-shadow: ${({ theme, isGhost }) =>
-      isGhost ? "none" : theme.shadows.buttonsColoredActive};
+    ${({ variant }) => styles.bodyActive[variant]};
 
     .button-title {
-      color: ${({ theme }) => theme.primary[700]};
+      color: ${({ theme, disabled }) =>
+        disabled ? theme.text.gray : theme.primary[700]};
+    }
+
+    .button-icon {
+      ${({ variant }) => styles.iconActive[variant]};
     }
   }
 `;
@@ -71,8 +72,9 @@ export const Button: FC<ButtonProps> = (props) => {
     title,
     icon,
     size = "l",
-    isGhost = false,
     type = "button",
+    variant = "primary",
+    disabled = false,
     onClick,
   } = props;
 
@@ -81,8 +83,9 @@ export const Button: FC<ButtonProps> = (props) => {
       type={type}
       params={PARAMS[size]}
       isIcon={!!icon}
-      isGhost={isGhost}
+      variant={variant}
       onClick={onClick}
+      disabled={disabled}
     >
       {icon && icons[icon]}
 

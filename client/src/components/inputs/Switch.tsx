@@ -5,12 +5,14 @@ import { SwitchProps } from "./interfaces";
 
 interface ISwitchStyled {
   active: boolean;
+  disabled: boolean;
 }
 
 const SwitchStyled = styled.button<ISwitchStyled>`
   display: flex;
   align-items: center;
   gap: 8px;
+  cursor: ${({ disabled }) => (disabled ? "default" : "pointer")};
 
   .switch-container {
     position: relative;
@@ -33,7 +35,7 @@ const SwitchStyled = styled.button<ISwitchStyled>`
       height: 12px;
       z-index: 50;
       background-color: ${({ theme, active }) =>
-        active ? theme.bg.primary : theme.bg.lightGray};
+        active ? theme.bg.primary : theme.bg.gray};
       border-radius: 6px;
       transition: 0.12s ease-in-out;
       transform: ${({ active }) =>
@@ -48,9 +50,19 @@ const SwitchStyled = styled.button<ISwitchStyled>`
   }
 `;
 
-export const Switch: FC<SwitchProps> = ({ value, title, onChange }) => {
+export const Switch: FC<SwitchProps> = ({
+  value,
+  title,
+  disabled = false,
+  onChange,
+}) => {
   return (
-    <SwitchStyled active={value} type="button" onClick={() => onChange(!value)}>
+    <SwitchStyled
+      active={value}
+      type="button"
+      disabled={disabled}
+      onClick={() => onChange(!value)}
+    >
       <div className="switch-container">
         <div className="switch-container-toggler" />
       </div>
