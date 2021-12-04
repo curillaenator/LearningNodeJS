@@ -1,9 +1,10 @@
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import { auth } from "./auth";
+import { tasks } from "./tasks";
 
 export const store = configureStore({
-  reducer: { auth },
+  reducer: { auth, tasks },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {

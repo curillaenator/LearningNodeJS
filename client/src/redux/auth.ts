@@ -40,7 +40,7 @@ const authSlice = createSlice({
       state.isRegister = action.payload;
     },
 
-    setLoading: (state, action: PayloadAction<boolean>) => {
+    setAuthLoading: (state, action: PayloadAction<boolean>) => {
       state.loading = action.payload;
     },
 
@@ -58,8 +58,13 @@ const authSlice = createSlice({
 });
 export const auth = authSlice.reducer;
 
-export const { setIsModalOpen, setIsRegister, setLoading, setError, setUser } =
-  authSlice.actions;
+export const {
+  setIsModalOpen,
+  setIsRegister,
+  setAuthLoading,
+  setError,
+  setUser,
+} = authSlice.actions;
 
 // THUNKS
 
@@ -72,7 +77,7 @@ export const initialize = (): Thunk => {
 
 export const userSignUp = (creds: UserCreds): Thunk => {
   return async (dispatch) => {
-    dispatch(setLoading(true));
+    dispatch(setAuthLoading(true));
 
     const response = await authAPI.signUp(creds);
 
@@ -81,7 +86,7 @@ export const userSignUp = (creds: UserCreds): Thunk => {
     if (typeof response === "string") {
       return batch(() => {
         dispatch(setError(response));
-        dispatch(setLoading(false));
+        dispatch(setAuthLoading(false));
       });
     }
 
@@ -90,7 +95,7 @@ export const userSignUp = (creds: UserCreds): Thunk => {
 
       batch(() => {
         dispatch(setIsRegister(false));
-        dispatch(setLoading(false));
+        dispatch(setAuthLoading(false));
       });
     }
   };
@@ -98,7 +103,7 @@ export const userSignUp = (creds: UserCreds): Thunk => {
 
 export const userSignIn = (creds: UserCreds): Thunk => {
   return async (dispatch) => {
-    dispatch(setLoading(true));
+    dispatch(setAuthLoading(true));
 
     const response = await authAPI.signIn(creds);
 
@@ -107,7 +112,7 @@ export const userSignIn = (creds: UserCreds): Thunk => {
     if (typeof response === "string") {
       return batch(() => {
         dispatch(setError(response));
-        dispatch(setLoading(false));
+        dispatch(setAuthLoading(false));
       });
     }
 
@@ -115,7 +120,7 @@ export const userSignIn = (creds: UserCreds): Thunk => {
 
     batch(() => {
       dispatch(setUser(response));
-      dispatch(setLoading(false));
+      dispatch(setAuthLoading(false));
       dispatch(setIsModalOpen(false));
     });
   };

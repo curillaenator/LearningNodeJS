@@ -21,6 +21,7 @@ export const theme = {
 
   text: {
     primary: colors.yellamerica[400],
+    primaryActive: colors.yellamerica[700],
 
     dark: colors.liver[900],
     darkGray: colors.liver[600],

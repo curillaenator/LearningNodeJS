@@ -6,6 +6,7 @@ export interface ButtonProps {
   type?: "submit" | "button";
   size?: "s" | "m" | "l" | "xl";
   variant?: "primary" | "ghost";
+  active?: boolean;
   disabled?: boolean;
   onClick?: () => void;
 }

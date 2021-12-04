@@ -75,6 +75,94 @@ export const icons = {
       />
     </svg>
   ),
+  folder: (
+    <svg
+      className="button-icon"
+      // width="20px"
+      // height="16px"
+      viewBox="0 0 20 16"
+      version="1.1"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g
+        id="Icons"
+        stroke="none"
+        strokeWidth="1"
+        fill="none"
+        fillRule="evenodd"
+      >
+        <g id="Rounded" transform="translate(-238.000000, -2284.000000)">
+          <g id="File" transform="translate(100.000000, 2226.000000)">
+            <g
+              id="-Round-/-File-/-create_new_folder"
+              transform="translate(136.000000, 54.000000)"
+            >
+              <g>
+                <polygon id="Path" points="0 0 24 0 24 24 0 24"></polygon>
+                <path
+                  d="M20,6 L12,6 L10.59,4.59 C10.21,4.21 9.7,4 9.17,4 L4,4 C2.89,4 2.01,4.89 2.01,6 L2,18 C2,19.11 2.89,20 4,20 L20,20 C21.1,20 22,19.1 22,18 L22,8 C22,6.9 21.1,6 20,6 Z M18,14 L16,14 L16,16 C16,16.55 15.55,17 15,17 C14.45,17 14,16.55 14,16 L14,14 L12,14 C11.45,14 11,13.55 11,13 C11,12.45 11.45,12 12,12 L14,12 L14,10 C14,9.45 14.45,9 15,9 C15.55,9 16,9.45 16,10 L16,12 L18,12 C18.55,12 19,12.45 19,13 C19,13.55 18.55,14 18,14 Z"
+                  id="🔹-Icon-Color"
+                  className="button-icon-dark"
+                ></path>
+              </g>
+            </g>
+          </g>
+        </g>
+      </g>
+    </svg>
+  ),
+  caret: (
+    <svg
+      className="button-icon"
+      // width="8px"
+      // height="5px"
+      viewBox="0 0 8 5"
+      version="1.1"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g
+        id="Icons"
+        stroke="none"
+        strokeWidth="1"
+        fill="none"
+        fillRule="evenodd"
+      >
+        <g id="Rounded" transform="translate(-482.000000, -3442.000000)">
+          <g id="Navigation" transform="translate(100.000000, 3378.000000)">
+            <g
+              id="-Round-/-Navigation-/-arrow_drop_down"
+              transform="translate(374.000000, 54.000000)"
+            >
+              <g>
+                <polygon id="Path" points="0 0 24 0 24 24 0 24"></polygon>
+                <path
+                  d="M8.71,11.71 L11.3,14.3 C11.69,14.69 12.32,14.69 12.71,14.3 L15.3,11.71 C15.93,11.08 15.48,10 14.59,10 L9.41,10 C8.52,10 8.08,11.08 8.71,11.71 Z"
+                  id="🔹-Icon-Color"
+                  className="button-icon-dark"
+                ></path>
+              </g>
+            </g>
+          </g>
+        </g>
+      </g>
+    </svg>
+  ),
+  point: (
+    <svg
+      className="button-icon"
+      xmlns="http://www.w3.org/2000/svg"
+      x="0px"
+      y="0px"
+      version="1.1"
+      viewBox="0 0 16 16"
+    >
+      <path
+        className="button-icon-light"
+        d="M8.5,0C4.358,0,1,3.358,1,7.5S4.358,15,8.5,15S16,11.642,16,7.5S12.642,0,8.5,0z M8.5,13C5.468,13,3,10.533,3,7.5 S5.468,2,8.5,2S14,4.467,14,7.5S11.532,13,8.5,13z"
+      />
+      <circle cx="8.5" cy="7.5" r="4.5" className="button-icon-dark" />
+    </svg>
+  ),
 };
 
 export type IconType = keyof typeof icons;
