@@ -10,8 +10,9 @@ export const useRoutes: UseRoutesHook = (isUserAuthed) => {
   if (isUserAuthed)
     return (
       <Switch>
-        <Route path="/projects" render={() => <ProjectsPage />} />
-        <Redirect to="/projects" />
+        <Route path="/projects/:projectId?" render={() => <ProjectsPage />} />
+        {/* <Route path="/projects" render={() => <ProjectsPage />} /> */}
+        <Redirect to="/projects/" />
       </Switch>
     );
 

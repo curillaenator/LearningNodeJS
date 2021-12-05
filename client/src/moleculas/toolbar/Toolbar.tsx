@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { useProjectToolbarMenu } from "./hooks/useProjectToolbarMenu";
 
 import { Button } from "../../components/buttons";
+// import { Loader } from "../../components/loader";
 import { Dropdown, Menu } from "../../components/dropdown";
 
 import { ToolbarProps } from "./interfaces";
@@ -26,7 +27,7 @@ const ToolbarStyled = styled.div`
 `;
 
 export const Toolbar: FC<ToolbarProps> = () => {
-  const [currentProject, selectableProjects, openCreateProjectModal] =
+  const [currentProject, selectableProjects, openCreateProjectModal, loading] =
     useProjectToolbarMenu();
 
   return (
@@ -37,6 +38,7 @@ export const Toolbar: FC<ToolbarProps> = () => {
           title="Create new project"
           size="l"
           onClick={openCreateProjectModal}
+          // disabled={loading}
         />
 
         <span className="tb-projects-or">or</span>
@@ -48,10 +50,12 @@ export const Toolbar: FC<ToolbarProps> = () => {
           position="bottom left"
         >
           {(close: () => void) => (
-            <Menu items={selectableProjects} close={close} maxHeight="128px" />
+            <Menu items={selectableProjects} close={close} maxHeight="172px" />
           )}
         </Dropdown>
       </div>
+
+      {/* <div className="tb-status">{loading && <Loader />}</div> */}
     </ToolbarStyled>
   );
 };

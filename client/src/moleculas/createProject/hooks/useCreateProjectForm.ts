@@ -16,7 +16,7 @@ import {
 
 export const useCreateProjectForm: UseCreateProjectForm = () => {
   const dispatch = useAppDispatch();
-  const { error } = useAppSelector((state) => state.projects);
+  const { error, loading } = useAppSelector((state) => state.projects);
 
   const [title, setProjectTitle] = useState<string>("");
   const [errors, setErrors] = useState<FormErrors>({});
@@ -55,5 +55,5 @@ export const useCreateProjectForm: UseCreateProjectForm = () => {
     return "";
   };
 
-  return [formValues, formHandlers, submit, errors, getDescription];
+  return [formValues, formHandlers, submit, errors, getDescription, loading];
 };

@@ -1,17 +1,42 @@
 import axios from "axios";
 
-import { Project, CreateProjectResponse } from "../common";
+import {
+  Project,
+  CreateProjectResponse,
+  GetAvailableProjectsResponse,
+} from "../common";
 
 const base = axios.create({ baseURL: "http://localhost:3300/api/" });
 
 interface ProjectsAPI {
-  createProject: (project: Project) => Promise<CreateProjectResponse | string>;
+  createProject: (
+    project: Project,
+    token: string
+  ) => Promise<CreateProjectResponse | string>;
+
+  getAvailableProjects: (
+    token: string
+  ) => Promise<GetAvailableProjectsResponse | string>;
 }
 
 export const projectsAPI: ProjectsAPI = {
-  createProject: (project) => {
+  createProject: (project, token) => {
+    base.defaults.headers.common["Authorization"] = token;
+
     return base
       .post("/projects/create", project)
+      .then((r) => r.data)
+      .catch((err) => {
+        const errParsed = err.toJSON();
+        return errParsed.message;
+      });
+  },
+
+  getAvailableProjects: (token) => {
+    base.defaults.headers.common["Authorization"] = token;
+
+    return base
+      .get("/projects/available")
       .then((r) => r.data)
       .catch((err) => {
         const errParsed = err.toJSON();

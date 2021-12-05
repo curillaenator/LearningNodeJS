@@ -20,5 +20,6 @@ export type UseCreateProjectForm = () => [
   FormHandlers,
   (e: FormEvent) => void,
   FormErrors,
-  (field: DescriptionFileds) => string
+  (field: DescriptionFileds) => string,
+  boolean
 ];

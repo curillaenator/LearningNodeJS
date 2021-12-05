@@ -3,6 +3,7 @@ export interface User {
   token: string;
   name?: string;
   avatarURL?: string;
+  // lastProjectId?: string;
 }
 
 export interface UserCreds {

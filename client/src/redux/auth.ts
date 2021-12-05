@@ -70,8 +70,16 @@ export const {
 
 export const initialize = (): Thunk => {
   return async (dispatch) => {
+    // dispatch(setAuthLoading(true));
+
     const user = localStorage.getItem(USER_DATA);
-    if (user) dispatch(setUser(JSON.parse(user)));
+
+    if (user) {
+      batch(() => {
+        dispatch(setUser(JSON.parse(user)));
+        // dispatch(setAuthLoading(false));
+      });
+    }
   };
 };
 
@@ -81,7 +89,7 @@ export const userSignUp = (creds: UserCreds): Thunk => {
 
     const response = await authAPI.signUp(creds);
 
-    console.log(response);
+    // console.log(response);
 
     if (typeof response === "string") {
       return batch(() => {

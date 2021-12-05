@@ -1,53 +1,36 @@
 import { useEffect } from "react";
+import { useHistory } from "react-router-dom";
 
 import {
   useAppDispatch,
   useAppSelector,
   setCreateProjectModalOpen,
-  setAvailableProjects,
-  setCurrentProject,
-  Project,
+  getAvailableProjects,
 } from "../../../redux";
 
-const projectsMOCK = [
-  { id: "svsfsaas", title: "Project one" },
-  { id: "dsgsdg", title: "Project two" },
-  { id: "xcbxcb", title: "Project three" },
-  { id: "cvncvn", title: "Project four" },
-];
-
-interface ProjectWithHandler extends Project {
-  onClick: (project: { id: string; title: string }) => void;
-}
-
-type UseProjectToolbarMenu = () => [
-  Project | null,
-  ProjectWithHandler[],
-  () => void
-];
+import { UseProjectToolbarMenu } from "./intergaces";
 
 export const useProjectToolbarMenu: UseProjectToolbarMenu = () => {
   const dispatch = useAppDispatch();
+  const history = useHistory();
 
-  const { currentProject, availableProjects } = useAppSelector(
+  const { currentProject, availableProjects, loading } = useAppSelector(
     (state) => state.projects
   );
 
   useEffect(() => {
-    dispatch(setAvailableProjects(projectsMOCK));
+    dispatch(getAvailableProjects());
   }, []);
 
   const selectableProjects = availableProjects.map((project) => ({
-    id: project.id,
+    id: project._id,
     title: project.title,
-    onClick: (item: { id: string; title: string }) => {
-      dispatch(setCurrentProject(item));
-    },
+    onClick: () => history.push(`/projects/${project._id}`),
   }));
 
   const openCreateProjectModal = () => {
     dispatch(setCreateProjectModalOpen(true));
   };
 
-  return [currentProject, selectableProjects, openCreateProjectModal];
+  return [currentProject, selectableProjects, openCreateProjectModal, loading];
 };

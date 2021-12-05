@@ -12,14 +12,14 @@ import { MainPage } from "./pages/MainPage";
 import "./index.css";
 
 render(
-  // <StrictMode>
-  <Provider store={store}>
-    <BrowserRouter>
-      <ThemeProvider theme={theme}>
-        <MainPage />
-      </ThemeProvider>
-    </BrowserRouter>
-  </Provider>,
-  // </StrictMode>,
+  <StrictMode>
+    <Provider store={store}>
+      <BrowserRouter>
+        <ThemeProvider theme={theme}>
+          <MainPage />
+        </ThemeProvider>
+      </BrowserRouter>
+    </Provider>
+  </StrictMode>,
   document.getElementById("root")
 );

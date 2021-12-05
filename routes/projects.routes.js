@@ -15,7 +15,7 @@ router.post(
     console.log("Body: ", req.body);
 
     try {
-      const baseURL = config.get("baseURL");
+      // const baseURL = config.get("baseURL");
 
       // const errors = validationResult(req);
 
@@ -28,7 +28,7 @@ router.post(
 
       const { title } = req.body;
 
-      const project = new Project({ title, owner: req.userID });
+      const project = new Project({ title, owner: req.user.userID });
 
       await project.save();
 
@@ -46,7 +46,7 @@ router.get("/available", checkAuth, async (req, res) => {
   try {
     const availableProjects = await Project.find({ owner: req.user.userID });
 
-    res.json(availableProjects);
+    res.json({ status: 201, availableProjects });
   } catch (error) {
     res.status(500).json({ message: "Something went wrong, try again" });
   }

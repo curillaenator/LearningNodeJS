@@ -1,4 +1,4 @@
-import React, { FC, FormEvent } from "react";
+import React, { FC } from "react";
 import styled from "styled-components";
 
 import { Button } from "../../components/buttons";
@@ -52,14 +52,14 @@ const CreateProjectStyled = styled.form`
 `;
 
 export const CreateProject: FC<CreateProjectProps> = ({ close }) => {
-  const [values, handlers, submit, errors, getDescription] =
+  const [values, handlers, submit, errors, getDescription, loading] =
     useCreateProjectForm();
 
   return (
     <CreateProjectStyled onSubmit={submit}>
       <div className="form-header">
         <h1 className="form-header-title">Create new project</h1>
-        <Loader size="s" />
+        {loading && <Loader size="s" />}
       </div>
 
       <div className="form-body">
@@ -87,8 +87,19 @@ export const CreateProject: FC<CreateProjectProps> = ({ close }) => {
       </div>
 
       <div className="form-buttons">
-        <Button variant="ghost" title="Close" onClick={close} />
-        <Button icon="add" type="submit" title="Create project" />
+        <Button
+          variant="ghost"
+          title="Close"
+          onClick={close}
+          disabled={loading}
+        />
+
+        <Button
+          icon="add"
+          type="submit"
+          title="Create project"
+          disabled={loading}
+        />
       </div>
     </CreateProjectStyled>
   );

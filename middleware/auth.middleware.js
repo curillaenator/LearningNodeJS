@@ -4,12 +4,12 @@ const config = require("config");
 module.exports = (req, res, next) => {
   if (req.method === "OPTIONS") return next();
 
-  console.log(req.headers);
+  // console.log(req.headers);
 
   try {
-    const token = req.headers.authorization.split(" ")[1];
+    const token = req.headers.authorization; //.split(" ")[1];
 
-    console.log(token);
+    // console.log(token);
 
     if (!token) {
       return res.status(401).json({ message: "User is not authorized" });
@@ -17,7 +17,7 @@ module.exports = (req, res, next) => {
 
     const decoded = jwt.verify(token, config.get("jwtKey"));
 
-    console.log(decoded);
+    // console.log(decoded);
 
     req.user = decoded;
 

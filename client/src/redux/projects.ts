@@ -58,10 +58,11 @@ export const {
 // THINKS
 
 export const createNewProject = (project: Project): Thunk => {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
     dispatch(setProjectsLoading(true));
 
-    const response = await projectsAPI.createProject(project);
+    const token = getState().auth.token;
+    const response = await projectsAPI.createProject(project, token);
 
     if (typeof response === "string") {
       return batch(() => {
@@ -71,10 +72,37 @@ export const createNewProject = (project: Project): Thunk => {
     }
 
     if (response.status === 201) {
+      batch(() => {
+        dispatch(setCreateProjectModalOpen(false));
+        dispatch(setProjectsLoading(false));
+        dispatch(getAvailableProjects());
+        dispatch(setCurrentProject(response.project));
+      });
+
       alert(response.message);
+    }
+  };
+};
+
+export const getAvailableProjects = (): Thunk => {
+  return async (dispatch, getState) => {
+    dispatch(setProjectsLoading(true));
+
+    const token = getState().auth.token;
+    const response = await projectsAPI.getAvailableProjects(token);
+
+    if (typeof response === "string") {
+      return batch(() => {
+        dispatch(setProjectsError(response));
+        dispatch(setProjectsLoading(false));
+      });
+    }
+
+    if (response.status === 201) {
+      // console.log(response);
 
       batch(() => {
-        // dispatch(setIsRegister(false));
+        dispatch(setAvailableProjects(response.availableProjects));
         dispatch(setProjectsLoading(false));
       });
     }
