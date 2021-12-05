@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import {
   useAppDispatch,
   useAppSelector,
+  setCreateProjectModalOpen,
   setAvailableProjects,
   setCurrentProject,
   Project,
@@ -19,13 +20,17 @@ interface ProjectWithHandler extends Project {
   onClick: (project: { id: string; title: string }) => void;
 }
 
-type UseProjectSelector = () => [Project | null, ProjectWithHandler[]];
+type UseProjectToolbarMenu = () => [
+  Project | null,
+  ProjectWithHandler[],
+  () => void
+];
 
-export const useProjectSelector: UseProjectSelector = () => {
+export const useProjectToolbarMenu: UseProjectToolbarMenu = () => {
   const dispatch = useAppDispatch();
 
   const { currentProject, availableProjects } = useAppSelector(
-    (state) => state.tasks
+    (state) => state.projects
   );
 
   useEffect(() => {
@@ -40,5 +45,9 @@ export const useProjectSelector: UseProjectSelector = () => {
     },
   }));
 
-  return [currentProject, selectableProjects];
+  const openCreateProjectModal = () => {
+    dispatch(setCreateProjectModalOpen(true));
+  };
+
+  return [currentProject, selectableProjects, openCreateProjectModal];
 };

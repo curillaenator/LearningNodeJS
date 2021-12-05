@@ -14,7 +14,7 @@ import { Login } from "../moleculas/login";
 import { Modal } from "../components/modal";
 
 const MainStyled = styled.div`
-  min-width: 320px;
+  min-width: 1024px;
   color: ${({ theme }) => theme.text.dark};
 `;
 

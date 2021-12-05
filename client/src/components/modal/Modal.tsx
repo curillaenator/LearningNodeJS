@@ -13,7 +13,7 @@ const appear = keyframes`
 
 const PopupStyled = styled(Popup)`
   &-overlay {
-    min-width: 320px;
+    min-width: 1024px;
     padding: 0 8px;
     background-color: ${({ theme }) => theme.modal.matte};
     animation: ${appear} 0.12s linear;

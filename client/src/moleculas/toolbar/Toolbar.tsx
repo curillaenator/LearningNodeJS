@@ -1,14 +1,7 @@
-import React, { FC, useEffect } from "react";
+import React, { FC } from "react";
 import styled from "styled-components";
 
-import {
-  useAppDispatch,
-  useAppSelector,
-  setAvailableProjects,
-  setCurrentProject,
-} from "../../redux";
-
-import { useProjectSelector } from "./hooks/useProjectSelector";
+import { useProjectToolbarMenu } from "./hooks/useProjectToolbarMenu";
 
 import { Button } from "../../components/buttons";
 import { Dropdown, Menu } from "../../components/dropdown";
@@ -33,12 +26,18 @@ const ToolbarStyled = styled.div`
 `;
 
 export const Toolbar: FC<ToolbarProps> = () => {
-  const [currentProject, selectableProjects] = useProjectSelector();
+  const [currentProject, selectableProjects, openCreateProjectModal] =
+    useProjectToolbarMenu();
 
   return (
     <ToolbarStyled>
       <div className="tb-projects">
-        <Button icon="add" title="Create new project" size="l" />
+        <Button
+          icon="add"
+          title="Create new project"
+          size="l"
+          onClick={openCreateProjectModal}
+        />
 
         <span className="tb-projects-or">or</span>
 

@@ -12,6 +12,8 @@ router.post(
   checkAuth,
   // [check("title", "Минимум 8 символов").isLength({ min: 8 })],
   async (req, res) => {
+    console.log("Body: ", req.body);
+
     try {
       const baseURL = config.get("baseURL");
 

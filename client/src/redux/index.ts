@@ -1,3 +1,3 @@
 export * from "./store";
 export * from "./auth";
-export * from "./tasks";
+export * from "./projects";

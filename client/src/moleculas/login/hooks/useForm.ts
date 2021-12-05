@@ -1,9 +1,13 @@
 import { useState, useEffect, FormEvent } from "react";
 import { FormErrors, UseFormHook } from "../interfaces";
 
-import { useAppDispatch, useAppSelector } from "../../../redux";
-
-import { userSignIn, userSignUp, setIsRegister } from "../../../redux";
+import {
+  useAppDispatch,
+  useAppSelector,
+  userSignIn,
+  userSignUp,
+  setIsRegister,
+} from "../../../redux";
 
 export const useForm: UseFormHook = () => {
   const dispatch = useAppDispatch();
