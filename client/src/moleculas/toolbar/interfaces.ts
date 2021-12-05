@@ -1,6 +1,7 @@
 export interface AvailableProject {
   id: string;
-  name: string;
+  title: string;
+  onClick: () => void;
 }
 
 export interface ToolbarProps {

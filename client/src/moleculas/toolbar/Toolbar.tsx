@@ -2,8 +2,7 @@ import React, { FC } from "react";
 import styled from "styled-components";
 
 import { Button } from "../../components/buttons";
-import { Dropdown } from "../../components/dropdown";
-import { Menu } from "./components/Menu";
+import { Dropdown, Menu } from "../../components/dropdown";
 
 import { ToolbarProps } from "./interfaces";
 
@@ -34,13 +33,9 @@ export const Toolbar: FC<ToolbarProps> = (props) => {
 
         <span className="tb-projects-or">or</span>
 
-        <Dropdown
-          triggerTitle="Chose existing"
-          position="bottom left"
-          offsetY={12}
-        >
+        <Dropdown triggerTitle="Chose existing" position="bottom left">
           {(close: () => void) => (
-            <Menu availableProjects={availableProjects} close={close} />
+            <Menu items={availableProjects} close={close} maxHeight="128px" />
           )}
         </Dropdown>
       </div>

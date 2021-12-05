@@ -4,6 +4,18 @@ export interface TriggerProps {
   size?: "s" | "m" | "l" | "xl";
 }
 
+interface Item {
+  id: string;
+  title: string;
+  onClick: () => void;
+}
+
+export interface MenuProps {
+  maxHeight: string;
+  items: Item[];
+  close: () => void;
+}
+
 export interface ButtonParams {
   h: string;
   padding: string;

@@ -9,10 +9,10 @@ const TaskPageStyled = styled.div`
 
 export const TaskPage: FC = () => {
   const availableProjects = [
-    { id: "svsfsaas", name: "Project one" },
-    { id: "dsgsdg", name: "Project two" },
-    { id: "xcbxcb", name: "Project three" },
-    { id: "cvncvn", name: "Project four" },
+    { id: "svsfsaas", title: "Project one", onClick: () => {} },
+    { id: "dsgsdg", title: "Project two", onClick: () => {} },
+    { id: "xcbxcb", title: "Project three", onClick: () => {} },
+    { id: "cvncvn", title: "Project four", onClick: () => {} },
   ];
 
   return (

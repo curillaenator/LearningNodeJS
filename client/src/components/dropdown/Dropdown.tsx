@@ -33,7 +33,7 @@ export const Dropdown: FC<DropdownProps> = (props) => {
     triggerTitle,
     trigger,
     position = "bottom right",
-    offsetY = 0,
+    offsetY = 12,
     children,
   } = props;
 
