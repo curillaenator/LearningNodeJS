@@ -2,6 +2,7 @@
   "port": 3300,
   "jwtKey": "secret key you're not gonna guess ever",
   "mongoURI": "mongodb+srv://curillaenator:Dictator111@clusterart.12r6y.mongodb.net/taskManager?retryWrites=true&w=majority",
+  "baseURL": "http://localhost:3300",
   "mongoApiKey": "v99fteOAFionOh5VQv9NDORwzq629Bm2VXfDdM90hnfr94vLGmU2toTkcmXCY3AL",
   "mongoApiURL": "https://data.mongodb-api.com/app/data-qdfku/endpoint/data/beta"
 }

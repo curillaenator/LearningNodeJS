@@ -1,5 +1,14 @@
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import styled from "styled-components";
+
+import {
+  useAppDispatch,
+  useAppSelector,
+  setAvailableProjects,
+  setCurrentProject,
+} from "../../redux";
+
+import { useProjectSelector } from "./hooks/useProjectSelector";
 
 import { Button } from "../../components/buttons";
 import { Dropdown, Menu } from "../../components/dropdown";
@@ -23,8 +32,8 @@ const ToolbarStyled = styled.div`
   }
 `;
 
-export const Toolbar: FC<ToolbarProps> = (props) => {
-  const { availableProjects = [] } = props;
+export const Toolbar: FC<ToolbarProps> = () => {
+  const [currentProject, selectableProjects] = useProjectSelector();
 
   return (
     <ToolbarStyled>
@@ -33,9 +42,14 @@ export const Toolbar: FC<ToolbarProps> = (props) => {
 
         <span className="tb-projects-or">or</span>
 
-        <Dropdown triggerTitle="Chose existing" position="bottom left">
+        <Dropdown
+          triggerTitle={
+            currentProject ? currentProject.title : "Chose existing"
+          }
+          position="bottom left"
+        >
           {(close: () => void) => (
-            <Menu items={availableProjects} close={close} maxHeight="128px" />
+            <Menu items={selectableProjects} close={close} maxHeight="128px" />
           )}
         </Dropdown>
       </div>

@@ -36,7 +36,7 @@ export const Menu: FC<MenuProps> = (props) => {
               icon="point"
               title={item.title}
               onClick={() => {
-                item.onClick();
+                item.onClick({ id: item.id, title: item.title });
                 close();
               }}
             />

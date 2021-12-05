@@ -7,7 +7,7 @@ export interface TriggerProps {
 interface Item {
   id: string;
   title: string;
-  onClick: () => void;
+  onClick: (item: { id: string; title: string }) => void;
 }
 
 export interface MenuProps {

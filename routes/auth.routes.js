@@ -1,26 +1,13 @@
-const axios = require("axios");
+// const axios = require("axios");
 const { check, validationResult } = require("express-validator");
 const { Router } = require("express");
 const config = require("config");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
+const User = require("../models/User");
+
 const router = Router();
-
-const base = axios.create({
-  baseURL: config.get("mongoApiURL"),
-  headers: {
-    "Content-Type": "application/json",
-    "Access-Control-Request-Headers": "*",
-    "api-key": config.get("mongoApiKey"),
-  },
-});
-
-const data = {
-  dataSource: "ClusterArt",
-  database: "taskManager",
-  collection: "users",
-};
 
 router.post(
   "/register",
@@ -29,48 +16,40 @@ router.post(
     check("password", "Минимум 8 символов").isLength({ min: 8 }),
   ],
   async (req, res) => {
-    // console.log("Body: ", req.body);
+    console.log("Body: ", req.body);
 
-    const errors = validationResult(req);
+    try {
+      const errors = validationResult(req);
 
-    if (!errors.isEmpty()) {
-      res.status(400).json({
-        errors: errors.array(),
-        message: "Invalid registration data",
-      });
+      if (!errors.isEmpty()) {
+        res.status(400).json({
+          errors: errors.array(),
+          message: "Invalid registration data",
+        });
+      }
+
+      const { email, password } = req.body;
+
+      const isUser = await User.findOne({ email });
+
+      console.log("is user: ", isUser);
+
+      if (isUser) {
+        return res.status(400).json({ message: "Email is already used" });
+      }
+
+      const hashedPassword = await bcrypt.hash(password, 12);
+
+      const user = new User({ email, password: hashedPassword });
+
+      await user.save();
+
+      res
+        .status(201)
+        .json({ status: 201, message: "User created, please sign in!" });
+    } catch (error) {
+      res.status(500).json({ message: "Something went wrong, try again" });
     }
-
-    const { email, password } = req.body;
-
-    const isUser = await base
-      .post("/action/findOne", { ...data, filter: { email } })
-      .then((r) => r.data.document);
-
-    console.log("is user: ", isUser);
-
-    if (isUser) {
-      return res.status(400).json({ message: "Email is already used" });
-    }
-
-    const hashedPassword = await bcrypt.hash(password, 12);
-
-    const document = {
-      ...data,
-      document: { email, password: hashedPassword },
-    };
-
-    base
-      .post("/action/insertOne", document)
-      .then((r) => {
-        res
-          .status(201)
-          .json({ status: r.status, message: "User created, please sign in!" });
-        console.log(r.data);
-      })
-      .catch(() => {
-        res.status(500).json({ message: "Something went wrong, try again" });
-        console.log("post error");
-      });
   }
 );
 
@@ -81,7 +60,7 @@ router.post(
     check("password", "Введите пароль").exists(),
   ],
   async (req, res) => {
-    // console.log("BODY", req.body);
+    console.log("Body: ", req.body);
 
     try {
       const errors = validationResult(req);
@@ -94,11 +73,9 @@ router.post(
 
       const { email, password } = req.body;
 
-      // const user = await User.findOne({ email });
+      const user = await User.findOne({ email });
 
-      const user = await base
-        .post("/action/findOne", { ...data, filter: { email } })
-        .then((r) => r.data.document);
+      console.log(user);
 
       if (!user) {
         return res.status(400).json({ message: "Try again" });
