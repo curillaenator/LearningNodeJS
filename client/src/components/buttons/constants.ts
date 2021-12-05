@@ -27,7 +27,7 @@ export const PARAMS: { [size: string]: ButtonParams } = {
     fontsize: "14px",
     radius: "10px",
     gap: "10px",
-    iconsize: "18px",
+    iconsize: "16px",
     iconPadding: "0 12px 0 10px",
   },
 

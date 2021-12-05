@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import Popup from "reactjs-popup";
 import styled, { keyframes } from "styled-components";
 
+import { Trigger } from "./components/Trigger";
 import { DropdownProps } from "./interfaces";
 
 const appear = keyframes`
@@ -28,11 +29,25 @@ const PopupStyled = styled(Popup)`
 `;
 
 export const Dropdown: FC<DropdownProps> = (props) => {
-  const { trigger, position = "bottom right", offsetY = 0, children } = props;
+  const {
+    triggerTitle,
+    trigger,
+    position = "bottom right",
+    offsetY = 0,
+    children,
+  } = props;
 
   return (
     <PopupStyled
-      trigger={trigger}
+      trigger={
+        trigger
+          ? trigger
+          : (open) => (
+              <div>
+                <Trigger active={open} title={triggerTitle} size="l" />
+              </div>
+            )
+      }
       position={position}
       offsetY={offsetY}
       arrow={false}

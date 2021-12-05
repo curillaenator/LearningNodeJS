@@ -1,6 +1,6 @@
 export interface TriggerProps {
-  title: string;
-  active: boolean;
+  title?: string;
+  active?: boolean;
   size?: "s" | "m" | "l" | "xl";
 }
 

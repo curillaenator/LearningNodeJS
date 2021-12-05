@@ -111,40 +111,16 @@ export const icons = {
       </g>
     </svg>
   ),
-  caret: (
+  add: (
     <svg
       className="button-icon"
-      // width="8px"
-      // height="5px"
-      viewBox="0 0 8 5"
-      version="1.1"
+      viewBox="0 0 18 18"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g
-        id="Icons"
-        stroke="none"
-        strokeWidth="1"
-        fill="none"
-        fillRule="evenodd"
-      >
-        <g id="Rounded" transform="translate(-482.000000, -3442.000000)">
-          <g id="Navigation" transform="translate(100.000000, 3378.000000)">
-            <g
-              id="-Round-/-Navigation-/-arrow_drop_down"
-              transform="translate(374.000000, 54.000000)"
-            >
-              <g>
-                <polygon id="Path" points="0 0 24 0 24 24 0 24"></polygon>
-                <path
-                  d="M8.71,11.71 L11.3,14.3 C11.69,14.69 12.32,14.69 12.71,14.3 L15.3,11.71 C15.93,11.08 15.48,10 14.59,10 L9.41,10 C8.52,10 8.08,11.08 8.71,11.71 Z"
-                  id="🔹-Icon-Color"
-                  className="button-icon-dark"
-                ></path>
-              </g>
-            </g>
-          </g>
-        </g>
-      </g>
+      <path
+        className="button-icon-dark"
+        d="M16 0H2a2.006 2.006 0 0 0-2 2v14a2.006 2.006 0 0 0 2 2h14a2.006 2.006 0 0 0 2-2V2a2.006 2.006 0 0 0-2-2zm0 10a1 1 0 0 1-1 1h-4v4a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1v-4H3a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1h4V3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4h4a1 1 0 0 1 1 1v2z"
+      />
     </svg>
   ),
   point: (

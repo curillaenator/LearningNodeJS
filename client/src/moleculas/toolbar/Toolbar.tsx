@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import styled from "styled-components";
 
 import { Button } from "../../components/buttons";
-import { Dropdown, Trigger } from "../../components/dropdown";
+import { Dropdown } from "../../components/dropdown";
 import { Menu } from "./components/Menu";
 
 import { ToolbarProps } from "./interfaces";
@@ -17,6 +17,10 @@ const ToolbarStyled = styled.div`
     display: flex;
     align-items: center;
     gap: 16px;
+
+    &-or {
+      color: ${({ theme }) => theme.text.gray};
+    }
   }
 `;
 
@@ -26,18 +30,14 @@ export const Toolbar: FC<ToolbarProps> = (props) => {
   return (
     <ToolbarStyled>
       <div className="tb-projects">
-        <Button icon="folder" title="Create new project" size="l" />
+        <Button icon="add" title="Create new project" size="l" />
 
-        <span>or</span>
+        <span className="tb-projects-or">or</span>
 
         <Dropdown
+          triggerTitle="Chose existing"
           position="bottom left"
           offsetY={12}
-          trigger={(open) => (
-            <div>
-              <Trigger active={open} title="Chose existing" size="l" />
-            </div>
-          )}
         >
           {(close: () => void) => (
             <Menu availableProjects={availableProjects} close={close} />
