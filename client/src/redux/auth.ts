@@ -7,7 +7,8 @@ import { Thunk, User, UserCreds, NullUser } from "../common";
 const USER_DATA = "userData";
 
 interface AuthState {
-  isModalOpen: boolean;
+  isProfileModalOpen: boolean;
+  isAuthModalOpen: boolean;
   isRegister: boolean;
   loading: boolean;
   error: string;
@@ -18,7 +19,8 @@ interface AuthState {
 }
 
 const initialState: AuthState = {
-  isModalOpen: false,
+  isProfileModalOpen: false,
+  isAuthModalOpen: false,
   isRegister: false,
   loading: false,
   error: "",
@@ -32,8 +34,12 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    setIsModalOpen: (state, action: PayloadAction<boolean>) => {
-      state.isModalOpen = action.payload;
+    setProfileModalOpen: (state, action: PayloadAction<boolean>) => {
+      state.isProfileModalOpen = action.payload;
+    },
+
+    setAuthModalOpen: (state, action: PayloadAction<boolean>) => {
+      state.isAuthModalOpen = action.payload;
     },
 
     setIsRegister: (state, action: PayloadAction<boolean>) => {
@@ -59,7 +65,8 @@ const authSlice = createSlice({
 export const auth = authSlice.reducer;
 
 export const {
-  setIsModalOpen,
+  setProfileModalOpen,
+  setAuthModalOpen,
   setIsRegister,
   setAuthLoading,
   setError,
@@ -129,7 +136,7 @@ export const userSignIn = (creds: UserCreds): Thunk => {
     batch(() => {
       dispatch(setUser(response));
       dispatch(setAuthLoading(false));
-      dispatch(setIsModalOpen(false));
+      dispatch(setAuthModalOpen(false));
     });
   };
 };

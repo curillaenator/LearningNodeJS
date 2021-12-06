@@ -36,7 +36,7 @@ export const projectsAPI: ProjectsAPI = {
     base.defaults.headers.common["Authorization"] = token;
 
     return base
-      .get("/projects/available")
+      .get("/projects/owned")
       .then((r) => r.data)
       .catch((err) => {
         const errParsed = err.toJSON();

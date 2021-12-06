@@ -1,7 +1,11 @@
 import React, { FC } from "react";
 import styled from "styled-components";
 
-import { useAppDispatch, userSignOut } from "../../../redux";
+import {
+  useAppDispatch,
+  userSignOut,
+  setProfileModalOpen,
+} from "../../../redux";
 
 import { Button } from "../../../components/buttons";
 
@@ -31,7 +35,10 @@ export const UserMenu: FC<UserMenuProps> = ({ close }) => {
         variant="ghost"
         title="Profile"
         size="m"
-        onClick={close}
+        onClick={() => {
+          dispatch(setProfileModalOpen(true));
+          close();
+        }}
       />
 
       <Button

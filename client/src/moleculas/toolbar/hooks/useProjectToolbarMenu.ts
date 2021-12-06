@@ -14,7 +14,7 @@ export const useProjectToolbarMenu: UseProjectToolbarMenu = () => {
   const dispatch = useAppDispatch();
   const history = useHistory();
 
-  const { currentProject, availableProjects, loading } = useAppSelector(
+  const { currentProject, ownedProjects, loading } = useAppSelector(
     (state) => state.projects
   );
 
@@ -22,7 +22,7 @@ export const useProjectToolbarMenu: UseProjectToolbarMenu = () => {
     dispatch(getAvailableProjects());
   }, []);
 
-  const selectableProjects = availableProjects.map((project) => ({
+  const selectableProjects = ownedProjects.map((project) => ({
     id: project._id,
     title: project.title,
     onClick: () => history.push(`/projects/${project._id}`),

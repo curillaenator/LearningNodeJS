@@ -8,7 +8,7 @@ interface ProjectState {
   error: string;
   isCreateProjectModalOpen: boolean;
   currentProject: Project | null;
-  availableProjects: Project[];
+  ownedProjects: Project[];
 }
 
 const initialState: ProjectState = {
@@ -16,7 +16,7 @@ const initialState: ProjectState = {
   error: "",
   isCreateProjectModalOpen: false,
   currentProject: null,
-  availableProjects: [],
+  ownedProjects: [],
 };
 
 const projectsSlice = createSlice({
@@ -40,7 +40,7 @@ const projectsSlice = createSlice({
     },
 
     setAvailableProjects: (state, action: PayloadAction<Project[]>) => {
-      state.availableProjects = action.payload;
+      state.ownedProjects = action.payload;
     },
   },
 });

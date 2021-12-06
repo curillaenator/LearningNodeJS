@@ -14,18 +14,18 @@ export const useProjectsPage: UseProjectsPage = () => {
   const { projectId } = useParams<{ projectId: string }>();
 
   const dispatch = useAppDispatch();
-  const { currentProject, availableProjects, isCreateProjectModalOpen } =
+  const { currentProject, ownedProjects, isCreateProjectModalOpen } =
     useAppSelector((state) => state.projects);
 
   useEffect(() => {
-    const foundProject = availableProjects.find(
+    const foundProject = ownedProjects.find(
       (project) => project._id === projectId
     );
 
     if (projectId && foundProject) {
       dispatch(setCurrentProject(foundProject));
     }
-  }, [projectId, availableProjects, dispatch]);
+  }, [projectId, ownedProjects, dispatch]);
 
   const closeCreateProjectModal = () => {
     dispatch(setCreateProjectModalOpen(false));
