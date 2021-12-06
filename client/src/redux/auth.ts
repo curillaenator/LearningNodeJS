@@ -55,7 +55,7 @@ const authSlice = createSlice({
     },
 
     setUser: (state, action: PayloadAction<User>) => {
-      state.userID = action.payload.userID;
+      state.userID = action.payload._id;
       state.token = action.payload.token;
       if (action.payload.userName) state.userName = action.payload.userName;
       if (action.payload.avatarURL) state.avatarURL = action.payload.avatarURL;
@@ -162,15 +162,15 @@ export const userUpdate = (data: UpdateData): Thunk => {
       });
     }
 
-    const storedUserData = localStorage.getItem(USER_DATA);
+    // const storedUserData = localStorage.getItem(USER_DATA);
 
-    if (response.status === 201 && storedUserData) {
-      const user = JSON.parse(storedUserData);
-      localStorage.setItem(USER_DATA, JSON.stringify({ ...user, ...data }));
-    }
+    // if (response.status === 201) {
+    // const user = JSON.parse(storedUserData);
+    localStorage.setItem(USER_DATA, JSON.stringify(response.user));
+    // }
 
     batch(() => {
-      dispatch(setUser({ userID, token, ...data }));
+      dispatch(setUser(response.user));
       dispatch(setAuthLoading(false));
       dispatch(setProfileModalOpen(false));
     });

@@ -28,10 +28,15 @@ const ScrollbarStyled = styled.div<ScrollbarStyledProps>`
 
 interface ScrollbarProps {
   maxHeight?: string;
+  className?: string;
 }
 
 export const Scrollbar: FC<ScrollbarProps> = (props) => {
-  const { maxHeight = "1200px", children } = props;
+  const { maxHeight = "1200px", className, children } = props;
 
-  return <ScrollbarStyled maxHeight={maxHeight}>{children}</ScrollbarStyled>;
+  return (
+    <ScrollbarStyled maxHeight={maxHeight} className={className}>
+      {children}
+    </ScrollbarStyled>
+  );
 };

@@ -1,7 +1,8 @@
 import { Project } from "./projectType";
 
 export interface User {
-  userID: string;
+  _id: string;
+  // userID: string;
   token: string;
   userName?: string;
   avatarURL?: string;
@@ -25,12 +26,14 @@ export interface SignUpResponse {
 }
 
 export interface UpdateResponse {
+  user: User;
   status: string | number;
   message: string;
 }
 
 export const NullUser: User = {
-  userID: "",
+  _id: "",
+  // userID: "",
   token: "",
   userName: "",
   avatarURL: "",

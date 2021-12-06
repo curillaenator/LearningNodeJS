@@ -20,20 +20,14 @@ export const authAPI: AuthAPI = {
     return base
       .post("auth/register", creds)
       .then((r) => r.data)
-      .catch((err) => {
-        const errParsed = err.toJSON();
-        return errParsed.message;
-      });
+      .catch((err) => err.response.data.message);
   },
 
   signIn: (creds) => {
     return base
       .post("auth/login", creds)
       .then((r) => r.data)
-      .catch((err) => {
-        const errParsed = err.toJSON();
-        return errParsed.message;
-      });
+      .catch((err) => err.response.data.message);
   },
 
   update: (data, token) => {
@@ -42,9 +36,6 @@ export const authAPI: AuthAPI = {
     return base
       .post("auth/update", data)
       .then((r) => r.data)
-      .catch((err) => {
-        const errParsed = err.toJSON();
-        return errParsed.message;
-      });
+      .catch((err) => err.response.data.message);
   },
 };

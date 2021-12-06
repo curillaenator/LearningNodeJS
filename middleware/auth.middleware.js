@@ -19,7 +19,7 @@ module.exports = (req, res, next) => {
 
     // console.log(decoded);
 
-    req.user = decoded;
+    req.user = { ...decoded, token };
 
     next();
   } catch (e) {

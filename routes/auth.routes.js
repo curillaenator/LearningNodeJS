@@ -76,10 +76,12 @@ router.post(
 
       const user = await User.findOne({ email });
 
-      console.log(user);
+      // console.log(user);
 
       if (!user) {
-        return res.status(400).json({ message: "Try again" });
+        return res
+          .status(400)
+          .json({ message: "Incorrect login data! Try again!" });
       }
 
       const isPasswordMatch = await bcrypt.compare(password, user.password);
@@ -94,7 +96,7 @@ router.post(
         { expiresIn: "1h" }
       );
 
-      res.json({ token, userID: user._id });
+      res.json({ ...user._doc, token });
       //
     } catch (e) {
       res.status(500).json({ message: "Something went wrong, try again" });
@@ -112,7 +114,11 @@ router.post("/update", checkAuth, async (req, res) => {
 
     await user.save();
 
-    res.json({ status: 201, message: "User has been updated" });
+    res.json({
+      user: { ...user._doc, token: req.user.token },
+      status: 201,
+      message: "User has been updated",
+    });
   } catch (error) {
     res.status(500).json({ message: "Something went wrong, try again" });
   }

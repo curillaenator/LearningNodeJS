@@ -5,6 +5,7 @@ import { useProfileForm } from "./hooks/useProfileForm";
 
 import { Button } from "../../components/buttons";
 import { TextInput } from "../../components/inputs";
+import { Scrollbar } from "../../components/scrollbar";
 
 import { ProfileProps } from "./interfaces";
 
@@ -36,6 +37,8 @@ const ProfileStyled = styled.form`
     display: flex;
     flex-direction: column;
     gap: 16px;
+    margin-bottom: 32px;
+    padding-right: 16px;
   }
 
   .form-buttons {
@@ -59,7 +62,7 @@ export const Profile: FC<ProfileProps> = ({ close }) => {
         </div>
 
         <div className="form-header-subtitle">
-          <span>{`ID: ${values.isIdHidden ? "" : values.userId}`}</span>
+          <span>{`MyID: ${values.isIdHidden ? "" : values.userId}`}</span>
 
           {values.isIdHidden && (
             <Button
@@ -72,17 +75,54 @@ export const Profile: FC<ProfileProps> = ({ close }) => {
         </div>
       </div>
 
-      <div className="form-inputs">
+      <Scrollbar maxHeight="272px" className="form-inputs">
+        {/* <div className="form-inputs"> */}
         <TextInput
-          // state={errors.title ? "error" : "normal"}
-          // description={getDescription("title")}
+          description="you will be easily recognized by this"
           iconName="pencil"
           name="projectTitle"
-          placeholder="Your full name"
+          placeholder="Provide your full name"
           value={values.userName}
           onChange={handlers.setUsername}
         />
-      </div>
+
+        <TextInput
+          description="you will be easily recognized by this"
+          iconName="pencil"
+          name="projectTitle"
+          placeholder="Provide your full name"
+          value={values.userName}
+          onChange={handlers.setUsername}
+        />
+
+        <TextInput
+          description="you will be easily recognized by this"
+          iconName="pencil"
+          name="projectTitle"
+          placeholder="Provide your full name"
+          value={values.userName}
+          onChange={handlers.setUsername}
+        />
+
+        <TextInput
+          description="you will be easily recognized by this"
+          iconName="pencil"
+          name="projectTitle"
+          placeholder="Provide your full name"
+          value={values.userName}
+          onChange={handlers.setUsername}
+        />
+
+        <TextInput
+          description="you will be easily recognized by this"
+          iconName="pencil"
+          name="projectTitle"
+          placeholder="Provide your full name"
+          value={values.userName}
+          onChange={handlers.setUsername}
+        />
+        {/* </div> */}
+      </Scrollbar>
 
       <div className="form-buttons">
         <Button
