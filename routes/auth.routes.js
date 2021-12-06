@@ -5,6 +5,7 @@ const config = require("config");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
+const checkAuth = require("../middleware/auth.middleware");
 const User = require("../models/User");
 
 const router = Router();
@@ -100,5 +101,21 @@ router.post(
     }
   }
 );
+
+router.post("/update", checkAuth, async (req, res) => {
+  try {
+    const data = req.body;
+
+    const user = await User.findById(req.user.userID);
+
+    if (data.userName) user.userName = data.userName;
+
+    await user.save();
+
+    res.json({ status: 201, message: "User has been updated" });
+  } catch (error) {
+    res.status(500).json({ message: "Something went wrong, try again" });
+  }
+});
 
 module.exports = router;

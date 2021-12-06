@@ -114,21 +114,43 @@ export const icons = {
   add: (
     <svg
       className="button-icon"
-      viewBox="0 0 18 18"
+      viewBox="0 0 20 20"
+      version="1.1"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <path
-        className="button-icon-dark"
-        d="M16 0H2a2.006 2.006 0 0 0-2 2v14a2.006 2.006 0 0 0 2 2h14a2.006 2.006 0 0 0 2-2V2a2.006 2.006 0 0 0-2-2zm0 10a1 1 0 0 1-1 1h-4v4a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1v-4H3a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1h4V3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4h4a1 1 0 0 1 1 1v2z"
-      />
+      <g
+        id="Icons"
+        stroke="none"
+        strokeWidth="1"
+        fill="none"
+        fillRule="evenodd"
+      >
+        <g id="Two-Tone" transform="translate(-816.000000, -2682.000000)">
+          <g id="Image" transform="translate(100.000000, 2626.000000)">
+            <g
+              id="Two-Tone-/-Image-/-add_to_photos"
+              transform="translate(714.000000, 54.000000)"
+            >
+              <path
+                d="M20,4 L8,4 L8,16 L20,16 L20,4 Z M19,11 L15,11 L15,15 L13,15 L13,11 L9,11 L9,9 L13,9 L13,5 L15,5 L15,9 L19,9 L19,11 Z"
+                className="button-icon-light"
+              ></path>
+              <path
+                d="M4,22 L18,22 L18,20 L4,20 L4,6 L2,6 L2,20 C2,21.1 2.9,22 4,22 Z M8,18 L20,18 C21.1,18 22,17.1 22,16 L22,4 C22,2.9 21.1,2 20,2 L8,2 C6.9,2 6,2.9 6,4 L6,16 C6,17.1 6.9,18 8,18 Z M8,4 L20,4 L20,16 L8,16 L8,4 Z M15,5 L13,5 L13,9 L9,9 L9,11 L13,11 L13,15 L15,15 L15,11 L19,11 L19,9 L15,9 L15,5 Z"
+                className="button-icon-dark"
+              ></path>
+            </g>
+          </g>
+        </g>
+      </g>
     </svg>
   ),
   point: (
     <svg
       className="button-icon"
       xmlns="http://www.w3.org/2000/svg"
-      x="0px"
-      y="0px"
+      // x="0px"
+      // y="0px"
       version="1.1"
       viewBox="0 0 16 16"
     >
@@ -137,6 +159,63 @@ export const icons = {
         d="M8.5,0C4.358,0,1,3.358,1,7.5S4.358,15,8.5,15S16,11.642,16,7.5S12.642,0,8.5,0z M8.5,13C5.468,13,3,10.533,3,7.5 S5.468,2,8.5,2S14,4.467,14,7.5S11.532,13,8.5,13z"
       />
       <circle cx="8.5" cy="7.5" r="4.5" className="button-icon-dark" />
+    </svg>
+  ),
+  success: (
+    <svg
+      className="button-icon"
+      version="1.1"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 32 32"
+    >
+      <path
+        className="button-icon-dark"
+        d="M30.9,5.6C30.8,5.2,30.4,5,30,5h-3V2c0-0.4-0.2-0.8-0.6-0.9C26,0.9,25.6,1,25.3,1.3l-4,4C21.1,5.5,21,5.7,21,6v3.6l-5.7,5.7c-0.4,0.4-0.4,1,0,1.4c0.2,0.2,0.5,0.3,0.7,0.3s0.5-0.1,0.7-0.3l5.7-5.7H26c0.3,0,0.5-0.1,0.7-0.3l4-4C31,6.4,31.1,6,30.9,5.6z"
+      />
+      <path
+        className="button-icon-light"
+        d="M18.1,18.1C17.6,18.7,16.8,19,16,19s-1.6-0.3-2.1-0.9c-1.2-1.2-1.2-3.1,0-4.2l2.8-2.8C16.5,11,16.2,11,16,11c-2.8,0-5,2.2-5,5s2.2,5,5,5s5-2.2,5-5c0-0.2,0-0.5-0.1-0.7L18.1,18.1z"
+      />
+      <path
+        className="button-icon-dark"
+        d="M28.1,12.1C27.6,12.7,26.8,13,26,13h-2.8l-0.7,0.7c0.3,0.7,0.4,1.5,0.4,2.3c0,3.9-3.1,7-7,7s-7-3.1-7-7s3.1-7,7-7c0.8,0,1.6,0.2,2.3,0.4L19,8.8V6c0-0.8,0.3-1.6,0.9-2.1l1-1C19.3,2.3,17.7,2,16,2C8.3,2,2,8.3,2,16s6.3,14,14,14s14-6.3,14-14c0-1.7-0.3-3.3-0.9-4.9L28.1,12.1z"
+      />
+    </svg>
+  ),
+  eye: (
+    <svg
+      className="button-icon"
+      viewBox="0 0 22 16"
+      version="1.1"
+      xmlns="http://www.w3.org/2000/svg"
+      // xmlns:xlink="http://www.w3.org/1999/xlink"
+    >
+      <g
+        id="Icons"
+        stroke="none"
+        strokeWidth="1"
+        fill="none"
+        fillRule="evenodd"
+      >
+        <g id="Rounded" transform="translate(-747.000000, -2904.000000)">
+          <g id="Image" transform="translate(100.000000, 2626.000000)">
+            <g
+              id="-Round-/-Image-/-remove_red_eye"
+              transform="translate(646.000000, 274.000000)"
+            >
+              <g>
+                <polygon id="Path" points="0 0 24 0 24 24 0 24"></polygon>
+                <path
+                  d="M12,4.5 C7,4.5 2.73,7.61 1,12 C2.73,16.39 7,19.5 12,19.5 C17,19.5 21.27,16.39 23,12 C21.27,7.61 17,4.5 12,4.5 Z M12,17 C9.24,17 7,14.76 7,12 C7,9.24 9.24,7 12,7 C14.76,7 17,9.24 17,12 C17,14.76 14.76,17 12,17 Z M12,9 C10.34,9 9,10.34 9,12 C9,13.66 10.34,15 12,15 C13.66,15 15,13.66 15,12 C15,10.34 13.66,9 12,9 Z"
+                  // id="🔹-Icon-Color"
+                  // fill="#1D1D1D"
+                  className="button-icon-dark"
+                ></path>
+              </g>
+            </g>
+          </g>
+        </g>
+      </g>
     </svg>
   ),
 };

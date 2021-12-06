@@ -1,3 +1,1 @@
-export interface HeaderProps {
-  openLogin: () => void;
-}
+export interface HeaderProps {}

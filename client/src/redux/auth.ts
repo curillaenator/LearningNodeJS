@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { batch } from "react-redux";
 import { authAPI } from "../api";
 
-import { Thunk, User, UserCreds, NullUser } from "../common";
+import { Thunk, User, UserCreds, UpdateData, NullUser } from "../common";
 
 const USER_DATA = "userData";
 
@@ -14,7 +14,7 @@ interface AuthState {
   error: string;
   userID: string;
   token: string;
-  name: string;
+  userName: string;
   avatarURL: string;
 }
 
@@ -26,7 +26,7 @@ const initialState: AuthState = {
   error: "",
   userID: "",
   token: "",
-  name: "",
+  userName: "",
   avatarURL: "",
 };
 
@@ -57,7 +57,7 @@ const authSlice = createSlice({
     setUser: (state, action: PayloadAction<User>) => {
       state.userID = action.payload.userID;
       state.token = action.payload.token;
-      if (action.payload.name) state.name = action.payload.name;
+      if (action.payload.userName) state.userName = action.payload.userName;
       if (action.payload.avatarURL) state.avatarURL = action.payload.avatarURL;
     },
   },
@@ -145,5 +145,36 @@ export const userSignOut = (): Thunk => {
   return (dispatch) => {
     localStorage.removeItem(USER_DATA);
     dispatch(setUser(NullUser));
+  };
+};
+
+export const userUpdate = (data: UpdateData): Thunk => {
+  return async (dispatch, getState) => {
+    dispatch(setAuthLoading(false));
+
+    const { userID, token } = getState().auth;
+    const response = await authAPI.update(data, token);
+
+    if (typeof response === "string") {
+      return batch(() => {
+        dispatch(setError(response));
+        dispatch(setAuthLoading(false));
+      });
+    }
+
+    const storedUserData = localStorage.getItem(USER_DATA);
+
+    if (response.status === 201 && storedUserData) {
+      const user = JSON.parse(storedUserData);
+      localStorage.setItem(USER_DATA, JSON.stringify({ ...user, ...data }));
+    }
+
+    batch(() => {
+      dispatch(setUser({ userID, token, ...data }));
+      dispatch(setAuthLoading(false));
+      dispatch(setProfileModalOpen(false));
+    });
+
+    alert(response.message);
   };
 };

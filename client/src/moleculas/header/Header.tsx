@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import styled from "styled-components";
 
-import { useAppSelector } from "../../redux";
+import { useAppSelector, useAppDispatch, setAuthModalOpen } from "../../redux";
 
 import { User, UserMenu } from "./components";
 import { Button } from "../../components/buttons";
@@ -24,8 +24,10 @@ const HeaderStyled = styled.header`
   }
 `;
 
-export const Header: FC<HeaderProps> = ({ openLogin }) => {
-  const { userID, name, avatarURL } = useAppSelector((state) => state.auth);
+export const Header: FC<HeaderProps> = () => {
+  const { userID, userName, avatarURL } = useAppSelector((state) => state.auth);
+
+  const dispatch = useAppDispatch();
 
   return (
     <HeaderStyled>
@@ -36,7 +38,7 @@ export const Header: FC<HeaderProps> = ({ openLogin }) => {
           offsetY={12}
           trigger={(open) => (
             <div>
-              <User open={open} name={name} avatarURL={avatarURL} />
+              <User open={open} name={userName} avatarURL={avatarURL} />
             </div>
           )}
         >
@@ -45,7 +47,12 @@ export const Header: FC<HeaderProps> = ({ openLogin }) => {
       )}
 
       {!userID && (
-        <Button title="Sign in" icon="login" size="m" onClick={openLogin} />
+        <Button
+          title="Sign in"
+          icon="login"
+          size="m"
+          onClick={() => dispatch(setAuthModalOpen(true))}
+        />
       )}
     </HeaderStyled>
   );
