@@ -8,7 +8,16 @@ import { CreateProject } from "../moleculas/createProject";
 import { Toolbar } from "../moleculas/toolbar";
 
 const ProjectsPageStyled = styled.div`
-  padding: 0 16px;
+  width: 100%;
+  height: calc(100vh - 80px);
+  padding: 16px;
+
+  .framework {
+    width: 100%;
+    height: calc(100% - 56px);
+    border-radius: 16px;
+    background-color: ${({ theme }) => theme.bg.light};
+  }
 `;
 
 export const ProjectsPage: FC = () => {
@@ -18,6 +27,8 @@ export const ProjectsPage: FC = () => {
   return (
     <ProjectsPageStyled>
       <Toolbar />
+
+      <div className="framework"></div>
 
       <Modal open={isCreateProjectModalOpen} onClose={closeCreateProjectModal}>
         <CreateProject close={closeCreateProjectModal} />

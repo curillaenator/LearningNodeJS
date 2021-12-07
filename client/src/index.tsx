@@ -10,6 +10,8 @@ import { theme } from "./theme";
 import { MainPage } from "./pages/MainPage";
 
 import "./index.css";
+import "react-grid-layout/css/styles.css";
+import "react-resizable/css/styles.css";
 
 render(
   <StrictMode>
