@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useMemo } from "react";
 import styled from "styled-components";
 
 import { useCreateTaskForm } from "./hooks/useCreateTaskForm";
@@ -52,7 +52,7 @@ const CreateTaskStyled = styled.form`
 `;
 
 export const CreateTask: FC<CreateTaskProps> = ({ close }) => {
-  const [submit] = useCreateTaskForm();
+  const [values, handlers, submit] = useCreateTaskForm();
 
   return (
     <CreateTaskStyled onSubmit={submit}>
@@ -72,8 +72,8 @@ export const CreateTask: FC<CreateTaskProps> = ({ close }) => {
               iconName="pencil"
               name="projectTitle"
               placeholder="Task name"
-              value={""}
-              onChange={() => {}}
+              value={values.title}
+              onChange={handlers.setTitle}
             />
           </div>
         </div>

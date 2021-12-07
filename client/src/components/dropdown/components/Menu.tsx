@@ -23,7 +23,7 @@ const MenuStyled = styled.div`
 `;
 
 export const Menu: FC<MenuProps> = (props) => {
-  const { maxHeight, items, close } = props;
+  const { maxHeight = "9999px", items, close } = props;
 
   return (
     <MenuStyled>

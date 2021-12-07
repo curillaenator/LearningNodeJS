@@ -11,7 +11,7 @@ interface Item {
 }
 
 export interface MenuProps {
-  maxHeight: string;
+  maxHeight?: string;
   items: Item[];
   close: () => void;
 }

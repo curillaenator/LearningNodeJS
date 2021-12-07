@@ -1,16 +1,7 @@
 import { MutableRefObject } from "react";
-import { Layout } from "react-grid-layout";
+import { TaskType } from "../../common/taskType";
 
-export interface TaskProps {
-  id: string;
-  taskId: string;
-  title: string;
-  status?: string;
-  created?: string;
-  finished?: string;
-  executor?: string;
-  layout: Layout;
-}
+export interface TaskProps extends TaskType {}
 
 interface LayoutSizes {
   w: number;
