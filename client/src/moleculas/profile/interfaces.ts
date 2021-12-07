@@ -8,11 +8,13 @@ export interface FormState {
   isIdHidden: boolean;
   userId: string;
   userName: string;
+  avatarURL: string;
 }
 
 export interface FormHandlers {
-  setUsername: (name: string) => void;
   setIdHidden: () => void;
+  setUsername: (name: string) => void;
+  setAvatarURL: (url: string) => void;
 }
 
 export type UseProfileForm = () => [

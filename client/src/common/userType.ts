@@ -18,7 +18,8 @@ export interface UserCreds {
 }
 
 export interface UpdateData {
-  userName?: string;
+  userName: string;
+  avatarURL: string;
 }
 
 // api responses

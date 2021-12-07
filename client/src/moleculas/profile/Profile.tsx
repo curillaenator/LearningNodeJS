@@ -76,8 +76,26 @@ export const Profile: FC<ProfileProps> = ({ close }) => {
       </div>
 
       <Scrollbar maxHeight="272px" className="form-inputs">
-        {/* <div className="form-inputs"> */}
         <TextInput
+          description="you will be easily recognized by this"
+          iconName="pencil"
+          name="projectTitle"
+          placeholder="Provide your full name"
+          value={values.userName}
+          onChange={handlers.setUsername}
+        />
+
+        <TextInput
+          type="url"
+          description="Link to image you want as avatar"
+          iconName="image"
+          name="projectTitle"
+          placeholder="Paste link"
+          value={values.avatarURL}
+          onChange={handlers.setAvatarURL}
+        />
+
+        {/* <TextInput
           description="you will be easily recognized by this"
           iconName="pencil"
           name="projectTitle"
@@ -102,26 +120,7 @@ export const Profile: FC<ProfileProps> = ({ close }) => {
           placeholder="Provide your full name"
           value={values.userName}
           onChange={handlers.setUsername}
-        />
-
-        <TextInput
-          description="you will be easily recognized by this"
-          iconName="pencil"
-          name="projectTitle"
-          placeholder="Provide your full name"
-          value={values.userName}
-          onChange={handlers.setUsername}
-        />
-
-        <TextInput
-          description="you will be easily recognized by this"
-          iconName="pencil"
-          name="projectTitle"
-          placeholder="Provide your full name"
-          value={values.userName}
-          onChange={handlers.setUsername}
-        />
-        {/* </div> */}
+        /> */}
       </Scrollbar>
 
       <div className="form-buttons">

@@ -116,11 +116,12 @@ router.post(
 
 router.post("/update", checkAuth, async (req, res) => {
   try {
-    const data = req.body;
+    const { userName, avatarURL } = req.body;
 
     const user = await User.findById(req.user.userID);
 
-    if (data.userName) user.userName = data.userName;
+    user.userName = userName;
+    user.avatarURL = avatarURL;
 
     await user.save();
 
