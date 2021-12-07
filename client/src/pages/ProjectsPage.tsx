@@ -7,6 +7,8 @@ import { Modal } from "../components/modal";
 import { CreateProject } from "../moleculas/createProject";
 import { Toolbar } from "../moleculas/toolbar";
 
+import { Layout } from "../moleculas/layout";
+
 const ProjectsPageStyled = styled.div`
   width: 100%;
   height: calc(100vh - 80px);
@@ -15,8 +17,9 @@ const ProjectsPageStyled = styled.div`
   .framework {
     width: 100%;
     height: calc(100% - 56px);
+    padding: 8px;
     border-radius: 16px;
-    background-color: ${({ theme }) => theme.bg.light};
+    background-color: ${({ theme }) => theme.bg.gray};
   }
 `;
 
@@ -28,7 +31,9 @@ export const ProjectsPage: FC = () => {
     <ProjectsPageStyled>
       <Toolbar />
 
-      <div className="framework"></div>
+      <div className="framework">
+        <Layout />
+      </div>
 
       <Modal open={isCreateProjectModalOpen} onClose={closeCreateProjectModal}>
         <CreateProject close={closeCreateProjectModal} />

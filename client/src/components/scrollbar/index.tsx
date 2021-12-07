@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 interface ScrollbarStyledProps {
   maxHeight: string;
+  schema: "light" | "dark";
 }
 
 const ScrollbarStyled = styled.div<ScrollbarStyledProps>`
@@ -17,7 +18,10 @@ const ScrollbarStyled = styled.div<ScrollbarStyledProps>`
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: ${({ theme }) => theme.bg.gray};
+    background-color: ${({ theme, schema }) => {
+      if (schema === "dark") return theme.bg.dark;
+      return theme.bg.lightGray;
+    }};
     border-radius: 2px;
 
     &:hover {
@@ -29,13 +33,18 @@ const ScrollbarStyled = styled.div<ScrollbarStyledProps>`
 interface ScrollbarProps {
   maxHeight?: string;
   className?: string;
+  schema?: "light" | "dark";
 }
 
 export const Scrollbar: FC<ScrollbarProps> = (props) => {
-  const { maxHeight = "1200px", className, children } = props;
+  const { maxHeight = "1200px", schema = "light", className, children } = props;
 
   return (
-    <ScrollbarStyled maxHeight={maxHeight} className={className}>
+    <ScrollbarStyled
+      maxHeight={maxHeight}
+      schema={schema}
+      className={className}
+    >
       {children}
     </ScrollbarStyled>
   );
