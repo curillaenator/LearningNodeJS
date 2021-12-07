@@ -1,8 +1,8 @@
 import axios from "axios";
 import type {
-  User,
   UserCreds,
   UpdateData,
+  SignInResponse,
   SignUpResponse,
   UpdateResponse,
 } from "../common/userType";
@@ -11,7 +11,7 @@ const base = axios.create({ baseURL: "http://localhost:3300/api/" });
 
 interface AuthAPI {
   signUp: (creds: UserCreds) => Promise<SignUpResponse | string>;
-  signIn: (creds: UserCreds) => Promise<User | string>;
+  signIn: (creds: UserCreds) => Promise<SignInResponse | string>;
   update: (data: UpdateData, token: string) => Promise<UpdateResponse | string>;
 }
 

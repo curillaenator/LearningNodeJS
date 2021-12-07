@@ -96,7 +96,17 @@ router.post(
         { expiresIn: "1h" }
       );
 
-      res.json({ ...user._doc, token });
+      res.json({
+        user: {
+          token,
+          userID: user._id,
+          userName: user._doc.userName,
+          avatarURL: user._doc.avatarURL,
+          created: user._doc.created,
+        },
+        status: 201,
+        message: "User has been authorized",
+      });
       //
     } catch (e) {
       res.status(500).json({ message: "Something went wrong, try again" });
@@ -115,7 +125,13 @@ router.post("/update", checkAuth, async (req, res) => {
     await user.save();
 
     res.json({
-      user: { ...user._doc, token: req.user.token },
+      user: {
+        token: req.user.token,
+        userID: user._id,
+        userName: user._doc.userName,
+        avatarURL: user._doc.avatarURL,
+        created: user._doc.created,
+      },
       status: 201,
       message: "User has been updated",
     });

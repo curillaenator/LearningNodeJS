@@ -1,15 +1,16 @@
 import { Project } from "./projectType";
 
 export interface User {
-  _id: string;
-  // userID: string;
+  userID: string;
   token: string;
-  userName?: string;
-  avatarURL?: string;
-  created?: string;
+  userName: string;
+  avatarURL: string;
+  created: string;
   ownedProjects?: Project[];
   contributionProjects?: Project[];
 }
+
+// api payloads
 
 export interface UserCreds {
   email: string;
@@ -18,6 +19,14 @@ export interface UserCreds {
 
 export interface UpdateData {
   userName?: string;
+}
+
+// api responses
+
+export interface SignInResponse {
+  user: User;
+  message: string;
+  status: string | number;
 }
 
 export interface SignUpResponse {
@@ -31,9 +40,10 @@ export interface UpdateResponse {
   message: string;
 }
 
+// default user
+
 export const NullUser: User = {
-  _id: "",
-  // userID: "",
+  userID: "",
   token: "",
   userName: "",
   avatarURL: "",

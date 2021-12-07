@@ -3,7 +3,7 @@ const { Schema, model, Types } = require("mongoose");
 const schema = new Schema({
   created: { type: Date, default: Date.now },
   userName: { type: String, unique: true, default: "" },
-  userAvatar: { type: String },
+  avatarURL: { type: String, default: "" },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   ownedProjects: [{ type: Types.ObjectId, ref: "Project" }],

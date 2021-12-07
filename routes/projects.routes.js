@@ -1,6 +1,6 @@
 const { Router } = require("express");
 // const { check, validationResult } = require("express-validator");
-const config = require("config");
+// const config = require("config");
 
 const checkAuth = require("../middleware/auth.middleware");
 const Project = require("../models/Project");
@@ -8,52 +8,35 @@ const User = require("../models/User");
 
 const router = Router();
 
-router.post(
-  "/create",
-  checkAuth,
-  // [check("title", "Минимум 8 символов").isLength({ min: 8 })],
-  async (req, res) => {
-    console.log("Body: ", req.body);
+router.post("/create", checkAuth, async (req, res) => {
+  console.log("Body: ", req.body);
 
-    try {
-      // const baseURL = config.get("baseURL");
+  try {
+    const { title } = req.body;
 
-      // const errors = validationResult(req);
+    const project = new Project({ title, owner: req.user.userID });
 
-      // if (!errors.isEmpty()) {
-      //   res.status(400).json({
-      //     errors: errors.array(),
-      //     message: "Invalid project data",
-      //   });
-      // }
+    const user = await User.findById(req.user.userID);
 
-      const { title } = req.body;
+    user.ownedProjects = [...user.ownedProjects, project];
 
-      const project = new Project({ title, owner: req.user.userID });
+    await project.save();
 
-      const user = await User.findById(req.user.userID);
+    await user.save();
 
-      user.ownedProjects = [...user.ownedProjects, project];
-
-      await user.save();
-
-      await project.save();
-
-      res
-        .status(201)
-        .json({ status: 201, message: "Project created!", project });
-      //
-    } catch (error) {
-      res.status(500).json({ message: "Something went wrong, try again" });
-    }
+    res.status(201).json({ status: 201, message: "Project created!", project });
+    //
+  } catch (error) {
+    res.status(500).json({ message: "Something went wrong, try again" });
   }
-);
+});
 
 router.get("/owned", checkAuth, async (req, res) => {
   try {
     const availableProjects = await Project.find({ owner: req.user.userID });
 
     res.json({ status: 201, availableProjects });
+    //
   } catch (error) {
     res.status(500).json({ message: "Something went wrong, try again" });
   }
@@ -66,6 +49,7 @@ router.get("/contribution", checkAuth, async (req, res) => {
     const contributedProjects = await Project.find(user.contributionProjects);
 
     res.json({ status: 201, contributedProjects });
+    //
   } catch (error) {
     res.status(500).json({ message: "Something went wrong, try again" });
   }
@@ -75,7 +59,8 @@ router.get("/:projectId", checkAuth, async (req, res) => {
   try {
     const project = await Project.findById(req.params.projectId);
 
-    res.json(project);
+    res.json({ status: 201, project });
+    //
   } catch (error) {
     res.status(500).json({ message: "Something went wrong, try again" });
   }

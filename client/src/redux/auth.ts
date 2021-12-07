@@ -16,6 +16,7 @@ interface AuthState {
   token: string;
   userName: string;
   avatarURL: string;
+  created: string;
 }
 
 const initialState: AuthState = {
@@ -28,6 +29,7 @@ const initialState: AuthState = {
   token: "",
   userName: "",
   avatarURL: "",
+  created: "",
 };
 
 const authSlice = createSlice({
@@ -55,10 +57,11 @@ const authSlice = createSlice({
     },
 
     setUser: (state, action: PayloadAction<User>) => {
-      state.userID = action.payload._id;
+      state.userID = action.payload.userID;
       state.token = action.payload.token;
-      if (action.payload.userName) state.userName = action.payload.userName;
-      if (action.payload.avatarURL) state.avatarURL = action.payload.avatarURL;
+      state.userName = action.payload.userName;
+      state.avatarURL = action.payload.avatarURL;
+      state.created = action.payload.created;
     },
   },
 });
@@ -77,14 +80,13 @@ export const {
 
 export const initialize = (): Thunk => {
   return async (dispatch) => {
-    // dispatch(setAuthLoading(true));
-
     const user = localStorage.getItem(USER_DATA);
 
     if (user) {
+      const parcedUser = JSON.parse(user);
+
       batch(() => {
-        dispatch(setUser(JSON.parse(user)));
-        // dispatch(setAuthLoading(false));
+        dispatch(setUser(parcedUser));
       });
     }
   };
@@ -92,11 +94,12 @@ export const initialize = (): Thunk => {
 
 export const userSignUp = (creds: UserCreds): Thunk => {
   return async (dispatch) => {
-    dispatch(setAuthLoading(true));
+    batch(() => {
+      dispatch(setAuthLoading(true));
+      dispatch(setUser(NullUser));
+    });
 
     const response = await authAPI.signUp(creds);
-
-    // console.log(response);
 
     if (typeof response === "string") {
       return batch(() => {
@@ -111,6 +114,7 @@ export const userSignUp = (creds: UserCreds): Thunk => {
       batch(() => {
         dispatch(setIsRegister(false));
         dispatch(setAuthLoading(false));
+        dispatch(setError(""));
       });
     }
   };
@@ -118,7 +122,10 @@ export const userSignUp = (creds: UserCreds): Thunk => {
 
 export const userSignIn = (creds: UserCreds): Thunk => {
   return async (dispatch) => {
-    dispatch(setAuthLoading(true));
+    batch(() => {
+      dispatch(setAuthLoading(true));
+      dispatch(setUser(NullUser));
+    });
 
     const response = await authAPI.signIn(creds);
 
@@ -131,13 +138,16 @@ export const userSignIn = (creds: UserCreds): Thunk => {
       });
     }
 
-    localStorage.setItem(USER_DATA, JSON.stringify(response));
+    if (response.status === 201) {
+      localStorage.setItem(USER_DATA, JSON.stringify(response.user));
 
-    batch(() => {
-      dispatch(setUser(response));
-      dispatch(setAuthLoading(false));
-      dispatch(setAuthModalOpen(false));
-    });
+      batch(() => {
+        dispatch(setError(""));
+        dispatch(setUser(response.user));
+        dispatch(setAuthLoading(false));
+        dispatch(setAuthModalOpen(false));
+      });
+    }
   };
 };
 
@@ -152,7 +162,7 @@ export const userUpdate = (data: UpdateData): Thunk => {
   return async (dispatch, getState) => {
     dispatch(setAuthLoading(false));
 
-    const { userID, token } = getState().auth;
+    const { token } = getState().auth;
     const response = await authAPI.update(data, token);
 
     if (typeof response === "string") {
@@ -162,12 +172,7 @@ export const userUpdate = (data: UpdateData): Thunk => {
       });
     }
 
-    // const storedUserData = localStorage.getItem(USER_DATA);
-
-    // if (response.status === 201) {
-    // const user = JSON.parse(storedUserData);
     localStorage.setItem(USER_DATA, JSON.stringify(response.user));
-    // }
 
     batch(() => {
       dispatch(setUser(response.user));
