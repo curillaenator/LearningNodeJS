@@ -1,10 +1,11 @@
-import { useEffect } from "react";
+import { useEffect, useCallback } from "react";
 import { useHistory } from "react-router-dom";
 
 import {
   useAppDispatch,
   useAppSelector,
   setCreateProjectModalOpen,
+  setCreateTaskModalOpen,
   getAvailableProjects,
 } from "../../../redux";
 
@@ -28,9 +29,19 @@ export const useProjectToolbarMenu: UseProjectToolbarMenu = () => {
     onClick: () => history.push(`/projects/${project._id}`),
   }));
 
-  const openCreateProjectModal = () => {
+  const openCreateProjectModal = useCallback(() => {
     dispatch(setCreateProjectModalOpen(true));
-  };
+  }, [dispatch]);
 
-  return [currentProject, selectableProjects, openCreateProjectModal, loading];
+  const openCreateTaskModal = useCallback(() => {
+    dispatch(setCreateTaskModalOpen(true));
+  }, [dispatch]);
+
+  return [
+    currentProject,
+    selectableProjects,
+    openCreateProjectModal,
+    openCreateTaskModal,
+    loading,
+  ];
 };

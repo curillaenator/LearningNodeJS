@@ -1,15 +1,15 @@
 import React, { FC } from "react";
 import styled from "styled-components";
 
+import { useCreateTaskForm } from "./hooks/useCreateTaskForm";
+
 import { Button } from "../../components/buttons";
-import { Loader } from "../../components/loader";
 import { TextInput } from "../../components/inputs";
+import { Loader } from "../../components/loader";
 
-import { useCreateProjectForm } from "./hooks/useCreateProjectForm";
+import { CreateTaskProps } from "./interfaces";
 
-import { CreateProjectProps } from "./interface";
-
-const CreateProjectStyled = styled.form`
+const CreateTaskStyled = styled.form`
   width: 80%;
   padding: 48px;
   border-radius: 16px;
@@ -51,36 +51,35 @@ const CreateProjectStyled = styled.form`
   }
 `;
 
-export const CreateProject: FC<CreateProjectProps> = ({ close }) => {
-  const [values, handlers, submit, errors, getDescription, loading] =
-    useCreateProjectForm();
+export const CreateTask: FC<CreateTaskProps> = ({ close }) => {
+  const [submit] = useCreateTaskForm();
 
   return (
-    <CreateProjectStyled onSubmit={submit}>
+    <CreateTaskStyled onSubmit={submit}>
       <div className="form-header">
-        <h1 className="form-header-title">Create new project</h1>
-        {loading && <Loader size="s" />}
+        <h1 className="form-header-title">New task</h1>
+        {/* {loading && <Loader size="s" />} */}
       </div>
 
       <div className="form-body">
         <div className="form-body-block">
-          <h3 className="form-body-block-title">Project meta</h3>
+          <h3 className="form-body-block-title">Task meta</h3>
 
           <div className="form-body-block-inputs">
             <TextInput
-              state={errors.title ? "error" : "normal"}
-              description={getDescription("title")}
+              // state={errors.title ? "error" : "normal"}
+              // description={getDescription("title")}
               iconName="pencil"
               name="projectTitle"
-              placeholder="Name your project"
-              value={values.title}
-              onChange={handlers.setProjectTitle}
+              placeholder="Task name"
+              value={""}
+              onChange={() => {}}
             />
           </div>
         </div>
 
         <div className="form-body-block">
-          <h3 className="form-body-block-title">Project settings</h3>
+          <h3 className="form-body-block-title">Task settings</h3>
 
           <div className="form-body-block-inputs"></div>
         </div>
@@ -91,16 +90,16 @@ export const CreateProject: FC<CreateProjectProps> = ({ close }) => {
           variant="ghost"
           title="Close"
           onClick={close}
-          disabled={loading}
+          // disabled={loading}
         />
 
         <Button
-          icon="project"
+          icon="pencil"
           type="submit"
-          title="Create project"
-          disabled={loading}
+          title="Create task"
+          // disabled={loading}
         />
       </div>
-    </CreateProjectStyled>
+    </CreateTaskStyled>
   );
 };

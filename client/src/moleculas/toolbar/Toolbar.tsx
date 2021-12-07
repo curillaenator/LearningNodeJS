@@ -27,22 +27,27 @@ const ToolbarStyled = styled.div`
 `;
 
 export const Toolbar: FC<ToolbarProps> = () => {
-  const [currentProject, selectableProjects, openCreateProjectModal, loading] =
-    useProjectToolbarMenu();
+  const [
+    currentProject,
+    selectableProjects,
+    openCreateProjectModal,
+    openCreateTaskModal,
+    loading,
+  ] = useProjectToolbarMenu();
 
   return (
     <ToolbarStyled>
-      <div className="tb-projects">
+      <div className="tb-tasks">
         <Button
-          icon="add"
-          title="Create new project"
+          icon="pencil"
+          title="Create new task"
           size="l"
-          onClick={openCreateProjectModal}
-          // disabled={loading}
+          onClick={openCreateTaskModal}
+          disabled={!currentProject}
         />
+      </div>
 
-        <span className="tb-projects-or">or</span>
-
+      <div className="tb-projects">
         <Dropdown
           triggerTitle={
             currentProject ? currentProject.title : "Chose existing"
@@ -53,6 +58,16 @@ export const Toolbar: FC<ToolbarProps> = () => {
             <Menu items={selectableProjects} close={close} maxHeight="172px" />
           )}
         </Dropdown>
+
+        <span className="tb-projects-or">or</span>
+
+        <Button
+          icon="project"
+          title="Create new project"
+          size="l"
+          onClick={openCreateProjectModal}
+          // disabled={loading}
+        />
       </div>
 
       {/* <div className="tb-status">{loading && <Loader />}</div> */}

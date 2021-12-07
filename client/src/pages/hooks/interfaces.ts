@@ -10,4 +10,10 @@ export type UseMainPage = () => [
   () => void
 ];
 
-export type UseProjectsPage = () => [Project | null, boolean, () => void];
+export type UseProjectsPage = () => [
+  Project | null,
+  boolean,
+  boolean,
+  () => void,
+  () => void
+];

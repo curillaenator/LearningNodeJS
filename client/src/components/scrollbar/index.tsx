@@ -4,11 +4,12 @@ import styled from "styled-components";
 interface ScrollbarStyledProps {
   maxHeight: string;
   schema: "light" | "dark";
+  isVisible: "auto" | "scroll";
 }
 
 const ScrollbarStyled = styled.div<ScrollbarStyledProps>`
   width: 100%;
-  overflow-y: auto;
+  overflow-y: ${({ isVisible }) => isVisible};
   max-height: ${({ maxHeight }) => maxHeight};
 
   &::-webkit-scrollbar {
@@ -34,16 +35,24 @@ interface ScrollbarProps {
   maxHeight?: string;
   className?: string;
   schema?: "light" | "dark";
+  isVisible?: "auto" | "scroll";
 }
 
 export const Scrollbar: FC<ScrollbarProps> = (props) => {
-  const { maxHeight = "1200px", schema = "light", className, children } = props;
+  const {
+    maxHeight = "1200px",
+    schema = "light",
+    isVisible = "auto",
+    className,
+    children,
+  } = props;
 
   return (
     <ScrollbarStyled
       maxHeight={maxHeight}
       schema={schema}
       className={className}
+      isVisible={isVisible}
     >
       {children}
     </ScrollbarStyled>

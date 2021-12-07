@@ -6,6 +6,7 @@ import { Thunk, Project } from "../common";
 interface ProjectState {
   loading: boolean;
   error: string;
+  isCreateTaskModalOpen: boolean;
   isCreateProjectModalOpen: boolean;
   currentProject: Project | null;
   ownedProjects: Project[];
@@ -14,6 +15,7 @@ interface ProjectState {
 const initialState: ProjectState = {
   loading: false,
   error: "",
+  isCreateTaskModalOpen: false,
   isCreateProjectModalOpen: false,
   currentProject: null,
   ownedProjects: [],
@@ -35,6 +37,10 @@ const projectsSlice = createSlice({
       state.isCreateProjectModalOpen = action.payload;
     },
 
+    setCreateTaskModalOpen: (state, action: PayloadAction<boolean>) => {
+      state.isCreateTaskModalOpen = action.payload;
+    },
+
     setCurrentProject: (state, action: PayloadAction<Project>) => {
       state.currentProject = action.payload;
     },
@@ -53,6 +59,7 @@ export const {
   setCurrentProject,
   setAvailableProjects,
   setCreateProjectModalOpen,
+  setCreateTaskModalOpen,
 } = projectsSlice.actions;
 
 // THINKS

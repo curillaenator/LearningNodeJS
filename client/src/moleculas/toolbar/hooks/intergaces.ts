@@ -8,5 +8,6 @@ export type UseProjectToolbarMenu = () => [
   Project | null,
   ProjectWithHandler[],
   () => void,
+  () => void,
   boolean
 ];

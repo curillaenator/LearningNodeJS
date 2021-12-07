@@ -1,10 +1,11 @@
-import { useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import {
   useAppDispatch,
   useAppSelector,
   setCreateProjectModalOpen,
+  setCreateTaskModalOpen,
   setCurrentProject,
 } from "../../redux";
 
@@ -14,8 +15,12 @@ export const useProjectsPage: UseProjectsPage = () => {
   const { projectId } = useParams<{ projectId: string }>();
 
   const dispatch = useAppDispatch();
-  const { currentProject, ownedProjects, isCreateProjectModalOpen } =
-    useAppSelector((state) => state.projects);
+  const {
+    currentProject,
+    ownedProjects,
+    isCreateProjectModalOpen,
+    isCreateTaskModalOpen,
+  } = useAppSelector((state) => state.projects);
 
   useEffect(() => {
     const foundProject = ownedProjects.find(
@@ -27,9 +32,19 @@ export const useProjectsPage: UseProjectsPage = () => {
     }
   }, [projectId, ownedProjects, dispatch]);
 
-  const closeCreateProjectModal = () => {
+  const closeCreateProjectModal = useCallback(() => {
     dispatch(setCreateProjectModalOpen(false));
-  };
+  }, [dispatch]);
 
-  return [currentProject, isCreateProjectModalOpen, closeCreateProjectModal];
+  const closeCreateTaskModal = useCallback(() => {
+    dispatch(setCreateTaskModalOpen(false));
+  }, [dispatch]);
+
+  return [
+    currentProject,
+    isCreateProjectModalOpen,
+    isCreateTaskModalOpen,
+    closeCreateProjectModal,
+    closeCreateTaskModal,
+  ];
 };

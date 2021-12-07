@@ -10,18 +10,16 @@ import { Task } from "./components/Task";
 const LayoutStyled = styled.div`
   height: calc(100vh - 80px - 72px - 32px);
 
-  .react-grid-layout {
-    border-radius: 40px;
-    overflow: hidden;
+  .layout {
+    /* border-radius: 40px;
+    overflow: hidden; */
   }
 `;
 
 export const Layout: FC = () => {
   const [sizes, layoutRef] = useLayout();
 
-  console.log(sizes);
-
-  const tasksMock = [...Array(6)].map((_, i) => ({
+  const tasksMock = [...Array(5)].map((_, i) => ({
     id: `task${i}`,
     taskId: "PROJ-1",
     title: `task${i}`,
@@ -41,20 +39,17 @@ export const Layout: FC = () => {
   const layout = tasksMock.map((task) => task.layout);
 
   return (
-    <Scrollbar
-      maxHeight={`${sizes.h}px`}
-      schema="dark"
-      className="layout-scrollbars"
-    >
+    <Scrollbar maxHeight={`${sizes.h}px`} schema="dark" isVisible="scroll">
       <LayoutStyled ref={layoutRef}>
         <GridLayout
           className="layout"
           layout={layout}
           cols={3}
           rowHeight={160}
-          width={sizes.w}
+          width={sizes.w - 8}
           margin={[8, 8]}
           containerPadding={[0, 0]}
+          isResizable={false}
         >
           {tasksMock.map((task) => (
             <div data-grid={task.layout} key={task.id}>
