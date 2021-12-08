@@ -4,10 +4,10 @@ import styled from "styled-components";
 import { useCreateTaskForm } from "./hooks/useCreateTaskForm";
 
 import { Button } from "../../components/buttons";
-import { TextInput } from "../../components/inputs";
+import { TextInput, Radio } from "../../components/inputs";
 import { Loader } from "../../components/loader";
 
-import { CreateTaskProps } from "./interfaces";
+import { CreateTaskProps, Statuses } from "./interfaces";
 
 const CreateTaskStyled = styled.form`
   width: 80%;
@@ -75,6 +75,32 @@ export const CreateTask: FC<CreateTaskProps> = ({ close }) => {
               value={values.title}
               onChange={handlers.setTitle}
             />
+
+            <div className="select-status">
+              <Radio
+                title="Open"
+                size="xl"
+                id={Statuses.open}
+                checked={true}
+                onChange={() => {}}
+              />
+
+              <Radio
+                title="In progress"
+                size="l"
+                id={Statuses.inProgress}
+                checked={false}
+                onChange={() => {}}
+              />
+
+              <Radio
+                title="Done"
+                size="m"
+                id={Statuses.done}
+                checked={true}
+                onChange={() => {}}
+              />
+            </div>
           </div>
         </div>
 

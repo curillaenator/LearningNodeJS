@@ -5,6 +5,12 @@ export interface CreateTaskProps {
   close: () => void;
 }
 
+export enum Statuses {
+  open = "open",
+  inProgress = "inProgress",
+  done = "done",
+}
+
 export interface FormValues extends TaskType {}
 
 export interface FormHandlers {

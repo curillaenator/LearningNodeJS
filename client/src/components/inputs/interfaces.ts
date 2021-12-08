@@ -33,3 +33,30 @@ export interface SwitchProps {
   disabled?: boolean;
   onChange: (value: boolean) => void;
 }
+
+// RADIO
+
+export interface RadioParams {
+  h: string;
+  padding: string;
+  fontsize: string;
+  radius: string;
+  gap: string;
+  glyphSize: string;
+  borderChecked: string;
+  borderUnchecked: string;
+}
+
+export interface RadioStyledProps {
+  checked: boolean;
+  params: RadioParams;
+}
+
+export interface RadioProps {
+  id: string;
+  title?: string;
+  size?: "s" | "m" | "l" | "xl";
+  disabled?: boolean;
+  checked: boolean;
+  onChange: (id: string) => void;
+}

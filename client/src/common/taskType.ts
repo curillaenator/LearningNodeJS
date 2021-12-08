@@ -2,6 +2,7 @@ import { Layout } from "react-grid-layout";
 
 export interface TaskType {
   id: string;
+  parentProjectId: string;
   taskId: string;
   title: string;
   status?: "open" | "inProgress" | "done";
@@ -13,6 +14,7 @@ export interface TaskType {
 
 export const DefaultTask: TaskType = {
   id: "",
+  parentProjectId: "",
   taskId: "",
   title: "",
   status: "open",
