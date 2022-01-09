@@ -16,9 +16,11 @@ button {
   border: none;
 }
 
-input {
+input,
+textarea {
   outline: none;
   border: none;
+  font-family: "Roboto", sans-serif;
 }
 
 h1,

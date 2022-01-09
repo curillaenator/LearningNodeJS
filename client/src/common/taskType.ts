@@ -1,16 +1,20 @@
-import { Layout } from "react-grid-layout";
+export enum TaskStatuses {
+  open = "open",
+  inProgress = "inProgress",
+  done = "done",
+}
 
 export interface TaskType {
   _id: string;
   projectId: string;
   title: string;
-  status?: "open" | "inProgress" | "done";
-  created?: string;
+  status: TaskStatuses;
+  created: string;
   finished?: string;
   owner: string;
   executor?: string;
-  description?: string;
-  layout: Layout;
+  description: string;
+  layout: string;
 }
 
 export interface GetTasksResponse {
@@ -18,25 +22,8 @@ export interface GetTasksResponse {
   projectTasks: TaskType[];
 }
 
-export const DefaultTask: TaskType = {
-  _id: "",
-  projectId: "",
-  title: "",
-  status: "open",
-  created: "",
-  finished: "",
-  owner: "",
-  executor: "",
-  description: "",
-  layout: {
-    i: "defaultTaskId",
-    x: 0,
-    y: 9999,
-    w: 1,
-    h: 1,
-    minW: 1,
-    maxW: 1,
-    minH: 1,
-    maxH: 1,
-  },
-};
+export interface CreateTaskResponse {
+  status: number | string;
+  message: string;
+  task: TaskType;
+}

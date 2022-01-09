@@ -42,6 +42,7 @@ export const Radio: FC<RadioProps> = (props) => {
       disabled={disabled}
       checked={checked}
       onClick={() => onChange(id)}
+      type="button"
     >
       <div className="radio-glyph" />
 

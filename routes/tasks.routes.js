@@ -40,9 +40,7 @@ router.post("/create", checkAuth, async (req, res) => {
     await task.save();
     await currentProject.save();
 
-    res
-      .status(201)
-      .json({ status: 201, message: "Task created", newTask: task });
+    res.status(201).json({ status: 201, message: "Task created", task });
 
     //
   } catch (error) {

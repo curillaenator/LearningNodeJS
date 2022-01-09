@@ -1,14 +1,34 @@
 import { FormEvent, useState, useMemo, useCallback } from "react";
+import { useAppSelector, useAppDispatch, createTask } from "../../../redux";
 
-import { DefaultTask } from "../../../common/taskType";
-import { UseCreateTaskForm, FormValues, FormHandlers } from "../interfaces";
+import { TaskType } from "../../../common";
+import { INITIAL_TASK, TASK_CONFIG, STATUS_POSITION } from "./constants";
+import { UseCreateTaskForm, FormHandlers } from "../interfaces";
 
-export const useCreateTaskForm: UseCreateTaskForm = () => {
-  const [values, setValues] = useState<FormValues>(DefaultTask);
+export const useCreateTaskForm: UseCreateTaskForm = (close) => {
+  const appDispatch = useAppDispatch();
 
-  const submit = useCallback((e: FormEvent) => {
-    e.preventDefault();
-  }, []);
+  const [values, setValues] =
+    useState<Omit<TaskType, "_id" | "created" | "finished">>(INITIAL_TASK);
+
+  const currentProjectId = useAppSelector(
+    (state) => state.projects.currentProject?._id
+  );
+
+  const submit = useCallback(
+    (e: FormEvent) => {
+      e.preventDefault();
+
+      const newTask = {
+        ...values,
+        projectId: currentProjectId || "",
+      };
+
+      appDispatch(createTask(newTask));
+      close();
+    },
+    [values, appDispatch]
+  );
 
   const handlers: FormHandlers = useMemo(
     () => ({
@@ -17,15 +37,26 @@ export const useCreateTaskForm: UseCreateTaskForm = () => {
       },
 
       setStatus: (status) => {
-        setValues((prev) => ({ ...prev, status }));
+        setValues((prev) => ({
+          ...prev,
+          status,
+          layout: JSON.stringify({
+            ...TASK_CONFIG,
+            x: STATUS_POSITION[status],
+          }),
+        }));
       },
 
-      setExecutor: (userId) => {
-        setValues((prev) => ({ ...prev, executor: userId }));
+      setDescription: (description) => {
+        setValues((prev) => ({ ...prev, description }));
+      },
+
+      setExecutor: (executor) => {
+        setValues((prev) => ({ ...prev, executor }));
       },
     }),
     []
   );
 
-  return [values, handlers, submit];
+  return { values, handlers, submit };
 };

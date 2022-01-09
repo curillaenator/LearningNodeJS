@@ -21,12 +21,14 @@ const TaskStyled = styled.div`
 `;
 
 export const Task: FC<TaskProps> = (props) => {
-  const { id, taskId, title, status, created, finished, executor } = props;
+  const { _id, title, status, created, finished, executor, description } =
+    props;
 
   return (
     <TaskStyled>
       <h3 className="task-id">{title}</h3>
-      <p className="task-title">{taskId}</p>
+      {/* <p className="task-title">{_id}</p> */}
+      <p className="task-description">{description}</p>
     </TaskStyled>
   );
 };

@@ -50,7 +50,7 @@ export const getTasks = (projectId: string): Thunk => {
     const token = getState().auth.token;
     const response = await tasksAPI.getTasks(token, projectId);
 
-    console.log(response);
+    // console.log(response);
 
     if (typeof response === "string") {
       return batch(() => {
@@ -61,6 +61,34 @@ export const getTasks = (projectId: string): Thunk => {
 
     if (response.status === 201) {
       dispatch(setCurrentTasks(response.projectTasks));
+      dispatch(setTasksLoading(false));
+    }
+  };
+};
+
+export const createTask = (
+  task: Omit<TaskType, "_id" | "created" | "finished">
+): Thunk => {
+  return async (dispatch, getState) => {
+    batch(() => {
+      dispatch(setTasksLoading(true));
+      dispatch(setTasksError(""));
+    });
+
+    const token = getState().auth.token;
+    const response = await tasksAPI.createTask(token, task);
+
+    if (typeof response === "string") {
+      return batch(() => {
+        dispatch(setTasksError(response));
+        dispatch(setTasksLoading(false));
+      });
+    }
+
+    if (response.status === 201) {
+      const tasks = getState().tasks.currentTasks;
+
+      dispatch(setCurrentTasks([...tasks, response.task]));
       dispatch(setTasksLoading(false));
     }
   };

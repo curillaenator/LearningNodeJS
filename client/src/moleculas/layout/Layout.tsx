@@ -22,7 +22,10 @@ const LayoutStyled = styled.div`
 export const Layout: FC<LayoutProps> = ({ currentTasks }) => {
   const [sizes, layoutRef] = useLayout();
 
-  const layout = currentTasks.map((task) => task.layout);
+  const layout = currentTasks.map((task) => ({
+    ...JSON.parse(task.layout),
+    i: task._id,
+  }));
 
   return (
     <Scrollbar maxHeight={`${sizes.h}px`} schema="dark" isVisible="scroll">
@@ -38,7 +41,7 @@ export const Layout: FC<LayoutProps> = ({ currentTasks }) => {
           isResizable={false}
         >
           {currentTasks.map((task) => (
-            <div data-grid={task.layout} key={task._id}>
+            <div data-grid={JSON.parse(task.layout)} key={task._id}>
               <Task {...task} />
             </div>
           ))}

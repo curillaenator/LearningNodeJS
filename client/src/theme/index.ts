@@ -17,6 +17,7 @@ export const theme = {
     gray: colors.liver[300],
     lightGray: colors.liver[100],
     light: colors.liver[50],
+    transparent: "transparent",
   },
 
   text: {
