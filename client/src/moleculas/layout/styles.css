@@ -1,0 +1,13 @@
+.react-grid-placeholder {
+  background-color: #f1f1f2 !important;
+  border-radius: 12px !important;
+  opacity: 0.5 !important;
+}
+
+.react-graggable-gragging {
+  opacity: 0.2 !important;
+}
+
+.react-graggable-gragging > * {
+  opacity: 0.2 !important;
+}

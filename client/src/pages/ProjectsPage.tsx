@@ -33,13 +33,15 @@ const ProjectsPageStyled = styled.div`
 `;
 
 export const ProjectsPage: FC = () => {
-  const [
+  const {
+    tasksError,
     currentProject,
+    currentTasks,
     isCreateProjectModalOpen,
     isCreateTaskModalOpen,
     closeCreateProjectModal,
     closeCreateTaskModal,
-  ] = useProjectsPage();
+  } = useProjectsPage();
 
   return (
     <ProjectsPageStyled>
@@ -50,7 +52,17 @@ export const ProjectsPage: FC = () => {
           <div className="framework-message">Chose project</div>
         )}
 
-        {currentProject && <Layout />}
+        {currentProject && tasksError && (
+          <div className="framework-message">{tasksError}</div>
+        )}
+
+        {currentProject && !currentTasks.length && (
+          <div className="framework-message">No data</div>
+        )}
+
+        {currentProject && !tasksError && !!currentTasks.length && (
+          <Layout currentTasks={currentTasks} />
+        )}
       </div>
 
       <Modal open={isCreateProjectModalOpen} onClose={closeCreateProjectModal}>

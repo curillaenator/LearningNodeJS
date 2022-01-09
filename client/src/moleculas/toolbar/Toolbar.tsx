@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { useProjectToolbarMenu } from "./hooks/useProjectToolbarMenu";
 
 import { Button } from "../../components/buttons";
-// import { Loader } from "../../components/loader";
+import { Loader } from "../../components/loader";
 import { Dropdown, Menu } from "../../components/dropdown";
 
 import { ToolbarProps } from "./interfaces";
@@ -14,6 +14,12 @@ const ToolbarStyled = styled.div`
   align-items: center;
   justify-content: space-between;
   margin-bottom: 16px;
+
+  .tb-tasks {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
 
   .tb-projects {
     display: flex;
@@ -27,13 +33,13 @@ const ToolbarStyled = styled.div`
 `;
 
 export const Toolbar: FC<ToolbarProps> = () => {
-  const [
+  const {
     currentProject,
     selectableProjects,
     openCreateProjectModal,
     openCreateTaskModal,
     loading,
-  ] = useProjectToolbarMenu();
+  } = useProjectToolbarMenu();
 
   return (
     <ToolbarStyled>
@@ -45,12 +51,17 @@ export const Toolbar: FC<ToolbarProps> = () => {
           onClick={openCreateTaskModal}
           disabled={!currentProject}
         />
+
+        {loading && <Loader size="s" />}
       </div>
 
       <div className="tb-projects">
         <Dropdown
           triggerTitle={
             currentProject ? currentProject.title : "Chose existing"
+          }
+          disabled={
+            loading || !selectableProjects || !selectableProjects.length
           }
           position="bottom left"
         >
@@ -66,11 +77,9 @@ export const Toolbar: FC<ToolbarProps> = () => {
           title="Create new project"
           size="l"
           onClick={openCreateProjectModal}
-          // disabled={loading}
+          disabled={loading}
         />
       </div>
-
-      {/* <div className="tb-status">{loading && <Loader />}</div> */}
     </ToolbarStyled>
   );
 };

@@ -2,6 +2,7 @@ export interface TriggerProps {
   title?: string;
   active?: boolean;
   size?: "s" | "m" | "l" | "xl";
+  disabled?: boolean;
 }
 
 interface Item {

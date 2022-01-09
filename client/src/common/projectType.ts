@@ -1,7 +1,7 @@
 export interface Project {
-  _id?: string;
+  _id: string;
   title: string;
-  task?: any[];
+  tasks: any[];
   created?: string;
 }
 

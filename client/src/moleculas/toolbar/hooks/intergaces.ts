@@ -1,13 +1,15 @@
 import { Project } from "../../../common";
 
-interface ProjectWithHandler extends Project {
+interface ProjectWithHandler {
+  id: string;
+  title: string;
   onClick: () => void;
 }
 
-export type UseProjectToolbarMenu = () => [
-  Project | null,
-  ProjectWithHandler[],
-  () => void,
-  () => void,
-  boolean
-];
+export type UseProjectToolbarMenu = () => {
+  currentProject: Project | null;
+  selectableProjects: ProjectWithHandler[];
+  openCreateProjectModal: () => void;
+  openCreateTaskModal: () => void;
+  loading: boolean;
+};

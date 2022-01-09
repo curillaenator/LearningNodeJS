@@ -9,6 +9,7 @@ app.use(cors());
 app.use(express.json({ extended: true }));
 app.use("/api/auth", require("./routes/auth.routes"));
 app.use("/api/projects", require("./routes/projects.routes"));
+app.use("/api/tasks", require("./routes/tasks.routes"));
 
 const PORT = config.get("port") || 3300;
 const MONGO_URI = config.get("mongoURI");
@@ -16,7 +17,6 @@ const MONGO_URI = config.get("mongoURI");
 const start = async () => {
   try {
     await mongoose.connect(MONGO_URI);
-
     app.listen(PORT, () => console.log(`Server app started on ${PORT}`));
     //
   } catch (e) {

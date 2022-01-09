@@ -6,6 +6,7 @@ import { TriggerProps, ButtonParams } from "./interfaces";
 
 interface TriggerStyledProps {
   active: boolean;
+  disabled: boolean;
   params: ButtonParams;
 }
 
@@ -34,6 +35,7 @@ const TriggerStyled = styled.div<TriggerStyledProps>`
   }
 
   .trigger-title {
+    user-select: none;
     font-size: ${({ params }) => params.fontsize};
     color: ${({ theme, active }) =>
       active ? theme.text.dark : theme.text.gray};
@@ -42,33 +44,45 @@ const TriggerStyled = styled.div<TriggerStyledProps>`
   &:hover {
     .trigger-icon {
       &-dark {
-        fill: ${({ theme }) => theme.icons.dark};
+        fill: ${({ theme, disabled }) => {
+          if (disabled) return theme.icons.gray;
+          return theme.icons.dark;
+        }};
       }
     }
 
     .trigger-title {
-      color: ${({ theme }) => theme.text.dark};
+      color: ${({ theme, disabled }) => {
+        if (disabled) return theme.text.gray;
+        return theme.text.dark;
+      }};
     }
   }
 
   &:active {
     .trigger-icon {
       &-dark {
-        fill: ${({ theme }) => theme.icons.primaryActive};
+        fill: ${({ theme, disabled }) => {
+          if (disabled) return theme.icons.gray;
+          return theme.icons.primaryActive;
+        }};
       }
     }
 
     .trigger-title {
-      color: ${({ theme }) => theme.text.primaryActive};
+      color: ${({ theme, disabled }) => {
+        if (disabled) return theme.text.gray;
+        return theme.text.primaryActive;
+      }};
     }
   }
 `;
 
 export const Trigger: FC<TriggerProps> = (props) => {
-  const { title, active = false, size = "l" } = props;
+  const { title, active = false, size = "l", disabled = false } = props;
 
   return (
-    <TriggerStyled active={active} params={PARAMS[size]}>
+    <TriggerStyled active={active} disabled={disabled} params={PARAMS[size]}>
       {CARET}
 
       {title && <span className="trigger-title">{title}</span>}

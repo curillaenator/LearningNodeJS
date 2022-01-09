@@ -1,7 +1,11 @@
 import { MutableRefObject } from "react";
-import { TaskType } from "../../common/taskType";
+import { TaskType, Project } from "../../common";
 
-export interface TaskProps extends TaskType {}
+export type TaskProps = TaskType;
+
+export interface LayoutProps {
+  currentTasks: TaskType[];
+}
 
 interface LayoutSizes {
   w: number;

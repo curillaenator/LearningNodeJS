@@ -9,6 +9,7 @@ const TaskStyled = styled.div`
   padding: 8px;
   border-radius: 12px;
   background-color: ${({ theme }) => theme.bg.light};
+  cursor: move;
 
   .task-id {
     margin-bottom: 8px;

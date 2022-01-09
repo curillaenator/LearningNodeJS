@@ -19,6 +19,8 @@ export const useProjectToolbarMenu: UseProjectToolbarMenu = () => {
     (state) => state.projects
   );
 
+  const tasksLoading = useAppSelector((state) => state.tasks.loading);
+
   useEffect(() => {
     dispatch(getAvailableProjects());
   }, []);
@@ -37,11 +39,11 @@ export const useProjectToolbarMenu: UseProjectToolbarMenu = () => {
     dispatch(setCreateTaskModalOpen(true));
   }, [dispatch]);
 
-  return [
+  return {
     currentProject,
     selectableProjects,
     openCreateProjectModal,
     openCreateTaskModal,
-    loading,
-  ];
+    loading: tasksLoading || loading,
+  };
 };

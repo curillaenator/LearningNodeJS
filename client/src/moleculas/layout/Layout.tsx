@@ -7,6 +7,9 @@ import { useLayout } from "./hooks/useLayout";
 
 import { Task } from "./components/Task";
 
+import { LayoutProps } from "./interfaces";
+import "./styles.css";
+
 const LayoutStyled = styled.div`
   height: calc(100vh - 80px - 72px - 32px);
 
@@ -16,27 +19,10 @@ const LayoutStyled = styled.div`
   }
 `;
 
-export const Layout: FC = () => {
+export const Layout: FC<LayoutProps> = ({ currentTasks }) => {
   const [sizes, layoutRef] = useLayout();
 
-  const tasksMock = [...Array(5)].map((_, i) => ({
-    id: `task${i}`,
-    taskId: "PROJ-1",
-    title: `task${i}`,
-    layout: {
-      i: `task${i}`,
-      x: 0,
-      y: 0,
-      w: 1,
-      h: 1,
-      minW: 1,
-      maxW: 1,
-      minH: 1,
-      maxH: 1,
-    },
-  }));
-
-  const layout = tasksMock.map((task) => task.layout);
+  const layout = currentTasks.map((task) => task.layout);
 
   return (
     <Scrollbar maxHeight={`${sizes.h}px`} schema="dark" isVisible="scroll">
@@ -51,8 +37,8 @@ export const Layout: FC = () => {
           containerPadding={[0, 0]}
           isResizable={false}
         >
-          {tasksMock.map((task) => (
-            <div data-grid={task.layout} key={task.id}>
+          {currentTasks.map((task) => (
+            <div data-grid={task.layout} key={task._id}>
               <Task {...task} />
             </div>
           ))}

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 import {
@@ -7,6 +7,7 @@ import {
   setCreateProjectModalOpen,
   setCreateTaskModalOpen,
   setCurrentProject,
+  getTasks,
 } from "../../redux";
 
 import { UseProjectsPage } from "./interfaces";
@@ -22,6 +23,10 @@ export const useProjectsPage: UseProjectsPage = () => {
     isCreateTaskModalOpen,
   } = useAppSelector((state) => state.projects);
 
+  const { currentTasks, loading, error } = useAppSelector(
+    (state) => state.tasks
+  );
+
   useEffect(() => {
     const foundProject = ownedProjects.find(
       (project) => project._id === projectId
@@ -29,6 +34,7 @@ export const useProjectsPage: UseProjectsPage = () => {
 
     if (projectId && foundProject) {
       dispatch(setCurrentProject(foundProject));
+      dispatch(getTasks(projectId));
     }
   }, [projectId, ownedProjects, dispatch]);
 
@@ -40,11 +46,14 @@ export const useProjectsPage: UseProjectsPage = () => {
     dispatch(setCreateTaskModalOpen(false));
   }, [dispatch]);
 
-  return [
+  return {
+    tasksError: error,
+    tasksLoading: loading,
     currentProject,
+    currentTasks,
     isCreateProjectModalOpen,
     isCreateTaskModalOpen,
     closeCreateProjectModal,
     closeCreateTaskModal,
-  ];
+  };
 };

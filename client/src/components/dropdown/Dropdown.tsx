@@ -34,6 +34,7 @@ export const Dropdown: FC<DropdownProps> = (props) => {
     trigger,
     position = "bottom right",
     offsetY = 12,
+    disabled = false,
     children,
   } = props;
 
@@ -44,10 +45,16 @@ export const Dropdown: FC<DropdownProps> = (props) => {
           ? trigger
           : (open) => (
               <div>
-                <Trigger active={open} title={triggerTitle} size="l" />
+                <Trigger
+                  active={open}
+                  title={triggerTitle}
+                  disabled={disabled}
+                  size="l"
+                />
               </div>
             )
       }
+      disabled={disabled}
       position={position}
       offsetY={offsetY}
       arrow={false}
