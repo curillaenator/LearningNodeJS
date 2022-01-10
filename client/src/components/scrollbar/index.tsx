@@ -14,6 +14,7 @@ const ScrollbarStyled = styled.div<ScrollbarStyledProps>`
 
   &::-webkit-scrollbar {
     width: 4px;
+    height: 4px;
     background-color: ${({ theme }) => theme.bg.lightGray};
     border-radius: 2px;
   }
@@ -21,7 +22,7 @@ const ScrollbarStyled = styled.div<ScrollbarStyledProps>`
   &::-webkit-scrollbar-thumb {
     background-color: ${({ theme, schema }) => {
       if (schema === "dark") return theme.bg.dark;
-      return theme.bg.lightGray;
+      return theme.bg.gray;
     }};
     border-radius: 2px;
 

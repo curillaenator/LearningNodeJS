@@ -88,8 +88,45 @@ export const createTask = (
     if (response.status === 201) {
       const tasks = getState().tasks.currentTasks;
 
-      dispatch(setCurrentTasks([...tasks, response.task]));
-      dispatch(setTasksLoading(false));
+      batch(() => {
+        dispatch(setCurrentTasks([...tasks, response.task]));
+        dispatch(setTasksLoading(false));
+      });
+    }
+  };
+};
+
+export const deleteTask = (taskId: string): Thunk => {
+  return async (dispatch, getState) => {
+    batch(() => {
+      dispatch(setTasksLoading(true));
+      dispatch(setTasksError(""));
+    });
+
+    const token = getState().auth.token;
+    const response = await tasksAPI.deleteTask(token, taskId);
+
+    console.log(response);
+
+    if (typeof response === "string") {
+      return batch(() => {
+        dispatch(setTasksError(response));
+        dispatch(setTasksLoading(false));
+      });
+    }
+
+    if (response.status === 201) {
+      const tasks = getState().tasks.currentTasks;
+
+      const index = tasks.findIndex((task) => task._id === taskId);
+      const taskUpd = [...tasks];
+
+      taskUpd.splice(index, 1);
+
+      batch(() => {
+        dispatch(setCurrentTasks(taskUpd));
+        dispatch(setTasksLoading(false));
+      });
     }
   };
 };

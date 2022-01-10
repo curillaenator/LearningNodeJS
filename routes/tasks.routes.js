@@ -1,19 +1,16 @@
 const { Router } = require("express");
-// const { check, validationResult } = require("express-validator");
-// const config = require("config");
 
 const checkAuth = require("../middleware/auth.middleware");
 const Project = require("../models/Project");
-// const User = require("../models/User");
 const Task = require("../models/Task");
 
 const router = Router();
 
-router.post("/tasks", checkAuth, async (req, res) => {
+router.get("/tasks/:projectId", checkAuth, async (req, res) => {
   try {
-    const { projectId } = req.body;
+    const params = req.params;
 
-    const projectTasks = await Task.find({ projectId });
+    const projectTasks = await Task.find({ projectId: params.projectId });
 
     res.json({ status: 201, projectTasks });
     //
@@ -41,7 +38,37 @@ router.post("/create", checkAuth, async (req, res) => {
     await currentProject.save();
 
     res.status(201).json({ status: 201, message: "Task created", task });
+    //
+  } catch (error) {
+    res.status(500).json({ message: "Something went wrong, try again" });
+  }
+});
 
+router.delete("/delete/:taskId", checkAuth, async (req, res) => {
+  try {
+    const params = req.params;
+
+    await Task.deleteOne({ _id: params.taskId });
+
+    res.status(201).json({ status: 201, message: "Task removed" });
+    //
+  } catch (error) {
+    res.status(500).json({ message: "Something went wrong, try again" });
+  }
+});
+
+router.put("/newposition/:taskId", checkAuth, async (req, res) => {
+  try {
+    const params = req.params;
+    const { layout } = req.body;
+
+    const task = await Task.findById(params.taskId);
+
+    task.layout = layout;
+
+    task.save();
+
+    res.status(201).json({ status: 201, message: "New position complete" });
     //
   } catch (error) {
     res.status(500).json({ message: "Something went wrong, try again" });

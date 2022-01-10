@@ -1,6 +1,10 @@
 import React, { FC } from "react";
 import styled from "styled-components";
 
+import { useAppDispatch, deleteTask } from "../../../redux";
+
+import { Button } from "../../../components/buttons";
+
 import { TaskProps } from "../interfaces";
 
 const TaskStyled = styled.div`
@@ -21,6 +25,8 @@ const TaskStyled = styled.div`
 `;
 
 export const Task: FC<TaskProps> = (props) => {
+  const appDispatch = useAppDispatch();
+
   const { _id, title, status, created, finished, executor, description } =
     props;
 
@@ -29,6 +35,12 @@ export const Task: FC<TaskProps> = (props) => {
       <h3 className="task-id">{title}</h3>
       {/* <p className="task-title">{_id}</p> */}
       <p className="task-description">{description}</p>
+
+      <Button
+        title="Delete"
+        size="s"
+        onClick={() => appDispatch(deleteTask(_id))}
+      />
     </TaskStyled>
   );
 };

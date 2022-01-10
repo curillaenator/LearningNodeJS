@@ -8,14 +8,22 @@ import { useLayout } from "./hooks/useLayout";
 import { Task } from "./components/Task";
 
 import { LayoutProps } from "./interfaces";
-import "./styles.css";
 
 const LayoutStyled = styled.div`
   height: calc(100vh - 80px - 72px - 32px);
 
-  .layout {
-    /* border-radius: 40px;
-    overflow: hidden; */
+  .react-grid-placeholder {
+    background-color: #f1f1f2 !important;
+    border-radius: 12px !important;
+    opacity: 0.5 !important;
+  }
+
+  .react-graggable-gragging {
+    opacity: 0.2 !important;
+  }
+
+  .react-graggable-gragging > * {
+    opacity: 0.2 !important;
   }
 `;
 

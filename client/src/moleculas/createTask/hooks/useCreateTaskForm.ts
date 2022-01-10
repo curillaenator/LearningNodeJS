@@ -47,6 +47,10 @@ export const useCreateTaskForm: UseCreateTaskForm = (close) => {
         }));
       },
 
+      setPriotity: (priority) => {
+        setValues((prev) => ({ ...prev, priority }));
+      },
+
       setDescription: (description) => {
         setValues((prev) => ({ ...prev, description }));
       },

@@ -1,4 +1,4 @@
-import { TaskType, TaskStatuses } from "../../../common";
+import { TaskType, TaskStatuses, TaskPriorities } from "../../../common";
 
 export const STATUS_POSITION: { [status: string]: number } = {
   open: 0,
@@ -21,6 +21,7 @@ export const INITIAL_TASK: Omit<TaskType, "_id" | "created" | "finished"> = {
   projectId: "",
   title: "",
   status: TaskStatuses.open,
+  priority: TaskPriorities.medium,
   owner: "",
   executor: "",
   description: "",
