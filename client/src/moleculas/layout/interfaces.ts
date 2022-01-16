@@ -1,5 +1,6 @@
 import { MutableRefObject } from "react";
-import { TaskType, Project } from "../../common";
+import { TaskType } from "../../common";
+import { Layout } from "react-grid-layout";
 
 export type TaskProps = TaskType;
 
@@ -12,7 +13,10 @@ interface LayoutSizes {
   h: number;
 }
 
-export type UseLayout = () => [
+export type UseLayout = (
+  tasks: TaskType[]
+) => [
   LayoutSizes,
-  MutableRefObject<HTMLDivElement | null>
+  MutableRefObject<HTMLDivElement | null>,
+  (layouts: Layout[], oldItem: Layout, newItem: Layout) => void
 ];

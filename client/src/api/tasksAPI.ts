@@ -5,7 +5,7 @@ import {
   GetTasksResponse,
   CreateTaskResponse,
   DeleteTaskResponse,
-  NewPositionTaskResponse,
+  LayoutTaskResponse,
 } from "../common";
 
 const base = axios.create({ baseURL: "http://localhost:3300/api/" });
@@ -26,10 +26,10 @@ interface TasksAPI {
     taskId: string
   ) => Promise<DeleteTaskResponse | string>;
 
-  updatePosition: (
+  updateLayout: (
     token: string,
-    task: TaskType
-  ) => Promise<NewPositionTaskResponse | string>;
+    task: Pick<TaskType, "layout" | "_id">
+  ) => Promise<LayoutTaskResponse | string>;
 }
 
 export const tasksAPI: TasksAPI = {
@@ -60,11 +60,11 @@ export const tasksAPI: TasksAPI = {
       .catch((err) => err.response.data.message);
   },
 
-  updatePosition: (token, task) => {
+  updateLayout: (token, task) => {
     base.defaults.headers.common["Authorization"] = token;
 
     return base
-      .put(`/tasks/newposition/${task._id}`, { layout: task.layout })
+      .put(`/tasks/layout/${task._id}`, { layout: task.layout })
       .then((r) => r.data)
       .catch((err) => err.response.data.message);
   },

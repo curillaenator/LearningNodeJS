@@ -40,7 +40,7 @@ export interface DeleteTaskResponse {
   message: string;
 }
 
-export interface NewPositionTaskResponse {
+export interface LayoutTaskResponse {
   status: number | string;
   message: string;
 }

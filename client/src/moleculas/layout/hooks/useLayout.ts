@@ -1,8 +1,13 @@
 import { useRef, useState, useLayoutEffect, useCallback } from "react";
+import { Layout } from "react-grid-layout";
+
+import { useAppDispatch, updateLayout } from "../../../redux";
 
 import { UseLayout } from "../interfaces";
 
-export const useLayout: UseLayout = () => {
+export const useLayout: UseLayout = (tasks) => {
+  const appDispatch = useAppDispatch();
+
   const layoutRef = useRef<HTMLDivElement | null>(null);
 
   const [sizes, setSizes] = useState({ w: 0, h: 0 });
@@ -21,5 +26,18 @@ export const useLayout: UseLayout = () => {
     return () => window.removeEventListener("resize", widthHandler);
   }, [widthHandler]);
 
-  return [sizes, layoutRef];
+  function onLayoutChange(layouts: Layout[], oldItem: Layout, newItem: Layout) {
+    const draggedTask = tasks.find((task) => task._id === oldItem.i);
+
+    if (!!draggedTask) {
+      const taskUpd = {
+        ...draggedTask,
+        layout: JSON.stringify(newItem),
+      };
+
+      appDispatch(updateLayout(taskUpd));
+    }
+  }
+
+  return [sizes, layoutRef, onLayoutChange];
 };

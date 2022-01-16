@@ -28,7 +28,7 @@ const LayoutStyled = styled.div`
 `;
 
 export const Layout: FC<LayoutProps> = ({ currentTasks }) => {
-  const [sizes, layoutRef] = useLayout();
+  const [sizes, layoutRef, onLayoutChange] = useLayout(currentTasks);
 
   const layout = currentTasks.map((task) => ({
     ...JSON.parse(task.layout),
@@ -47,6 +47,8 @@ export const Layout: FC<LayoutProps> = ({ currentTasks }) => {
           margin={[8, 8]}
           containerPadding={[0, 0]}
           isResizable={false}
+          // onLayoutChange={onLayoutChange}
+          onDragStop={onLayoutChange}
         >
           {currentTasks.map((task) => (
             <div data-grid={JSON.parse(task.layout)} key={task._id}>

@@ -106,8 +106,6 @@ export const deleteTask = (taskId: string): Thunk => {
     const token = getState().auth.token;
     const response = await tasksAPI.deleteTask(token, taskId);
 
-    console.log(response);
-
     if (typeof response === "string") {
       return batch(() => {
         dispatch(setTasksError(response));
@@ -126,6 +124,41 @@ export const deleteTask = (taskId: string): Thunk => {
       batch(() => {
         dispatch(setCurrentTasks(taskUpd));
         dispatch(setTasksLoading(false));
+      });
+    }
+  };
+};
+
+export const updateLayout = (task: TaskType): Thunk => {
+  return async (dispatch, getState) => {
+    console.log(task);
+
+    batch(() => {
+      dispatch(setTasksError(""));
+    });
+
+    const token = getState().auth.token;
+
+    const response = await tasksAPI.updateLayout(token, task);
+
+    console.log(response);
+
+    if (typeof response === "string") {
+      return batch(() => {
+        dispatch(setTasksError(response));
+      });
+    }
+
+    if (response.status === 201) {
+      const tasks = getState().tasks.currentTasks;
+
+      const index = tasks.findIndex((t) => t._id === task._id);
+      const tasksUpd = [...tasks];
+
+      tasksUpd.splice(index, 1, task);
+
+      batch(() => {
+        dispatch(setCurrentTasks(tasksUpd));
       });
     }
   };

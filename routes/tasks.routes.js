@@ -57,7 +57,7 @@ router.delete("/delete/:taskId", checkAuth, async (req, res) => {
   }
 });
 
-router.put("/newposition/:taskId", checkAuth, async (req, res) => {
+router.put("/layout/:taskId", checkAuth, async (req, res) => {
   try {
     const params = req.params;
     const { layout } = req.body;
