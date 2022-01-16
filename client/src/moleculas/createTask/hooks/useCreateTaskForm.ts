@@ -27,7 +27,7 @@ export const useCreateTaskForm: UseCreateTaskForm = (close) => {
       appDispatch(createTask(newTask));
       close();
     },
-    [values, appDispatch]
+    [values, currentProjectId, close, appDispatch]
   );
 
   const handlers: FormHandlers = useMemo(

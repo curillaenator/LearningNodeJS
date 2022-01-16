@@ -25,10 +25,11 @@ const TaskStyled = styled.div`
 `;
 
 export const Task: FC<TaskProps> = (props) => {
-  const appDispatch = useAppDispatch();
+  // status, created, finished, executor,
 
-  const { _id, title, status, created, finished, executor, description } =
-    props;
+  const { _id, title, description } = props;
+
+  const appDispatch = useAppDispatch();
 
   return (
     <TaskStyled>

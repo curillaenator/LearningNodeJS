@@ -23,7 +23,7 @@ export const useProjectToolbarMenu: UseProjectToolbarMenu = () => {
 
   useEffect(() => {
     dispatch(getAvailableProjects());
-  }, []);
+  }, [dispatch]);
 
   const selectableProjects = ownedProjects.map((project) => ({
     id: project._id,

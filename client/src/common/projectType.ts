@@ -1,14 +1,14 @@
 export interface Project {
   _id: string;
   title: string;
-  tasks: any[];
+  tasks: string[];
   created?: string;
 }
 
 export interface CreateProjectResponse {
   status: number | string;
   message: string;
-  project: any;
+  project: Project;
 }
 
 export interface GetAvailableProjectsResponse {

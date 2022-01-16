@@ -46,8 +46,9 @@ interface UserProps {
   avatarURL: string;
 }
 
-export const User = forwardRef<HTMLDivElement, UserProps>((props, ref) => {
+const User = forwardRef<HTMLDivElement, UserProps>((props, ref) => {
   const { open, name, avatarURL } = props;
+
   return (
     <UserStyled ref={ref} active={open}>
       <span className="user-name">{name || "N/A"}</span>
@@ -60,3 +61,7 @@ export const User = forwardRef<HTMLDivElement, UserProps>((props, ref) => {
     </UserStyled>
   );
 });
+
+User.displayName = "User";
+
+export { User };

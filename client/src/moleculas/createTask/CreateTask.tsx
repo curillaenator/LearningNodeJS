@@ -1,12 +1,12 @@
-import React, { FC, useMemo } from "react";
+import React, { FC } from "react";
 import styled from "styled-components";
 
 import { useCreateTaskForm } from "./hooks/useCreateTaskForm";
 
 import { Button } from "../../components/buttons";
-import { TextInput, Radio, Textarea } from "../../components/inputs";
-import { Dropdown } from "../../components/dropdown";
-import { Loader } from "../../components/loader";
+import { Radio, Textarea } from "../../components/inputs";
+// import { Dropdown } from "../../components/dropdown";
+// import { Loader } from "../../components/loader";
 
 import { CreateTaskProps } from "./interfaces";
 import { TaskStatuses } from "../../common";

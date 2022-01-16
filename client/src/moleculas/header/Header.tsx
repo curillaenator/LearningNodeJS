@@ -7,7 +7,7 @@ import { User, UserMenu } from "./components";
 import { Button } from "../../components/buttons";
 import { Dropdown } from "../../components/dropdown";
 
-import { HeaderProps } from "./interfaces";
+// import { HeaderProps } from "./interfaces";
 
 const HeaderStyled = styled.header`
   display: flex;
@@ -24,7 +24,7 @@ const HeaderStyled = styled.header`
   }
 `;
 
-export const Header: FC<HeaderProps> = () => {
+export const Header: FC = () => {
   const { userID, userName, avatarURL } = useAppSelector((state) => state.auth);
 
   const dispatch = useAppDispatch();

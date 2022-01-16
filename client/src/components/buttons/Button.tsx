@@ -74,7 +74,7 @@ export const Button: FC<ButtonProps> = (props) => {
     size = "l",
     type = "button",
     variant = "primary",
-    active = false,
+    // active = false,
     disabled = false,
     onClick,
   } = props;

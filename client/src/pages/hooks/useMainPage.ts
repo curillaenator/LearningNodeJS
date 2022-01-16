@@ -19,7 +19,7 @@ export const useMainPage: UseMainPage = () => {
 
   const routes = useRoutes(!!userID);
 
-  useEffect(() => dispatch(initialize()), []);
+  useEffect(() => dispatch(initialize()), [dispatch]);
 
   const closeAuthModal = () => dispatch(setAuthModalOpen(false));
   const closeProfileModal = () => dispatch(setProfileModalOpen(false));

@@ -7,8 +7,6 @@ import { Button } from "../../components/buttons";
 import { Loader } from "../../components/loader";
 import { Dropdown, Menu } from "../../components/dropdown";
 
-import { ToolbarProps } from "./interfaces";
-
 const ToolbarStyled = styled.div`
   display: flex;
   align-items: center;
@@ -32,7 +30,7 @@ const ToolbarStyled = styled.div`
   }
 `;
 
-export const Toolbar: FC<ToolbarProps> = () => {
+export const Toolbar: FC = () => {
   const {
     currentProject,
     selectableProjects,

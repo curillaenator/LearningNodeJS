@@ -120,13 +120,13 @@ export const TextInput: FC<TextInputProps> = ({
   const [isFocused, setIsFocused] = useState(false);
 
   const handleFocus = () => {
-    !!inputRef.current && inputRef.current.focus();
+    if (!!inputRef.current) inputRef.current.focus();
     setIsFocused(true);
   };
 
   const handleBlur = () => {
-    !!inputRef.current && inputRef.current.blur();
-    !!onFocusOut && onFocusOut();
+    if (!!inputRef.current) inputRef.current.blur();
+    if (!!onFocusOut) onFocusOut();
     setIsFocused(false);
   };
 
