@@ -98,6 +98,10 @@ export const createTask = (
 
 export const deleteTask = (taskId: string): Thunk => {
   return async (dispatch, getState) => {
+    const question = confirm("Are you sure to delete task?");
+
+    if (!question) return;
+
     batch(() => {
       dispatch(setTasksLoading(true));
       dispatch(setTasksError(""));
