@@ -1,43 +1,33 @@
 import React, { FC } from "react";
-import styled from "styled-components";
+import { Routes, Route } from "react-router-dom";
 
-import { useMainPage } from "./hooks/useMainPage";
+import { useAppSelector } from "../redux";
 
-import { Header } from "../moleculas/header";
-import { Login } from "../moleculas/login";
-import { Profile } from "../moleculas/profile";
-import { Modal } from "../components/modal";
-// import { Loader } from "../components/loader";
-
-const MainStyled = styled.div`
-  min-width: 1024px;
-  color: ${({ theme }) => theme.text.dark};
-`;
+import { PageLayout, WelcomePage, ProjectsPage } from "./components";
 
 export const MainPage: FC = () => {
-  const [
-    routes,
-    isAuthModalOpen,
-    isProfileModalOpen,
-    closeAuthModal,
-    closeProfileModal,
-  ] = useMainPage();
+  const { userID } = useAppSelector((state) => state.auth);
 
-  // if (!userID) return <Loader />; ???
+  if (!userID) {
+    return (
+      <Routes>
+        <Route path="/" element={<PageLayout />}>
+          <Route index element={<WelcomePage />} />
+          <Route path="*" element={<WelcomePage />} />
+        </Route>
+      </Routes>
+    );
+  }
 
   return (
-    <MainStyled>
-      <Header />
-
-      {routes}
-
-      <Modal open={isAuthModalOpen} onClose={closeAuthModal}>
-        <Login close={closeAuthModal} />
-      </Modal>
-
-      <Modal open={isProfileModalOpen} onClose={closeProfileModal}>
-        <Profile close={closeProfileModal} />
-      </Modal>
-    </MainStyled>
+    <>
+      <Routes>
+        <Route path="/" element={<PageLayout />}>
+          <Route index element={<ProjectsPage />} />
+          <Route path=":projectId" element={<ProjectsPage />} />
+          <Route path="*" element={<ProjectsPage />} />
+        </Route>
+      </Routes>
+    </>
   );
 };

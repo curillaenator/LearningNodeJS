@@ -1,14 +1,15 @@
 import React, { FC } from "react";
 import styled from "styled-components";
+import { useParams } from "react-router-dom";
 
-import { useProjectsPage } from "./hooks/useProjectPage";
+import { useProjectsPage } from "../hooks/useProjectPage";
 
-import { Modal } from "../components/modal";
-import { CreateProject } from "../moleculas/createProject";
-import { CreateTask } from "../moleculas/createTask";
-import { Toolbar } from "../moleculas/toolbar";
+import { Modal } from "../../components/modal";
+import { CreateProject } from "../../moleculas/createProject";
+import { CreateTask } from "../../moleculas/createTask";
+import { Toolbar } from "../../moleculas/toolbar";
 
-import { Layout } from "../moleculas/layout";
+import { Layout } from "../../moleculas/layout";
 
 const ProjectsPageStyled = styled.div`
   width: 100%;
@@ -33,6 +34,8 @@ const ProjectsPageStyled = styled.div`
 `;
 
 export const ProjectsPage: FC = () => {
+  const { projectId } = useParams<{ projectId: string }>();
+
   const {
     tasksError,
     currentProject,
@@ -41,7 +44,7 @@ export const ProjectsPage: FC = () => {
     isCreateTaskModalOpen,
     closeCreateProjectModal,
     closeCreateTaskModal,
-  } = useProjectsPage();
+  } = useProjectsPage(projectId || null);
 
   return (
     <ProjectsPageStyled>

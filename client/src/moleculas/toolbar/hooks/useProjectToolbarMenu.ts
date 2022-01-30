@@ -1,5 +1,5 @@
 import { useEffect, useCallback } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import {
   useAppDispatch,
@@ -13,7 +13,7 @@ import { UseProjectToolbarMenu } from "./intergaces";
 
 export const useProjectToolbarMenu: UseProjectToolbarMenu = () => {
   const dispatch = useAppDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const { currentProject, ownedProjects, loading } = useAppSelector(
     (state) => state.projects
@@ -28,7 +28,7 @@ export const useProjectToolbarMenu: UseProjectToolbarMenu = () => {
   const selectableProjects = ownedProjects.map((project) => ({
     id: project._id,
     title: project.title,
-    onClick: () => history.push(`/projects/${project._id}`),
+    onClick: () => navigate(`/${project._id}`),
   }));
 
   const openCreateProjectModal = useCallback(() => {

@@ -1,16 +1,8 @@
 import { Project, TaskType } from "../../common";
 
-export type UseRoutesHook = (isUserAuthed: boolean) => JSX.Element;
+export type UseMainPage = () => [boolean, boolean, () => void, () => void];
 
-export type UseMainPage = () => [
-  JSX.Element,
-  boolean,
-  boolean,
-  () => void,
-  () => void
-];
-
-export type UseProjectsPage = () => {
+export type UseProjectsPage = (projectId: string | null) => {
   tasksLoading: boolean;
   tasksError: string;
   currentProject: Project | null;

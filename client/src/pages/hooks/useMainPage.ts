@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useRoutes } from "./useRoutes";
+import { useAppRoutes } from "./useAppRoutes";
 import {
   useAppDispatch,
   useAppSelector,
@@ -13,11 +13,9 @@ import { UseMainPage } from "./interfaces";
 export const useMainPage: UseMainPage = () => {
   const dispatch = useAppDispatch();
 
-  const { userID, isAuthModalOpen, isProfileModalOpen } = useAppSelector(
+  const { isAuthModalOpen, isProfileModalOpen } = useAppSelector(
     (state) => state.auth
   );
-
-  const routes = useRoutes(!!userID);
 
   useEffect(() => dispatch(initialize()), [dispatch]);
 
@@ -25,7 +23,6 @@ export const useMainPage: UseMainPage = () => {
   const closeProfileModal = () => dispatch(setProfileModalOpen(false));
 
   return [
-    routes,
     isAuthModalOpen,
     isProfileModalOpen,
     closeAuthModal,

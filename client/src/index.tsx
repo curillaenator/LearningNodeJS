@@ -11,17 +11,16 @@ import { MainPage } from "./pages/MainPage";
 
 import "./index.css";
 import "react-grid-layout/css/styles.css";
-// import "react-resizable/css/styles.css";
 
 render(
   <StrictMode>
-    <Provider store={store}>
-      <BrowserRouter>
+    <BrowserRouter>
+      <Provider store={store}>
         <ThemeProvider theme={theme}>
           <MainPage />
         </ThemeProvider>
-      </BrowserRouter>
-    </Provider>
+      </Provider>
+    </BrowserRouter>
   </StrictMode>,
   document.getElementById("root")
 );

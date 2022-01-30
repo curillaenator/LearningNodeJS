@@ -23,19 +23,23 @@ router.post("/create", checkAuth, async (req, res) => {
   try {
     const { projectId, title, description, layout } = req.body;
 
+    const { userID } = req.user;
+
     const task = new Task({
       projectId,
       title,
       description,
       layout,
-      owner: req.user.userID,
+      owner: userID,
     });
 
-    const currentProject = await Project.findById(projectId);
-    currentProject.tasks = [...currentProject.tasks, task];
+    // console.log(task);
+
+    // const currentProject = await Project.findById(projectId);
+    // currentProject.tasks = [...currentProject.tasks, task];
 
     await task.save();
-    await currentProject.save();
+    // await currentProject.save();
 
     res.status(201).json({ status: 201, message: "Task created", task });
     //

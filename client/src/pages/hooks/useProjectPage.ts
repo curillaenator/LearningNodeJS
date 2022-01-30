@@ -1,5 +1,5 @@
 import { useCallback, useEffect } from "react";
-import { useParams } from "react-router-dom";
+// import { useParams, useNavigate } from "react-router-dom";
 
 import {
   useAppDispatch,
@@ -12,10 +12,9 @@ import {
 
 import { UseProjectsPage } from "./interfaces";
 
-export const useProjectsPage: UseProjectsPage = () => {
-  const { projectId } = useParams<{ projectId: string }>();
-
+export const useProjectsPage: UseProjectsPage = (projectId) => {
   const dispatch = useAppDispatch();
+
   const {
     currentProject,
     ownedProjects,
@@ -28,6 +27,8 @@ export const useProjectsPage: UseProjectsPage = () => {
   );
 
   useEffect(() => {
+    if (!projectId) return;
+
     const foundProject = ownedProjects.find(
       (project) => project._id === projectId
     );
