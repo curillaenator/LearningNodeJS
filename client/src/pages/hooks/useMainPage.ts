@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import { useAppRoutes } from "./useAppRoutes";
 import {
   useAppDispatch,
   useAppSelector,

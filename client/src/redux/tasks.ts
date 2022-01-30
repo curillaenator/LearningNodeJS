@@ -131,7 +131,7 @@ export const deleteTask = (taskId: string): Thunk => {
 
 export const updateLayout = (task: TaskType): Thunk => {
   return async (dispatch, getState) => {
-    console.log(task);
+    // console.log(task);
 
     batch(() => {
       dispatch(setTasksError(""));
@@ -141,7 +141,7 @@ export const updateLayout = (task: TaskType): Thunk => {
 
     const response = await tasksAPI.updateLayout(token, task);
 
-    console.log(response);
+    // console.log(response);
 
     if (typeof response === "string") {
       return batch(() => {

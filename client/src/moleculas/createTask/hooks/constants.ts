@@ -8,7 +8,7 @@ export const STATUS_POSITION: { [status: string]: number } = {
 
 export const TASK_CONFIG = {
   x: 0,
-  y: 9999,
+  y: 0,
   w: 1,
   h: 1,
   minW: 1,
