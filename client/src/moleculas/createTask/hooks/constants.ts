@@ -27,3 +27,5 @@ export const INITIAL_TASK: Omit<TaskType, "_id" | "created" | "finished"> = {
   description: "",
   layout: JSON.stringify(TASK_CONFIG),
 };
+
+export const CREATE_TASK_ERROR_MSG = "create form uncomplete";

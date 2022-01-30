@@ -2,7 +2,12 @@ import { FormEvent, useState, useMemo, useCallback } from "react";
 import { useAppSelector, useAppDispatch, createTask } from "../../../redux";
 
 import { TaskType } from "../../../common";
-import { INITIAL_TASK, TASK_CONFIG, STATUS_POSITION } from "./constants";
+import {
+  INITIAL_TASK,
+  TASK_CONFIG,
+  STATUS_POSITION,
+  CREATE_TASK_ERROR_MSG,
+} from "./constants";
 import { UseCreateTaskForm, FormHandlers } from "../interfaces";
 
 export const useCreateTaskForm: UseCreateTaskForm = (close) => {
@@ -10,6 +15,8 @@ export const useCreateTaskForm: UseCreateTaskForm = (close) => {
 
   const [values, setValues] =
     useState<Omit<TaskType, "_id" | "created" | "finished">>(INITIAL_TASK);
+
+  const { title, description, status } = values;
 
   const currentProjectId = useAppSelector(
     (state) => state.projects.currentProject?._id
@@ -19,9 +26,17 @@ export const useCreateTaskForm: UseCreateTaskForm = (close) => {
     (e: FormEvent) => {
       e.preventDefault();
 
+      if (!currentProjectId) {
+        throw new Error("projectId is not defined");
+      }
+
+      if (!title || !description || !status) {
+        throw new Error(CREATE_TASK_ERROR_MSG);
+      }
+
       const newTask = {
         ...values,
-        projectId: currentProjectId || "",
+        projectId: currentProjectId,
       };
 
       appDispatch(createTask(newTask));
