@@ -19,6 +19,21 @@ router.get("/tasks/:projectId", checkAuth, async (req, res) => {
   }
 });
 
+router.get("/tasks/gettask/:taskId", checkAuth, async (req, res) => {
+  try {
+    const params = req.params;
+
+    console.log(params);
+
+    const task = await Task.findById(params.taskId);
+
+    res.json({ status: 201, task });
+    //
+  } catch (error) {
+    res.status(500).json({ message: "Something went wrong, try again" });
+  }
+});
+
 router.post("/create", checkAuth, async (req, res) => {
   try {
     const { projectId, title, description, layout } = req.body;

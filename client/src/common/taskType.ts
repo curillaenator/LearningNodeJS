@@ -28,6 +28,10 @@ export interface GetTasksResponse {
   status: number | string;
   projectTasks: TaskType[];
 }
+export interface GetTaskResponse {
+  status: number | string;
+  task: TaskType;
+}
 
 export interface CreateTaskResponse {
   status: number | string;

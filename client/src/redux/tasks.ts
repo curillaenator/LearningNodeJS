@@ -7,12 +7,14 @@ interface TasksState {
   error: string;
   loading: boolean;
   currentTasks: TaskType[];
+  openedTask: TaskType | null;
 }
 
 const initialState: TasksState = {
   error: "",
   loading: false,
   currentTasks: [],
+  openedTask: null,
 };
 
 const tasksSlice = createSlice({
@@ -30,13 +32,21 @@ const tasksSlice = createSlice({
     setCurrentTasks: (state, action: PayloadAction<TaskType[]>) => {
       state.currentTasks = action.payload;
     },
+
+    setLoadedTasks: (state, action: PayloadAction<TaskType>) => {
+      state.openedTask = action.payload;
+    },
   },
 });
 
 export const tasks = tasksSlice.reducer;
 
-export const { setTasksError, setTasksLoading, setCurrentTasks } =
-  tasksSlice.actions;
+export const {
+  setTasksError,
+  setTasksLoading,
+  setCurrentTasks,
+  setLoadedTasks,
+} = tasksSlice.actions;
 
 // THUNKS
 
@@ -165,5 +175,40 @@ export const updateLayout = (task: TaskType): Thunk => {
         dispatch(setCurrentTasks(tasksUpd));
       });
     }
+  };
+};
+
+export const getOpenedTask = (taskId: string): Thunk => {
+  return async (dispatch, getState) => {
+    const tasks = getState().tasks.currentTasks;
+    const token = getState().auth.token;
+    const openedTask = tasks.find((task) => task._id === taskId);
+
+    if (!openedTask) {
+      batch(() => {
+        dispatch(setTasksLoading(true));
+        dispatch(setTasksError(""));
+      });
+
+      const response = await tasksAPI.getTask(token, taskId);
+
+      console.log(response);
+
+      if (typeof response === "string") {
+        return batch(() => {
+          dispatch(setTasksError(response));
+          dispatch(setTasksLoading(false));
+        });
+      }
+
+      batch(() => {
+        dispatch(setTasksLoading(true));
+        dispatch(setLoadedTasks(response.task));
+      });
+
+      return;
+    }
+
+    dispatch(setLoadedTasks(openedTask));
   };
 };

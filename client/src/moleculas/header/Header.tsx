@@ -1,11 +1,13 @@
 import React, { FC } from "react";
 import styled from "styled-components";
+import { Link, useParams, generatePath } from "react-router-dom";
+import { Pathes } from "@src/routes";
 
-import { useAppSelector, useAppDispatch, setAuthModalOpen } from "../../redux";
+import { useAppSelector, useAppDispatch, setAuthModalOpen } from "@src/redux";
 
 import { User, UserMenu } from "./components";
-import { Button } from "../../components/buttons";
-import { Dropdown } from "../../components/dropdown";
+import { Button } from "@src/components/buttons";
+import { Dropdown } from "@src/components/dropdown";
 
 // import { HeaderProps } from "./interfaces";
 
@@ -25,13 +27,22 @@ const HeaderStyled = styled.header`
 `;
 
 export const Header: FC = () => {
+  const dispatch = useAppDispatch();
   const { userID, userName, avatarURL } = useAppSelector((state) => state.auth);
 
-  const dispatch = useAppDispatch();
+  const { projectId } = useParams<{ projectId: string }>();
 
   return (
     <HeaderStyled>
-      <h1 className="app-title">TaskMan</h1>
+      <Link
+        to={generatePath(
+          projectId ? Pathes.project : Pathes.root,
+          projectId ? { projectId } : {}
+        )}
+        className="app-title"
+      >
+        TaskMan
+      </Link>
 
       {userID && (
         <Dropdown

@@ -3,10 +3,11 @@ import axios from "axios";
 import {
   TaskType,
   GetTasksResponse,
+  GetTaskResponse,
   CreateTaskResponse,
   DeleteTaskResponse,
   LayoutTaskResponse,
-} from "../common";
+} from "@src/common";
 
 const base = axios.create({ baseURL: "http://localhost:3300/api/" });
 
@@ -15,6 +16,8 @@ interface TasksAPI {
     token: string,
     projectId: string
   ) => Promise<GetTasksResponse | string>;
+
+  getTask: (token: string, taskId: string) => Promise<GetTaskResponse | string>;
 
   createTask: (
     token: string,
@@ -38,6 +41,15 @@ export const tasksAPI: TasksAPI = {
 
     return base
       .get(`/tasks/tasks/${projectId}`)
+      .then((r) => r.data)
+      .catch((err) => err.response.data.message);
+  },
+
+  getTask: (token, taskId) => {
+    base.defaults.headers.common["Authorization"] = token;
+
+    return base
+      .get(`/tasks/tasks/gettask/${taskId}`)
       .then((r) => r.data)
       .catch((err) => err.response.data.message);
   },

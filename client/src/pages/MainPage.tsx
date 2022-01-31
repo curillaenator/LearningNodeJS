@@ -1,9 +1,10 @@
 import React, { FC } from "react";
 import { Routes, Route } from "react-router-dom";
+import { Pathes } from "@src/routes";
 
-import { useAppSelector } from "../redux";
+import { useAppSelector } from "@src/redux";
 
-import { PageLayout, WelcomePage, ProjectsPage } from "./components";
+import { PageLayout, WelcomePage, ProjectsPage, TaskPage } from "./components";
 
 export const MainPage: FC = () => {
   const { userID } = useAppSelector((state) => state.auth);
@@ -11,9 +12,9 @@ export const MainPage: FC = () => {
   if (!userID) {
     return (
       <Routes>
-        <Route path="/" element={<PageLayout />}>
+        <Route path={Pathes.root} element={<PageLayout />}>
           <Route index element={<WelcomePage />} />
-          <Route path="*" element={<WelcomePage />} />
+          <Route path={Pathes.any} element={<WelcomePage />} />
         </Route>
       </Routes>
     );
@@ -22,10 +23,11 @@ export const MainPage: FC = () => {
   return (
     <>
       <Routes>
-        <Route path="/" element={<PageLayout />}>
+        <Route path={Pathes.root} element={<PageLayout />}>
           <Route index element={<ProjectsPage />} />
-          <Route path=":projectId" element={<ProjectsPage />} />
-          <Route path="*" element={<ProjectsPage />} />
+          <Route path={Pathes.project} element={<ProjectsPage />} />
+          <Route path={Pathes.task} element={<TaskPage />} />
+          <Route path={Pathes.any} element={<ProjectsPage />} />
         </Route>
       </Routes>
     </>

@@ -1,18 +1,22 @@
 import React, { FC } from "react";
 import styled from "styled-components";
+import { Link, generatePath, useNavigate } from "react-router-dom";
+import { Pathes } from "@src/routes";
 
-import { useAppDispatch, deleteTask } from "../../../redux";
+import { useAppDispatch, deleteTask } from "@src/redux";
 
-import { Button } from "../../../components/buttons";
+import { Button } from "@src/components/buttons";
 
 import { TaskProps } from "../interfaces";
 
 const TaskStyled = styled.div`
+  display: block;
   width: 100%;
   height: 100%;
   padding: 8px;
   border-radius: 12px;
   background-color: ${({ theme }) => theme.bg.light};
+  text-decoration: none;
   cursor: move;
 
   .task-id {
@@ -27,13 +31,20 @@ const TaskStyled = styled.div`
 export const Task: FC<TaskProps> = (props) => {
   // status, created, finished, executor,
 
-  const { _id, title, description } = props;
+  const navigate = useNavigate();
+
+  const { _id, title, description, projectId } = props;
 
   const appDispatch = useAppDispatch();
 
   return (
     <TaskStyled>
-      <h3 className="task-id">{title}</h3>
+      <Link
+        className="task-id"
+        to={generatePath(Pathes.task, { projectId, taskId: _id })}
+      >
+        {title}
+      </Link>
       {/* <p className="task-title">{_id}</p> */}
       <p className="task-description">{description}</p>
 
