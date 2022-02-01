@@ -79,11 +79,12 @@ router.delete("/delete/:taskId", checkAuth, async (req, res) => {
 router.put("/layout/:taskId", checkAuth, async (req, res) => {
   try {
     const params = req.params;
-    const { layout } = req.body;
+    const { layout, status } = req.body;
 
     const task = await Task.findById(params.taskId);
 
     task.layout = layout;
+    task.status = status;
 
     task.save();
 

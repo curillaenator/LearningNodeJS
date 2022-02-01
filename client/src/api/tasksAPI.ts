@@ -31,7 +31,7 @@ interface TasksAPI {
 
   updateLayout: (
     token: string,
-    task: Pick<TaskType, "layout" | "_id">
+    task: Pick<TaskType, "layout" | "_id" | "status">
   ) => Promise<LayoutTaskResponse | string>;
 }
 
@@ -74,9 +74,10 @@ export const tasksAPI: TasksAPI = {
 
   updateLayout: (token, task) => {
     base.defaults.headers.common["Authorization"] = token;
+    const { layout, status } = task;
 
     return base
-      .put(`/tasks/layout/${task._id}`, { layout: task.layout })
+      .put(`/tasks/layout/${task._id}`, { layout, status })
       .then((r) => r.data)
       .catch((err) => err.response.data.message);
   },

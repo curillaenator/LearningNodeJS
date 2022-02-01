@@ -1,8 +1,9 @@
 import { useRef, useState, useLayoutEffect, useCallback } from "react";
 import { Layout } from "react-grid-layout";
 
-import { useAppDispatch, updateLayout } from "../../../redux";
+import { useAppDispatch, updateLayout } from "@src/redux";
 
+import { STATUSES_ASSOC } from "./constants";
 import { UseLayout } from "../interfaces";
 
 export const useLayout: UseLayout = (tasks) => {
@@ -27,11 +28,12 @@ export const useLayout: UseLayout = (tasks) => {
   }, [widthHandler]);
 
   function onLayoutChange(layouts: Layout[], oldItem: Layout, newItem: Layout) {
-    const draggedTask = tasks.find((task) => task._id === oldItem.i);
+    const pickedTask = tasks.find((task) => task._id === oldItem.i);
 
-    if (!!draggedTask) {
+    if (!!pickedTask) {
       const taskUpd = {
-        ...draggedTask,
+        ...pickedTask,
+        status: STATUSES_ASSOC[newItem.x],
         layout: JSON.stringify(newItem),
       };
 

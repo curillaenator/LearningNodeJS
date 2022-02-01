@@ -18,10 +18,17 @@ export const theme = {
     lightGray: colors.liver[100],
     light: colors.liver[50],
     transparent: "transparent",
+
+    statuses: {
+      open: colors.orange[500],
+      inProgress: colors.ultra[500],
+      done: colors.nika[600],
+    },
   },
 
   text: {
     primary: colors.yellamerica[400],
+    primaryHover: colors.yellamerica[300],
     primaryActive: colors.yellamerica[700],
 
     dark: colors.liver[900],
@@ -33,7 +40,9 @@ export const theme = {
     danger: colors.danger[500],
     placeholder: colors.liver[300],
 
-    link: colors.silveria[900],
+    link: colors.liver[300],
+    linkHover: colors.liver[500],
+    linkActive: colors.liver[700],
   },
 
   icons: {
@@ -58,6 +67,10 @@ export const theme = {
     buttontsActive: `0px 6px 8px ${colors.liver[900]}0D, 0px 2px 4px ${colors.liver[900]}1A`,
     buttonsColored: `0px 12px 32px ${colors.yellamerica[500]}1A, 0px 8px 12px ${colors.yellamerica[500]}26, 0px 2px 6px ${colors.yellamerica[600]}33`,
     buttonsColoredActive: `0px 6px 8px ${colors.yellamerica[500]}1A, 0px 2px 4px ${colors.yellamerica[600]}33`,
+  },
+
+  dropSahdows: {
+    text: `0 2px 4px ${colors.liver[900]}32`,
   },
 };
 

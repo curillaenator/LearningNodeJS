@@ -18,6 +18,7 @@ const ButtonStyled = styled.button<IButtonStyled>`
   align-items: center;
   justify-content: center;
   gap: ${({ params }) => params.gap};
+  width: fit-content;
   height: ${({ params }) => params.h};
   padding: ${({ params, isIcon }) =>
     isIcon ? params.iconPadding : params.padding};

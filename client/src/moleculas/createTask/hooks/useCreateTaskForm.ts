@@ -1,7 +1,7 @@
 import { FormEvent, useState, useMemo, useCallback } from "react";
-import { useAppSelector, useAppDispatch, createTask } from "../../../redux";
+import { useAppSelector, useAppDispatch, createTask } from "@src/redux";
 
-import { TaskType } from "../../../common";
+import { TaskType } from "@src/common";
 import {
   INITIAL_TASK,
   TASK_CONFIG,

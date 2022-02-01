@@ -1,4 +1,4 @@
-import { TaskType, TaskStatuses, TaskPriorities } from "../../../common";
+import { TaskType, TaskStatuses, TaskPriorities } from "@src/common";
 
 export const STATUS_POSITION: { [status: string]: number } = {
   open: 0,
