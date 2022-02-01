@@ -32,6 +32,8 @@ export const theme = {
 
     danger: colors.danger[500],
     placeholder: colors.liver[300],
+
+    link: colors.silveria[900],
   },
 
   icons: {

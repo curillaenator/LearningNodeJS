@@ -13,8 +13,6 @@ export const TaskPage: FC = () => {
   const { projectId, taskId } =
     useParams<{ projectId: string; taskId: string }>();
 
-  console.log(projectId, taskId);
-
   useEffect(() => {
     appDispatch(getOpenedTask(taskId || ""));
   }, [taskId]);

@@ -1,15 +1,21 @@
 import React, { FC } from "react";
 import styled from "styled-components";
-import { Link, useParams, generatePath } from "react-router-dom";
+import { useParams, generatePath } from "react-router-dom";
 import { Pathes } from "@src/routes";
 
 import { useAppSelector, useAppDispatch, setAuthModalOpen } from "@src/redux";
 
 import { User, UserMenu } from "./components";
+
+import { Link } from "@src/components/link";
 import { Button } from "@src/components/buttons";
 import { Dropdown } from "@src/components/dropdown";
 
-// import { HeaderProps } from "./interfaces";
+// const LinkStyled = styled(Link)`
+//   font-family: "Roboto Condensed", sans-serif;
+//   color: ${({ theme }) => theme.text.primary};
+//   text-decoration: none;
+// `;
 
 const HeaderStyled = styled.header`
   display: flex;
@@ -19,11 +25,6 @@ const HeaderStyled = styled.header`
   height: 80px;
   padding: 0 16px;
   background-color: ${({ theme }) => theme.bg.dark};
-
-  .app-title {
-    font-family: "Roboto Condensed", sans-serif;
-    color: ${({ theme }) => theme.text.primary};
-  }
 `;
 
 export const Header: FC = () => {
@@ -35,11 +36,11 @@ export const Header: FC = () => {
   return (
     <HeaderStyled>
       <Link
+        tag="h1"
         to={generatePath(
           projectId ? Pathes.project : Pathes.root,
           projectId ? { projectId } : {}
         )}
-        className="app-title"
       >
         TaskMan
       </Link>

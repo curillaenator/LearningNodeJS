@@ -1,10 +1,11 @@
 import React, { FC } from "react";
 import styled from "styled-components";
-import { Link, generatePath, useNavigate } from "react-router-dom";
+import { generatePath, useNavigate } from "react-router-dom";
 import { Pathes } from "@src/routes";
 
 import { useAppDispatch, deleteTask } from "@src/redux";
 
+import { Link } from "@src/components/link";
 import { Button } from "@src/components/buttons";
 
 import { TaskProps } from "../interfaces";
@@ -43,7 +44,7 @@ export const Task: FC<TaskProps> = (props) => {
         className="task-id"
         to={generatePath(Pathes.task, { projectId, taskId: _id })}
       >
-        {title}
+        <h3>{title}</h3>
       </Link>
       {/* <p className="task-title">{_id}</p> */}
       <p className="task-description">{description}</p>
