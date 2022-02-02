@@ -2,10 +2,10 @@ import React, { FC } from "react";
 import styled from "styled-components";
 import GridLayout from "react-grid-layout";
 
-import { Scrollbar } from "../../components/scrollbar";
+import { Scrollbar } from "@src/components/scrollbar";
 import { useLayout } from "./hooks/useLayout";
 
-import { Task } from "./components/Task";
+import { TaskCard } from "../taskcard";
 
 import { LayoutProps } from "./interfaces";
 
@@ -52,7 +52,7 @@ export const Layout: FC<LayoutProps> = ({ currentTasks }) => {
         >
           {currentTasks.map((task) => (
             <div data-grid={JSON.parse(task.layout)} key={task._id}>
-              <Task {...task} />
+              <TaskCard {...task} />
             </div>
           ))}
         </GridLayout>

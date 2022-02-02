@@ -41,8 +41,8 @@ export const theme = {
     placeholder: colors.liver[300],
 
     link: colors.liver[300],
-    linkHover: colors.liver[500],
-    linkActive: colors.liver[700],
+    // linkHover: colors.liver[500]
+    linkActive: colors.liver[500],
   },
 
   icons: {
@@ -52,6 +52,14 @@ export const theme = {
     light: colors.liver[100],
     gray: colors.liver[300],
     dark: colors.liver[900],
+
+    priorities: {
+      highest: colors.danger[400],
+      high: colors.danger[400],
+      medium: colors.ultra[400],
+      low: colors.nika[400],
+      lowest: colors.nika[400],
+    },
   },
 
   modal: {

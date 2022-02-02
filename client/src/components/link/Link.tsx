@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import styled from "styled-components";
+import cn from "classnames";
 import { Link } from "react-router-dom";
 
 import { TITLES } from "./constants";
@@ -21,14 +22,14 @@ const LinkStyled = styled(Link)<LinkStyledProps>`
 
   &:hover {
     color: ${({ theme, tag }) =>
-      TITLES.includes(tag) ? theme.text.primaryHover : theme.text.gray};
+      TITLES.includes(tag) ? theme.text.primaryHover : theme.text.dark};
 
     filter: ${({ theme }) => `drop-shadow(${theme.dropSahdows.text})`};
   }
 
   &:active {
     color: ${({ theme, tag }) =>
-      TITLES.includes(tag) ? theme.text.primaryActive : theme.text.dark};
+      TITLES.includes(tag) ? theme.text.primaryActive : theme.text.linkActive};
   }
 
   .link-inner {
@@ -37,14 +38,16 @@ const LinkStyled = styled(Link)<LinkStyledProps>`
 `;
 
 export const Component: FC<LinkProps> = (props) => {
-  const { to, tag = "span", children, className } = props;
+  const { to, tag = "span", children, className, innerClassName } = props;
 
   const InnerComponent = tag as React.ElementType;
 
   return (
     <div className={className}>
       <LinkStyled to={to} tag={tag}>
-        <InnerComponent className="link-inner">{children}</InnerComponent>
+        <InnerComponent className={cn("link-inner", innerClassName)}>
+          {children}
+        </InnerComponent>
       </LinkStyled>
     </div>
   );

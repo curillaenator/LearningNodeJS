@@ -5,9 +5,11 @@ export enum TaskStatuses {
 }
 
 export enum TaskPriorities {
+  highest = "highest",
   high = "high",
   medium = "medium",
   low = "low",
+  lowest = "lowest",
 }
 
 export interface TaskType {
@@ -15,7 +17,7 @@ export interface TaskType {
   projectId: string;
   title: string;
   status: TaskStatuses;
-  priority?: TaskPriorities;
+  priority: TaskPriorities;
   created: string;
   finished?: string;
   owner: string;

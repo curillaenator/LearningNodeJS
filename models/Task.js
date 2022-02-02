@@ -4,7 +4,7 @@ const taskSchema = new Schema({
   projectId: { type: Types.ObjectId, ref: "Project" },
   title: { type: String, required: true },
   status: { type: String, required: true, default: "open" },
-  priority: { type: String, required: true, default: "medium" },
+  priority: { type: String, required: true, default: "lowest" },
   created: { type: Date, default: Date.now },
   finished: { type: Date },
   owner: { type: Types.ObjectId, ref: "User" },

@@ -4,4 +4,5 @@ export interface LinkProps {
   to: string;
   tag?: LinkTags;
   className?: string;
+  innerClassName?: string;
 }
