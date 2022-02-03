@@ -10,6 +10,8 @@ export interface User {
   contributionProjects?: Project[];
 }
 
+export type BasicUser = Pick<User, "userName" | "avatarURL">;
+
 // api payloads
 
 export interface UserCreds {
@@ -37,6 +39,12 @@ export interface SignUpResponse {
 
 export interface UpdateResponse {
   user: User;
+  status: string | number;
+  message: string;
+}
+
+export interface GetUserResponse {
+  basicUser: BasicUser;
   status: string | number;
   message: string;
 }

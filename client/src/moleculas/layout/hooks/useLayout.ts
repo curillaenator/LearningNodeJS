@@ -37,6 +37,9 @@ export const useLayout: UseLayout = (tasks) => {
         layout: JSON.stringify(newItem),
       };
 
+      if (newItem.x === 1) taskUpd.progressed = Date.now();
+      if (newItem.x === 2) taskUpd.finished = Date.now();
+
       appDispatch(updateLayout(taskUpd));
     }
   }

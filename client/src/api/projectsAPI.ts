@@ -4,7 +4,7 @@ import {
   Project,
   CreateProjectResponse,
   GetAvailableProjectsResponse,
-} from "../common";
+} from "@src/common";
 
 const base = axios.create({ baseURL: "http://localhost:3300/api/" });
 

@@ -36,6 +36,7 @@ export const useCreateTaskForm: UseCreateTaskForm = (close) => {
 
       const newTask = {
         ...values,
+        description: description.replace(/\n/g, "<br />"),
         projectId: currentProjectId,
       };
 

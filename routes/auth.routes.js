@@ -141,4 +141,18 @@ router.post("/update", checkAuth, async (req, res) => {
   }
 });
 
+router.get("/getuser/:userId", checkAuth, async (req, res) => {
+  try {
+    const { userId } = req.params;
+
+    const user = await User.findById(userId);
+    const basicUser = { userName: user.userName, avatarURL: user.avatarURL };
+
+    res.json({ status: 201, basicUser, message: "User exists" });
+    //
+  } catch (error) {
+    res.status(500).json({ message: "Something went wrong, try again" });
+  }
+});
+
 module.exports = router;

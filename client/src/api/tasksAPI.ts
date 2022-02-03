@@ -31,7 +31,10 @@ interface TasksAPI {
 
   updateLayout: (
     token: string,
-    task: Pick<TaskType, "layout" | "_id" | "status">
+    task: Pick<
+      TaskType,
+      "layout" | "_id" | "status" | "progressed" | "finished"
+    >
   ) => Promise<LayoutTaskResponse | string>;
 }
 
@@ -49,13 +52,15 @@ export const tasksAPI: TasksAPI = {
     base.defaults.headers.common["Authorization"] = token;
 
     return base
-      .get(`/tasks/tasks/gettask/${taskId}`)
+      .get(`/tasks/gettask/${taskId}`)
       .then((r) => r.data)
       .catch((err) => err.response.data.message);
   },
 
   createTask: (token, task) => {
     base.defaults.headers.common["Authorization"] = token;
+
+    console.log(task);
 
     return base
       .post("/tasks/create", task)
@@ -74,10 +79,15 @@ export const tasksAPI: TasksAPI = {
 
   updateLayout: (token, task) => {
     base.defaults.headers.common["Authorization"] = token;
-    const { layout, status } = task;
+    const { layout, status, progressed, finished } = task;
 
     return base
-      .put(`/tasks/layout/${task._id}`, { layout, status })
+      .put(`/tasks/layout/${task._id}`, {
+        layout,
+        status,
+        progressed,
+        finished,
+      })
       .then((r) => r.data)
       .catch((err) => err.response.data.message);
   },

@@ -9,3 +9,5 @@ export const PRIORITY_ASSOC: Record<TaskPriorities, JSX.Element> = {
   low: icons.single,
   lowest: icons.double,
 };
+
+export const EXECUTOR_UNDEFINED = "Not defined";

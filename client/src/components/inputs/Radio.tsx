@@ -12,6 +12,7 @@ const RadioStyled = styled.button<RadioStyledProps>`
   height: ${({ params }) => params.h};
   padding: ${({ params }) => params.padding};
   border-radius: ${({ params }) => params.radius};
+  background-color: ${({ theme }) => theme.bg.lightGray};
   cursor: ${({ disabled }) => (disabled ? "default" : "pointer")};
   transition: 0.08s linear;
 

@@ -18,8 +18,9 @@ export interface TaskType {
   title: string;
   status: TaskStatuses;
   priority: TaskPriorities;
-  created: string;
-  finished?: string;
+  created: number;
+  progressed?: number;
+  finished?: number;
   owner: string;
   executor?: string;
   description: string;

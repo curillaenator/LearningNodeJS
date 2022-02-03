@@ -19,7 +19,7 @@ router.get("/tasks/:projectId", checkAuth, async (req, res) => {
   }
 });
 
-router.get("/tasks/gettask/:taskId", checkAuth, async (req, res) => {
+router.get("/gettask/:taskId", checkAuth, async (req, res) => {
   try {
     const params = req.params;
 
@@ -36,7 +36,8 @@ router.get("/tasks/gettask/:taskId", checkAuth, async (req, res) => {
 
 router.post("/create", checkAuth, async (req, res) => {
   try {
-    const { projectId, title, description, layout } = req.body;
+    const { projectId, title, description, layout, status, priority } =
+      req.body;
 
     const { userID } = req.user;
 
@@ -45,6 +46,8 @@ router.post("/create", checkAuth, async (req, res) => {
       title,
       description,
       layout,
+      status,
+      priority,
       owner: userID,
     });
 
@@ -79,12 +82,14 @@ router.delete("/delete/:taskId", checkAuth, async (req, res) => {
 router.put("/layout/:taskId", checkAuth, async (req, res) => {
   try {
     const params = req.params;
-    const { layout, status } = req.body;
+    const { layout, status, progressed, finished } = req.body;
 
     const task = await Task.findById(params.taskId);
 
     task.layout = layout;
     task.status = status;
+    if (progressed) task.progressed = progressed;
+    if (finished) task.finished = finished;
 
     task.save();
 

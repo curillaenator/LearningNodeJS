@@ -1,6 +1,6 @@
 import { TaskType, TaskStatuses, TaskPriorities } from "@src/common";
 
-export const STATUS_POSITION: { [status: string]: number } = {
+export const STATUS_POSITION: Record<TaskStatuses, number> = {
   open: 0,
   inProgress: 1,
   done: 2,
@@ -21,7 +21,7 @@ export const INITIAL_TASK: Omit<TaskType, "_id" | "created" | "finished"> = {
   projectId: "",
   title: "",
   status: TaskStatuses.open,
-  priority: TaskPriorities.medium,
+  priority: TaskPriorities.lowest,
   owner: "",
   executor: "",
   description: "",

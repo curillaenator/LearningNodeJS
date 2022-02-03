@@ -1,15 +1,13 @@
 import React, { FC } from "react";
 import styled from "styled-components";
 
-import { useCreateTaskForm } from "./hooks/useCreateTaskForm";
+import { useCreateTaskForm, usePriorityList, useStatusList } from "./hooks";
 
-import { Button } from "../../components/buttons";
-import { Radio, Textarea } from "../../components/inputs";
-// import { Dropdown } from "../../components/dropdown";
+import { Button } from "@src/components/buttons";
+import { Radio, Textarea } from "@src/components/inputs";
 // import { Loader } from "../../components/loader";
 
 import { CreateTaskProps } from "./interfaces";
-import { TaskStatuses } from "../../common";
 
 const CreateTaskStyled = styled.form`
   width: 80%;
@@ -18,7 +16,7 @@ const CreateTaskStyled = styled.form`
   background-color: ${({ theme }) => theme.bg.light};
   box-shadow: ${({ theme }) => theme.shadows.base};
 
-  .form-header {
+  .header {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -37,7 +35,7 @@ const CreateTaskStyled = styled.form`
     }
   }
 
-  .form-body {
+  .body {
     display: flex;
     gap: 32px;
     margin-bottom: 32px;
@@ -50,14 +48,22 @@ const CreateTaskStyled = styled.form`
       }
 
       &-inputs {
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
+        margin-bottom: 16px;
+
+        &-title {
+          margin-bottom: 8px;
+        }
+
+        &-map {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 16px;
+        }
       }
     }
   }
 
-  .form-buttons {
+  .buttons {
     display: flex;
     align-items: center;
     justify-content: flex-end;
@@ -67,34 +73,26 @@ const CreateTaskStyled = styled.form`
 
 export const CreateTask: FC<CreateTaskProps> = ({ close }) => {
   const { values, handlers, submit } = useCreateTaskForm(close);
+  const statusList = useStatusList(values.status, handlers.setStatus);
+  const priorityList = usePriorityList(values.priority, handlers.setPriotity);
 
   return (
     <CreateTaskStyled onSubmit={submit}>
-      <div className="form-header">
+      <div className="header">
         <input
           type="text"
-          className="form-header-taskname"
+          className="header-taskname"
           placeholder="Name your task"
           value={values.title}
           onChange={(e) => handlers.setTitle(e.target.value)}
         />
       </div>
 
-      <div className="form-body">
-        <div className="form-body-block">
-          <h3 className="form-body-block-title">Task description</h3>
+      <div className="body">
+        <div className="body-block">
+          <h3 className="body-block-title">Task description</h3>
 
-          <div className="form-body-block-inputs">
-            {/* <TextInput
-              state={errors.title ? "error" : "normal"}
-              description={getDescription("title")}
-              iconName="pencil"
-              name="projectTitle"
-              placeholder="Task name"
-              value={values.title}
-              onChange={handlers.setTitle}
-            /> */}
-
+          <div className="body-block-inputs">
             <Textarea
               value={values.description}
               onChange={handlers.setDescription}
@@ -102,52 +100,39 @@ export const CreateTask: FC<CreateTaskProps> = ({ close }) => {
           </div>
         </div>
 
-        <div className="form-body-block">
-          <h3 className="form-body-block-title">Task settings</h3>
+        <div className="body-block">
+          <h3 className="body-block-title">Task settings</h3>
 
-          <div className="form-body-block-inputs">
-            <div className="select-status">
-              <Radio
-                title="Open"
-                size="m"
-                id={TaskStatuses.open}
-                checked={values.status === TaskStatuses.open}
-                onChange={() => handlers.setStatus(TaskStatuses.open)}
-              />
+          <div className="body-block-inputs">
+            <h4 className="body-block-inputs-title">Task status:</h4>
 
-              <Radio
-                title="In progress"
-                size="m"
-                id={TaskStatuses.inProgress}
-                checked={values.status === TaskStatuses.inProgress}
-                onChange={() => handlers.setStatus(TaskStatuses.inProgress)}
-              />
+            <div className="body-block-inputs-map">
+              {statusList.map((radioProps) => (
+                <Radio {...radioProps} key={radioProps.id} />
+              ))}
+            </div>
+          </div>
 
-              <Radio
-                title="Done"
-                size="m"
-                id={TaskStatuses.done}
-                checked={values.status === TaskStatuses.done}
-                onChange={() => handlers.setStatus(TaskStatuses.done)}
-              />
+          <div className="body-block-inputs">
+            <h4 className="body-block-inputs-title">Task priority:</h4>
+
+            <div className="body-block-inputs-map">
+              {priorityList.map((radioProps) => (
+                <Radio {...radioProps} key={radioProps.id} />
+              ))}
             </div>
           </div>
         </div>
       </div>
 
-      <div className="form-buttons">
-        <Button
-          variant="ghost"
-          title="Close"
-          onClick={close}
-          // disabled={loading}
-        />
+      <div className="buttons">
+        <Button variant="ghost" title="Close" onClick={close} />
 
         <Button
           icon="pencil"
           type="submit"
           title="Create task"
-          // disabled={loading}
+          disabled={!values.title || !values.description}
         />
       </div>
     </CreateTaskStyled>

@@ -1,14 +1,15 @@
 import React, { FC } from "react";
 import styled from "styled-components";
 import { generatePath } from "react-router-dom";
+import parse from "html-react-parser";
 import { Pathes } from "@src/routes";
 
-import { useAppDispatch, deleteTask } from "@src/redux";
+import { useAppDispatch, useAppSelector, deleteTask } from "@src/redux";
 
 import { Link } from "@src/components/link";
 import { Button } from "@src/components/buttons";
 import { Badge } from "@src/components/badge";
-import { Priority } from "./components";
+import { Priority, Executor, Timing } from "./components";
 
 import { TaskProps } from "./interfaces";
 
@@ -24,6 +25,7 @@ const TaskCardStyled = styled.div`
   text-decoration: none;
   overflow: hidden;
   cursor: move;
+  font-size: 14px;
 
   &:hover {
     box-shadow: ${({ theme }) => theme.shadows.base};
@@ -56,11 +58,17 @@ const TaskCardStyled = styled.div`
     }
 
     &-description {
-      font-size: 14px;
+      min-height: 32px;
       display: -webkit-box;
       -webkit-box-orient: vertical;
-      -webkit-line-clamp: 3;
+      -webkit-line-clamp: 2;
       overflow: hidden;
+    }
+
+    &-identifiers {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
   }
 
@@ -72,11 +80,22 @@ const TaskCardStyled = styled.div`
 `;
 
 export const TaskCard: FC<TaskProps> = (props) => {
-  // status, created, finished, executor,
-
-  const { _id, title, description, projectId, status, priority } = props;
-
   const appDispatch = useAppDispatch();
+  const userID = useAppSelector((state) => state.auth.userID);
+
+  const {
+    _id,
+    title,
+    description,
+    projectId,
+    status,
+    priority,
+    owner,
+    executor,
+    created,
+    progressed,
+    finished,
+  } = props;
 
   return (
     <TaskCardStyled>
@@ -93,17 +112,30 @@ export const TaskCard: FC<TaskProps> = (props) => {
           <Badge title={status} status={status} size="s" />
         </div>
 
-        <p className="upper-description">{description}</p>
+        <p className="upper-description">{parse(description)}</p>
+
+        <div className="upper-identifiers">
+          <Executor executor={executor} />
+
+          <Timing
+            status={status}
+            created={created}
+            progressed={progressed}
+            finished={finished}
+          />
+        </div>
       </div>
 
       <div className="lower">
         <Priority priority={priority} />
 
-        <Button
-          title="Delete"
-          size="s"
-          onClick={() => appDispatch(deleteTask(_id))}
-        />
+        {userID === owner && (
+          <Button
+            title="Delete"
+            size="s"
+            onClick={() => appDispatch(deleteTask(_id))}
+          />
+        )}
       </div>
     </TaskCardStyled>
   );

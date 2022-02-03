@@ -5,7 +5,7 @@ export interface TriggerProps {
   disabled?: boolean;
 }
 
-interface Item {
+export interface Item {
   id?: string;
   title: string;
   onClick: (item?: { id?: string; title: string }) => void;
