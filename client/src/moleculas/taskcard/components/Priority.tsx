@@ -40,8 +40,9 @@ export const Priority: FC<PriorityProps> = (props) => {
 
   return (
     <PriorityStyled priority={priority}>
-      {PRIORITY_ASSOC[priority]}
       <span className="priority-title">{priority}</span>
+
+      {PRIORITY_ASSOC[priority]}
     </PriorityStyled>
   );
 };

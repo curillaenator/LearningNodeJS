@@ -5,11 +5,12 @@ import parse from "html-react-parser";
 import { Pathes } from "@src/routes";
 
 import { useAppDispatch, useAppSelector, deleteTask } from "@src/redux";
+import { useTiming } from "./hooks";
 
 import { Link } from "@src/components/link";
 import { Button } from "@src/components/buttons";
 import { Badge } from "@src/components/badge";
-import { Priority, Executor, Timing } from "./components";
+import { Priority, Executor } from "./components";
 
 import { TaskProps } from "./interfaces";
 
@@ -51,7 +52,6 @@ const TaskCardStyled = styled.div`
       }
 
       &-linkInner {
-        font-family: "Roboto Condensed", sans-serif;
         font-size: 18px;
         font-weight: 600;
       }
@@ -63,6 +63,7 @@ const TaskCardStyled = styled.div`
       -webkit-box-orient: vertical;
       -webkit-line-clamp: 2;
       overflow: hidden;
+      color: ${({ theme }) => theme.text.gray};
     }
 
     &-identifiers {
@@ -75,6 +76,7 @@ const TaskCardStyled = styled.div`
   .lower {
     display: flex;
     align-items: center;
+    /* flex-direction: row-reverse; */
     justify-content: space-between;
   }
 `;
@@ -92,10 +94,10 @@ export const TaskCard: FC<TaskProps> = (props) => {
     priority,
     owner,
     executor,
-    created,
-    progressed,
-    finished,
+    ...rest
   } = props;
+
+  const time = useTiming({ status, ...rest });
 
   return (
     <TaskCardStyled>
@@ -109,33 +111,27 @@ export const TaskCard: FC<TaskProps> = (props) => {
             {title}
           </Link>
 
-          <Badge title={status} status={status} size="s" />
+          <Badge title={`${status} ${time}`} status={status} size="s" />
         </div>
 
         <p className="upper-description">{parse(description)}</p>
 
         <div className="upper-identifiers">
           <Executor executor={executor} />
-
-          <Timing
-            status={status}
-            created={created}
-            progressed={progressed}
-            finished={finished}
-          />
         </div>
       </div>
 
       <div className="lower">
-        <Priority priority={priority} />
-
         {userID === owner && (
           <Button
             title="Delete"
             size="s"
+            variant="ghost"
             onClick={() => appDispatch(deleteTask(_id))}
           />
         )}
+
+        <Priority priority={priority} />
       </div>
     </TaskCardStyled>
   );

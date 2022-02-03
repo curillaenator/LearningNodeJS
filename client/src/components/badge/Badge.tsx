@@ -9,6 +9,7 @@ const BadgeStyled = styled.div<BadgeStyledProps>`
   align-items: center;
   justify-content: center;
   gap: ${({ params }) => params.gap};
+  flex-shrink: 0;
   width: fit-content;
   height: ${({ params }) => params.h};
   padding: ${({ params }) => params.padding};

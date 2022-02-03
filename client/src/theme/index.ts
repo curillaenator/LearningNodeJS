@@ -40,9 +40,9 @@ export const theme = {
     danger: colors.danger[500],
     placeholder: colors.liver[300],
 
-    link: colors.liver[300],
-    // linkHover: colors.liver[500]
-    linkActive: colors.liver[500],
+    link: colors.liver[600],
+    linkHover: colors.liver[400],
+    linkActive: colors.liver[900],
   },
 
   icons: {

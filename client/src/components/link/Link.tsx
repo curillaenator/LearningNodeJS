@@ -22,7 +22,7 @@ const LinkStyled = styled(Link)<LinkStyledProps>`
 
   &:hover {
     color: ${({ theme, tag }) =>
-      TITLES.includes(tag) ? theme.text.primaryHover : theme.text.dark};
+      TITLES.includes(tag) ? theme.text.primaryHover : theme.text.primary};
 
     filter: ${({ theme }) => `drop-shadow(${theme.dropSahdows.text})`};
   }
@@ -33,6 +33,7 @@ const LinkStyled = styled(Link)<LinkStyledProps>`
   }
 
   .link-inner {
+    font-family: "Roboto Condensed", sans-serif;
     width: fit-content;
   }
 `;
