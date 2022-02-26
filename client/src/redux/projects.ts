@@ -41,7 +41,7 @@ const projectsSlice = createSlice({
       state.isCreateTaskModalOpen = action.payload;
     },
 
-    setCurrentProject: (state, action: PayloadAction<Project>) => {
+    setCurrentProject: (state, action: PayloadAction<Project | null>) => {
       state.currentProject = action.payload;
     },
 

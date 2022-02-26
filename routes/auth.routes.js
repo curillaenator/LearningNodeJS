@@ -33,7 +33,7 @@ router.post(
 
       const isUser = await User.findOne({ email });
 
-      console.log("is user: ", isUser);
+      // console.log("email, password: ", email, password);
 
       if (isUser) {
         return res.status(400).json({ message: "Email is already used" });
@@ -42,6 +42,8 @@ router.post(
       const hashedPassword = await bcrypt.hash(password, 12);
 
       const user = new User({ email, password: hashedPassword });
+
+      // console.log(user);
 
       await user.save();
 

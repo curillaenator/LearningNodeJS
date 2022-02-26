@@ -60,8 +60,6 @@ export const tasksAPI: TasksAPI = {
   createTask: (token, task) => {
     base.defaults.headers.common["Authorization"] = token;
 
-    console.log(task);
-
     return base
       .post("/tasks/create", task)
       .then((r) => r.data)

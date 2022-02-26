@@ -1,8 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { batch } from "react-redux";
-import { authAPI } from "../api";
+import { authAPI } from "@src/api";
 
-import { Thunk, User, UserCreds, UpdateData, NullUser } from "../common";
+import {
+  setCurrentTasks,
+  setCurrentProject,
+  setAvailableProjects,
+} from "./index";
+import { Thunk, User, UserCreds, UpdateData, NullUser } from "@src/common";
 
 const USER_DATA = "userData";
 
@@ -154,7 +159,12 @@ export const userSignIn = (creds: UserCreds): Thunk => {
 export const userSignOut = (): Thunk => {
   return (dispatch) => {
     localStorage.removeItem(USER_DATA);
-    dispatch(setUser(NullUser));
+    batch(() => {
+      dispatch(setUser(NullUser));
+      dispatch(setCurrentTasks([]));
+      dispatch(setCurrentProject(null));
+      dispatch(setAvailableProjects([]));
+    });
   };
 };
 
