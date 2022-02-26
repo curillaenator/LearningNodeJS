@@ -7,11 +7,13 @@ interface UserStyledProps {
 
 const UserStyled = styled.div<UserStyledProps>`
   display: flex;
+  flex-shrink: 0;
   align-items: center;
   gap: 16px;
   cursor: pointer;
 
   .user-name {
+    white-space: nowrap;
     font-size: 18px;
     font-weight: 500;
     color: ${({ theme }) => theme.text.light};

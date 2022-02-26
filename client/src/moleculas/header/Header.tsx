@@ -6,21 +6,17 @@ import { Pathes } from "@src/routes";
 import { useAppSelector, useAppDispatch, setAuthModalOpen } from "@src/redux";
 
 import { User, UserMenu } from "./components";
+import { Toolbar } from "./components/toolbar";
 
 import { Link } from "@src/components/link";
 import { Button } from "@src/components/buttons";
 import { Dropdown } from "@src/components/dropdown";
 
-// const LinkStyled = styled(Link)`
-//   font-family: "Roboto Condensed", sans-serif;
-//   color: ${({ theme }) => theme.text.primary};
-//   text-decoration: none;
-// `;
-
 const HeaderStyled = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 32px;
   width: 100%;
   height: 80px;
   padding: 0 16px;
@@ -31,7 +27,8 @@ export const Header: FC = () => {
   const dispatch = useAppDispatch();
   const { userID, userName, avatarURL } = useAppSelector((state) => state.auth);
 
-  const { projectId } = useParams<{ projectId: string }>();
+  const { projectId, taskId } =
+    useParams<{ projectId: string; taskId: string }>();
 
   return (
     <HeaderStyled>
@@ -44,6 +41,8 @@ export const Header: FC = () => {
       >
         TaskMan
       </Link>
+
+      {userID && !taskId && <Toolbar />}
 
       {userID && (
         <Dropdown

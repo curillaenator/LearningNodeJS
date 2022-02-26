@@ -4,9 +4,12 @@ import { Pathes } from "@src/routes";
 
 import { useAppSelector } from "@src/redux";
 
-import { PageLayout, WelcomePage, ProjectsPage, TaskPage } from "./components";
+import { PageLayout } from "./PagesLayout/PageLayout";
+import { TaskPage } from "./TaskPage";
+import { ProjectsPage } from "./ProjectPage";
+import { WelcomePage } from "./WelcomePage";
 
-export const MainPage: FC = () => {
+export const App: FC = () => {
   const { userID } = useAppSelector((state) => state.auth);
 
   if (!userID) {

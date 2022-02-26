@@ -1,4 +1,4 @@
-import { Project } from "../../../common";
+import { Project } from "@src/common";
 
 interface ProjectWithHandler {
   id: string;

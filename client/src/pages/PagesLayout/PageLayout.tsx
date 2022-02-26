@@ -2,12 +2,12 @@ import React, { FC } from "react";
 import styled from "styled-components";
 import { Outlet } from "react-router-dom";
 
-import { useMainPage } from "../hooks";
+import { useMainPage } from "./hooks/useMainPage";
 
-import { Header } from "../../moleculas/header";
-import { Login } from "../../moleculas/login";
-import { Profile } from "../../moleculas/profile";
-import { Modal } from "../../components/modal";
+import { Header } from "@src/moleculas/header";
+import { Login } from "@src/moleculas/login";
+import { Profile } from "@src/moleculas/profile";
+import { Modal } from "@src/components/modal";
 
 const PageLayoutStyled = styled.div`
   display: flex;

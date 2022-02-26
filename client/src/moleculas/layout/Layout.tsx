@@ -10,7 +10,7 @@ import { TaskCard } from "../taskcard";
 import { LayoutProps } from "./interfaces";
 
 const LayoutStyled = styled.div`
-  height: calc(100vh - 80px - 72px - 32px);
+  height: calc(100vh - 80px - 32px - 16px);
 
   .react-grid-placeholder {
     background-color: #f1f1f2 !important;
@@ -47,7 +47,6 @@ export const Layout: FC<LayoutProps> = ({ currentTasks }) => {
           margin={[8, 8]}
           containerPadding={[0, 0]}
           isResizable={false}
-          // onLayoutChange={onLayoutChange}
           onDragStop={onLayoutChange}
         >
           {currentTasks.map((task) => (

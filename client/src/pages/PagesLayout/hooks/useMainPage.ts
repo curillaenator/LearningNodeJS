@@ -5,7 +5,7 @@ import {
   initialize,
   setAuthModalOpen,
   setProfileModalOpen,
-} from "../../redux";
+} from "@src/redux";
 
 import { UseMainPage } from "./interfaces";
 

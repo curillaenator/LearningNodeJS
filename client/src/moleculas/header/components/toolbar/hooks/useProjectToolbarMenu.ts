@@ -7,7 +7,7 @@ import {
   setCreateProjectModalOpen,
   setCreateTaskModalOpen,
   getAvailableProjects,
-} from "../../../redux";
+} from "@src/redux";
 
 import { UseProjectToolbarMenu } from "./intergaces";
 

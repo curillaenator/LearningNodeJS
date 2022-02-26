@@ -1,6 +1,4 @@
-import { Project, TaskType } from "../../common";
-
-export type UseMainPage = () => [boolean, boolean, () => void, () => void];
+import { Project, TaskType } from "@src/common";
 
 export type UseProjectsPage = (projectId: string | null) => {
   tasksLoading: boolean;

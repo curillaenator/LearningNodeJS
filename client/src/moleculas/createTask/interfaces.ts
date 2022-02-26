@@ -1,5 +1,5 @@
 import { FormEvent } from "react";
-import { TaskType, TaskStatuses, TaskPriorities } from "../../common/taskType";
+import { TaskType, TaskStatuses, TaskPriorities } from "@src/common/taskType";
 
 export interface CreateTaskProps {
   close: () => void;

@@ -8,9 +8,9 @@ import {
   setCreateTaskModalOpen,
   setCurrentProject,
   getTasks,
-} from "../../redux";
+} from "@src/redux";
 
-import { UseProjectsPage } from "./interfaces";
+import { UseProjectsPage } from "../interfaces";
 
 export const useProjectsPage: UseProjectsPage = (projectId) => {
   const dispatch = useAppDispatch();

@@ -3,15 +3,16 @@ import styled from "styled-components";
 
 import { useProjectToolbarMenu } from "./hooks/useProjectToolbarMenu";
 
-import { Button } from "../../components/buttons";
-import { Loader } from "../../components/loader";
-import { Dropdown, Menu } from "../../components/dropdown";
+import { Button } from "@src/components/buttons";
+import { Loader } from "@src/components/loader";
+import { Dropdown, Menu } from "@src/components/dropdown";
 
 const ToolbarStyled = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 16px;
+  width: 100%;
+  /* margin-bottom: 16px; */
 
   .tb-tasks {
     display: flex;

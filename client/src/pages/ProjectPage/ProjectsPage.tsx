@@ -2,14 +2,13 @@ import React, { FC } from "react";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 
-import { useProjectsPage } from "../hooks/useProjectPage";
+import { useProjectsPage } from "./hooks/useProjectPage";
 
-import { Modal } from "../../components/modal";
-import { CreateProject } from "../../moleculas/createProject";
-import { CreateTask } from "../../moleculas/createTask";
-import { Toolbar } from "../../moleculas/toolbar";
+import { Modal } from "@src/components/modal";
+import { CreateProject } from "@src/moleculas/createProject";
+import { CreateTask } from "@src/moleculas/createTask";
 
-import { Layout } from "../../moleculas/layout";
+import { Layout } from "@src/moleculas/layout";
 
 const ProjectsPageStyled = styled.div`
   width: 100%;
@@ -18,7 +17,7 @@ const ProjectsPageStyled = styled.div`
 
   .framework {
     width: 100%;
-    height: calc(100% - 56px);
+    height: 100%;
     padding: 8px;
     border-radius: 16px;
     background-color: ${({ theme }) => theme.bg.gray};
@@ -48,7 +47,7 @@ export const ProjectsPage: FC = () => {
 
   return (
     <ProjectsPageStyled>
-      <Toolbar />
+      {/* <Toolbar /> */}
 
       <div className="framework">
         {!currentProject && (

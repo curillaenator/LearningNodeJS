@@ -7,7 +7,7 @@ import { ThemeProvider } from "styled-components";
 import { store } from "@src/redux";
 import { theme } from "@src/theme";
 
-import { MainPage } from "@src/pages/MainPage";
+import { App } from "@src/pages/App";
 
 import "@src/index.css";
 import "@src/react-grid-layout.css";
@@ -17,7 +17,7 @@ render(
     <BrowserRouter>
       <Provider store={store}>
         <ThemeProvider theme={theme}>
-          <MainPage />
+          <App />
         </ThemeProvider>
       </Provider>
     </BrowserRouter>
