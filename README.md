@@ -1,6 +1,13 @@
 # TaskMan (in development)
 
 Simple task manager based on MERN stack.
+If you want to see this app running please go for it locally:
+
+1. npm install
+2. cd client
+3. npm install
+4. cd ..
+5. npm run dev
 
 ### Test account
 
@@ -14,8 +21,3 @@ password: qwqwqwqw
   <img src="/screens/image1.png">
   <img src="/screens/image2.png">
 </div>
-
-## Local start:
-
-- npm install
-- npm run dev
