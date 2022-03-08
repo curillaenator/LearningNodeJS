@@ -18,6 +18,6 @@ password: qwqwqwqw
 ## Screenshots
 
 <div align="center">
-  <img src="/screens/image1.png">
-  <img src="/screens/image2.png">
+  <img src="/screens/image1.jpg">
+  <img src="/screens/image2.jpg">
 </div>
